@@ -1,7 +1,9 @@
 import React from'react'
 import { Paper, TextField, withStyles, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
+import TopGames from './TopGames'
+
 
 class CreateGame extends React.Component {
     constructor (props) {
@@ -27,7 +29,7 @@ class CreateGame extends React.Component {
         return(
             <Paper  style={{ padding: 15 }}>
                 <div>
-                    { user ? console.log(user.login) : console.log('pas glop') } 
+                     <TopGames></TopGames>
                 </div>
                 <form onSubmit={this.handleSubmit}>
                     <TextField 
