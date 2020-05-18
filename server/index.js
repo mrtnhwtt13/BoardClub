@@ -6,6 +6,7 @@ const cors = require('cors');
 const passport = require('passport');
 
 const users = require('./routes/users');
+const games = require('./routes/games');
 
 //setup environment
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use('/api/users', users);
+app.use('/api/games', games);
 
 // run app
 const PORT = process.env.PORT || 5000;
