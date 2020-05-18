@@ -5,132 +5,103 @@ import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MoreVert from '@material-ui/icons/MoreVert'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
 
-
 class Header extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			anchorEl: null
-		}
-		this.handleLogout = this.handleLogout.bind(this)
-	}
-
-    handleMenu = (event) => { this.setState({ anchorEl: event.currentTarget })}
-
-    handleClose = () => { this.setState({ anchorEl: null })}
-
-    handleLogout () {
-		this.setState({ anchorEl: null })
-		this.props.logoutUser()
+  constructor(props) {
+    super(props)
+    this.state = {
+      anchorEl: null,
     }
+    this.handleLogout = this.handleLogout.bind(this)
+  }
 
-    render () {
-        const { classes, isAuthenticated } = this.props;
-        const { anchorEl } = this.state
-		const open = Boolean(anchorEl)
-        
-        const guestLinks = (
-			<div>
-				<IconButton
-					aria-owns={ open ? 'menu-appbar': undefined }
-					aria-haspopup="true"
-					color="inherit"
-					onClick={this.handleMenu}
-				>
-					<MoreVert />
-				</IconButton>
-				<Menu
-					id="menu-appbar"
-					open={open}
-					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'right'
-					}}
-					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'right'
-					}}
-					anchorEl={anchorEl}
-					onClose={this.handleClose}
-				>
-					<MenuItem onClick={this.handleClose}>
-						<Link to="/login">Login</Link>
-					</MenuItem>
-					<MenuItem onClick={this.handleClose}>
-						<Link to="/register">Register</Link>
-					</MenuItem>
-				</Menu>
-			</div>
-		)
+  handleMenu = (event) => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
 
-        const authLinks = isAuthenticated && (
-			<div>
-				<IconButton
-					aria-owns={ open ? 'menu-appbar': undefined }
-					aria-haspopup="true"
-					color="inherit"
-					onClick={this.handleMenu}
-				>
-					<AccountCircle />
-				</IconButton>
-				<Menu
-					id="menu-appbar"
-					open={open}
-					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'right'
-					}}
-					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'right'
-					}}
-					anchorEl={anchorEl}
-					onClose={this.handleClose}
-				>
-                    <MenuItem >
-						<Link to="/#" onClick={this.handleLogout}>Logout</Link>
-					</MenuItem>
-				</Menu>
-			</div>
-		)
-        return (
-			<div className={classes.root}>
-				<AppBar position="static" style={{ backgroundColor: '#3448e8'}}>
-					<Toolbar className={classes.space}>
-						<Link to="/" className={classes.logo}>Board Club</Link>
-						{ isAuthenticated ? authLinks : guestLinks }
-					</Toolbar>
-				</AppBar>
-			</div>
-		)
-	}
+  handleClose = () => {
+    this.setState({ anchorEl: null })
+  }
+
+  handleLogout() {
+    this.setState({ anchorEl: null })
+    this.props.logoutUser()
+  }
+
+  render() {
+    const { classes, isAuthenticated } = this.props
+    const { anchorEl } = this.state
+    const open = Boolean(anchorEl)
+
+    const guestLinks = null
+
+    const authLinks = isAuthenticated && (
+      <div>
+        <div className={classes.root}>
+          <AppBar position="static" style={{ backgroundColor: '#3448e8' }}>
+            <Toolbar className={classes.space}>
+              <Link to="/" className={classes.logo}>
+                Board Club
+              </Link>
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : undefined}
+                aria-haspopup="true"
+                color="inherit"
+                onClick={this.handleMenu}
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                open={open}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                anchorEl={anchorEl}
+                onClose={this.handleClose}
+              >
+                <MenuItem>
+                  <Link to="/#" onClick={this.handleLogout}>
+                    Logout
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </Toolbar>
+          </AppBar>
+        </div>
+      </div>
+    )
+    return <div>{isAuthenticated ? authLinks : guestLinks}</div>
+  }
 }
-
 
 const styles = {
-	root: {
-		flexGrow: 1
-	},
-	logo: {
-		color: '#fff',
-		fontSize: 30,
-		textTransform: 'uppercase'
-	},
-	space: {
-		justifyContent: 'space-between'
-	}
+  root: {
+    flexGrow: 1,
+  },
+  logo: {
+    color: '#fff',
+    fontSize: 30,
+    textTransform: 'uppercase',
+  },
+  space: {
+    justifyContent: 'space-between',
+  },
 }
 
-
 const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
 })
 
-
-export default connect(mapStateToProps, { logoutUser })(withStyles(styles)(Header))
+export default connect(mapStateToProps, { logoutUser })(
+  withStyles(styles)(Header),
+)
