@@ -75,7 +75,7 @@ router.route('/login')
                     })
                 }
                 else {
-                    errors.email = 'User not found';
+                    errors.login = 'User not found';
                     return res.status(404).json(errors);
                 }               
             })
