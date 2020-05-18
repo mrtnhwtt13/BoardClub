@@ -146,11 +146,6 @@ const styles = {
         textAlign: 'center',
         color: "#595959"
     },
-    btnStyle: {
-        backgroundColor: "#65A2FE",
-        color: "white",
-        border: "white",
-    },
 }
 
 
