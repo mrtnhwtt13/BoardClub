@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
@@ -34,47 +31,32 @@ class Header extends Component {
 
   render() {
     const { classes, isAuthenticated } = this.props
-    const { anchorEl } = this.state
-    const open = Boolean(anchorEl)
+    // const { anchorEl } = this.state
+    // const open = Boolean(anchorEl)
 
     const guestLinks = null
 
     const authLinks = isAuthenticated && (
       <div>
         <div className={classes.root}>
-          <AppBar position="static" style={{ backgroundColor: '#3448e8' }}>
+          <AppBar elevation={0} position="static" style={{ backgroundColor: '#FFFFFF' }}>
             <Toolbar className={classes.space}>
-              <Link to="/" className={classes.logo}>
-                Board Club
-              </Link>
-              <IconButton
-                aria-owns={open ? 'menu-appbar' : undefined}
-                aria-haspopup="true"
-                color="inherit"
-                onClick={this.handleMenu}
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                open={open}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                anchorEl={anchorEl}
-                onClose={this.handleClose}
-              >
-                <MenuItem>
-                  <Link to="/#" onClick={this.handleLogout}>
+              
+                <div className={classes.nav}>
+                  <Button className={classes.btn} to="/" >
+                    Homepage
+                  </Button>
+                  <Button className={classes.btn} to="/" >
+                    Profile
+                  </Button>
+                  <Button className={classes.btn} to="/" >
+                    Friends
+                  </Button>
+                  <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
                     Logout
-                  </Link>
-                </MenuItem>
-              </Menu>
+                  </Button>
+                </div>
+                
             </Toolbar>
           </AppBar>
         </div>
@@ -89,13 +71,19 @@ const styles = {
     flexGrow: 1,
   },
   logo: {
-    color: '#fff',
+    color: 'black',
     fontSize: 30,
     textTransform: 'uppercase',
   },
   space: {
-    justifyContent: 'space-between',
+    justifyContent: 'center'
   },
+  nav : {
+  },
+  btn: {
+    color: "#595959",
+    marginLeft: '4rem'
+  }
 }
 
 const mapStateToProps = (state) => ({

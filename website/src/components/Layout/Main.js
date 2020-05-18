@@ -12,7 +12,9 @@ const Main = ({ children }) => (
                 {children}
             </Grid>
         </Grid>
-        <Footer />
+        <div>
+            <Footer />
+        </div>
     </div>
 );
 
