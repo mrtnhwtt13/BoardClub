@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
 // Create Schema
 const gameSchema = new Schema({
+    userId: {
+        type: String
+    },
     title: {
         type: String,
         required: true
@@ -41,5 +45,6 @@ const gameSchema = new Schema({
         default: Date.now
     }
 });
+
 
 module.exports = mongoose.model("Game", gameSchema);
