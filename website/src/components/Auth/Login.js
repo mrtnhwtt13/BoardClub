@@ -54,15 +54,17 @@ class Login extends Component {
         const { errors } = this.state;
         return (
             <div>
-                <h1>
-                    <b>Login to BoardClub</b>
-                </h1>
-                <p>
-                    Join a community of game enthusiasts and connect with people that want to play the smae games as you!
-                </p>
+                <div className={classes.banner}>
+                    <h1>
+                        <b>Login to BoardClub</b>
+                    </h1>
+                    <p>
+                        Join a community of game enthusiasts and connect with people that want to play the same games as you!
+                    </p>
+                </div>
 
-            <Paper elevation={1} style={{ padding: 15 }}>
-                <p>
+            <Paper elevation={2} style={{ padding: 15 }}>
+                <p className={classes.redirect}>
                     Don't have an account? <Link to="/register">Register</Link>
                 </p>
                 <form onSubmit={this.handleSubmit}>
@@ -89,7 +91,7 @@ class Login extends Component {
                         error={errors.password ? true : false}
                     />
                     <div className={classes.btnBlock}>
-                        <Button variant="outlined" type="submit" className={classes.btnStyle}>
+                        <Button variant="outlined" type="submit" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} >
                             Submit
                         </Button> 
                     </div>
@@ -105,7 +107,7 @@ class Login extends Component {
 const styles = {
     textField: {
         width: '100%',
-        marginBottom: 5
+        marginBottom: 50,
     },
     btnBlock: {
         textAlign: 'center',
@@ -116,6 +118,16 @@ const styles = {
         backgroundColor: "#65A2FE",
         color: "white",
         border: "white",
+    },
+    redirect: {
+        marginBottom: 50,
+        textAlign: 'center',
+        color: "#595959"
+    },
+    banner: {
+        textAlign: 'center',
+        marginBottom: "90px",
+        color: "#595959"
     }
 }
 

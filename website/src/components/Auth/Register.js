@@ -48,18 +48,26 @@ class Register extends Component {
         const { classes } = this.props;
         const { errors } = this.state
         return (
-            <Paper style={{ padding: 15 }}>
-                <h4>
-                    <b>Register</b> below
-                </h4>
+            <div>
+                 <div className={classes.banner}>
+
+                <h1>
+                    <b>Register for a free account on BoardClub</b>
+                </h1>
                 <p>
+                    Join a community of game enthusiasts and connect with people that want to play the same games as you!
+                </p>
+                 </div>
+            <Paper style={{ padding: 15 }}>
+            <p className={classes.redirect}>
                     Already have an account? <Link to="/login">Log in</Link>
                 </p>
                 <form onSubmit={this.handleSubmit}>
                     <TextField 
                         type="email"
                         label="Email"
-                        name="email"           
+                        name="email"
+                        variant="outlined"               
                         value={this.state.email}
                         onChange={this.handleChange}         
                         className={classes.textField}
@@ -69,7 +77,8 @@ class Register extends Component {
                     <TextField
                         label="Login"
                         type="text"
-                        name="login"                                   
+                        name="login"
+                        variant="outlined"                                       
                         value={this.state.login}  
                         onChange={this.handleChange}    
                         className={classes.textField}
@@ -79,7 +88,8 @@ class Register extends Component {
                     <TextField
                         label="Password"
                         type="password"
-                        name="password"                                   
+                        name="password"
+                        variant="outlined"                                       
                         value={this.state.password}   
                         onChange={this.handleChange}   
                         className={classes.textField}
@@ -89,7 +99,8 @@ class Register extends Component {
                     <TextField
                         label="Repeat password"
                         type="password"
-                        name="password2"           
+                        name="password2"
+                        variant="outlined"               
                         value={this.state.password2} 
                         onChange={this.handleChange}     
                         className={classes.textField}
@@ -97,12 +108,14 @@ class Register extends Component {
                         error={errors.password2 ? true : false}
                     />
                     <div className={classes.btnBlock}>
-                        <Button variant="outlined" type="submit">
+                    <Button variant="outlined" type="submit" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} >
                             Submit
                         </Button> 
                     </div>
                 </form>
-            </Paper>                
+            </Paper>  
+            </div>
+
         )
     }
 }
@@ -111,13 +124,33 @@ class Register extends Component {
 const styles = {
     textField: {
         width: '100%',
-        marginBottom: 5
+        marginBottom: 25
     },
     btnBlock: {
         textAlign: 'center',
         marginBottom: 10,
         marginTop: 20
-    }
+    },
+    btnStyle: {
+        backgroundColor: "#65A2FE",
+        color: "white",
+        border: "white",
+    },
+    banner: {
+        textAlign: 'center',
+        marginBottom: "90px",
+        color: "#595959"
+    },
+    redirect: {
+        marginBottom: 50,
+        textAlign: 'center',
+        color: "#595959"
+    },
+    btnStyle: {
+        backgroundColor: "#65A2FE",
+        color: "white",
+        border: "white",
+    },
 }
 
 
