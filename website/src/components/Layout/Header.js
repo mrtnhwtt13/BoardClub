@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MoreVert from '@material-ui/icons/MoreVert'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
@@ -39,39 +38,6 @@ class Header extends Component {
     const open = Boolean(anchorEl)
 
     const guestLinks = null
-    // (
-    // 	<div>
-    // 		<IconButton
-    // 			aria-owns={ open ? 'menu-appbar': undefined }
-    // 			aria-haspopup="true"
-    // 			color="inherit"
-    // 			onClick={this.handleMenu}
-    // 		>
-    // 			<MoreVert />
-    // 		</IconButton>
-    // 		<Menu
-    // 			id="menu-appbar"
-    // 			open={open}
-    // 			anchorOrigin={{
-    // 				vertical: 'top',
-    // 				horizontal: 'right'
-    // 			}}
-    // 			transformOrigin={{
-    // 				vertical: 'top',
-    // 				horizontal: 'right'
-    // 			}}
-    // 			anchorEl={anchorEl}
-    // 			onClose={this.handleClose}
-    // 		>
-    // 			<MenuItem onClick={this.handleClose}>
-    // 				<Link to="/login">Login</Link>
-    // 			</MenuItem>
-    // 			<MenuItem onClick={this.handleClose}>
-    // 				<Link to="/register">Register</Link>
-    // 			</MenuItem>
-    // 		</Menu>
-    // 	</div>
-    // )
 
     const authLinks = isAuthenticated && (
       <div>

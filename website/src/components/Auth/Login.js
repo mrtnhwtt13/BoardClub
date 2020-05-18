@@ -53,10 +53,15 @@ class Login extends Component {
         const { classes } = this.props;
         const { errors } = this.state;
         return (
-            <Paper style={{ padding: 15 }}>
-                <h4>
-                    <b>Login</b> below
-                </h4>
+            <div>
+                <h1>
+                    <b>Login to BoardClub</b>
+                </h1>
+                <p>
+                    Join a community of game enthusiasts and connect with people that want to play the smae games as you!
+                </p>
+
+            <Paper elevation={1} style={{ padding: 15 }}>
                 <p>
                     Don't have an account? <Link to="/register">Register</Link>
                 </p>
@@ -64,7 +69,8 @@ class Login extends Component {
                     <TextField 
                         type="text"
                         label="Login"
-                        name="login"           
+                        name="login" 
+                        variant="outlined"          
                         value={this.state.login}
                         onChange={this.handleChange}         
                         className={classes.textField}
@@ -74,7 +80,8 @@ class Login extends Component {
                     <TextField
                         label="Password"
                         type="password"
-                        name="password"                                   
+                        name="password"  
+                        variant="outlined"                                 
                         value={this.state.password}   
                         onChange={this.handleChange}   
                         className={classes.textField}
@@ -82,12 +89,14 @@ class Login extends Component {
                         error={errors.password ? true : false}
                     />
                     <div className={classes.btnBlock}>
-                        <Button variant="outlined" type="submit">
+                        <Button variant="outlined" type="submit" className={classes.btnStyle}>
                             Submit
                         </Button> 
                     </div>
                 </form>
-            </Paper>                
+            </Paper>       
+            </div>
+
         )
     }
 }
@@ -101,7 +110,12 @@ const styles = {
     btnBlock: {
         textAlign: 'center',
         marginBottom: 10,
-        marginTop: 20
+        marginTop: 20,
+    },
+    btnStyle: {
+        backgroundColor: "#65A2FE",
+        color: "white",
+        border: "white",
     }
 }
 
