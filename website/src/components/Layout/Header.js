@@ -1,107 +1,49 @@
 import React, { Component } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { connect } from 'react-redux'
-import { logoutUser } from '../../actions/authActions'
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar'
+
 
 class Header extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      anchorEl: null,
-    }
-    this.handleLogout = this.handleLogout.bind(this)
-  }
 
-  handleMenu = (event) => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
-
-  handleClose = () => {
-    this.setState({ anchorEl: null })
-  }
-
-  handleLogout() {
-    this.setState({ anchorEl: null })
-    this.props.logoutUser()
-  }
-
-  render() {
-    const { classes, isAuthenticated } = this.props
-    const { anchorEl } = this.state
-    const open = Boolean(anchorEl)
-
-    const guestLinks = null
-
-    const authLinks = isAuthenticated && (
-      <div>
-        <div className={classes.root}>
-          <AppBar position="static" style={{ backgroundColor: '#3448e8' }}>
+    
+    render() {
+        const { classes } = this.props
+        return(
+            <div>
+                <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '20rem', display: 'flex' ,alignItems: 'center' }} >
+            <Container maxWidth="lg">
             <Toolbar className={classes.space}>
-              <Link to="/" className={classes.logo}>
-                Board Club
-              </Link>
-              <IconButton
-                aria-owns={open ? 'menu-appbar' : undefined}
-                aria-haspopup="true"
-                color="inherit"
-                onClick={this.handleMenu}
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                open={open}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                anchorEl={anchorEl}
-                onClose={this.handleClose}
-              >
-                <MenuItem>
-                  <Link to="/#" onClick={this.handleLogout}>
-                    Logout
-                  </Link>
-                </MenuItem>
-              </Menu>
-            </Toolbar>
-          </AppBar>
-        </div>
-      </div>
-    )
-    return <div>{isAuthenticated ? authLinks : guestLinks}</div>
-  }
+                <div >
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FE65DC", color: "white", padding: "30px"}} to="/" >
+                        Scheduled Games
+                    </Button>
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", padding: "30px"}} to="/" >
+                        Create a game
+                    </Button>
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", padding: "30px"}} to="/" >
+                        Search for a game
+                    </Button>
+                </div>
+                </Toolbar>
+            </Container>
+                </Typography>
+            </div>
+        )
+    }
 }
 
 const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  logo: {
-    color: '#fff',
-    fontSize: 30,
-    textTransform: 'uppercase',
-  },
-  space: {
-    justifyContent: 'space-between',
-  },
+    btn: {
+        color: "#595959",
+        marginLeft: '4rem',
+        marginRight: '4rem' 
+        },
+        space: {
+        justifyContent: 'center',
+        },
 }
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-})
-
-export default connect(mapStateToProps, { logoutUser })(
-  withStyles(styles)(Header),
-)
+export default withStyles(styles)(Header);
