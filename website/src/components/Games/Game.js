@@ -43,7 +43,7 @@ class Game extends Component {
                 />  
             )
             boardGameName = (
-                <span className={classes.bgTitle}><strong>Playing : </strong>{boardGameDetails.data.name}</span>
+                <span className={classes.title}><strong>Playing : </strong>{boardGameDetails.data.name}</span>
             )
         }
 
@@ -51,35 +51,35 @@ class Game extends Component {
             <div className={classes.root}>
                 <Link to={`/game/${game._id}`}>
                     <Paper className={classes.paper}>                 
-                        <div>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="space-between"
-                            >
-                                <Grid item>
-                                    <h3 className={classes.title}>
-                                        {game.title}
-                                    </h3>
-                                </Grid>
-                                <Grid item>
-                                <h4>
-                                    {game.playersNumber}/{game.playersMax}  
-                                </h4>       
-                                </Grid> 
-                            </Grid>
-                            <span className={classes.time}>Event on {(new Date(game.gameDate)).toLocaleString("en-GB")} at {game.city}</span>
-                            <br/>
+                        <div>                                                        
                             <Grid
                                 container
                                 direction="row"
                                 className={classes.bgBlock}
                             >
-                                <Grid item>
+                                <Grid item xs={3} sm={3} >
                                     {boardGameImage}
                                 </Grid>
-                                <Grid item>
+                                <Grid item className={classes.gameDescriptionBlock} xs={9} sm={9}>
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justify="space-between"
+                                    >
+                                        <Grid item>
+                                            <h3 className={classes.title}>
+                                                {game.title}
+                                            </h3>
+                                        </Grid>
+                                        <Grid item>
+                                            <h4>
+                                                {game.playersNumber}/{game.playersMax}  
+                                            </h4>       
+                                        </Grid> 
+                                    </Grid>
                                     {boardGameName}
+                                    <br/>
+                                    <span className={classes.time}>Event on {(new Date(game.gameDate)).toLocaleString("en-GB", {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute:'2-digit'})} at {game.city}</span>                                   
                                 </Grid>                        
                             </Grid>
                         </div>
@@ -99,21 +99,19 @@ const styles = {
         padding: 10,
         marginTop: 10
     },
+    bgBlock: {
+        width: '100%',
+        marginTop: 4
+    },
+    gameDescriptionBlock :{
+        verticalAlign: "top"
+    },
     title: {
-        color: '#595959',
-        marginBottom: 5
+        color: '#595959'
     },
     time: {
         color: '#bbb',
         fontSize: 14
-    },
-    bgBlock: {
-        width: '100%',
-        marginTop: 10
-    },
-    bgTitle: {
-        color: '#595959',
-        marginLeft: 10
     }
 }
 
