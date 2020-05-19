@@ -35,7 +35,7 @@ class Navbar extends Component {
       <div>
         <div className={classes.root}>
           <AppBar elevation={0} position="static" style={{ backgroundColor: '#FFFFFF' }}>
-            <Container maxWidth="md" >
+            <Container maxWidth="xl" >
               <Toolbar className={classes.space}>
                 <div >
                 <Grid container spacing={3}>
@@ -91,8 +91,8 @@ const styles = {
   },
   btn: {
     color: "#595959",
-    marginLeft: '4rem',
-    marginRight: '4rem' 
+    marginLeft: '2rem',
+    marginRight: '2rem' 
   }
 }
 
