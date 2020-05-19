@@ -26,6 +26,10 @@ const userSchema = new Schema({
     type: String,
     default: ""
   },
+  city: {
+    type: String,
+    default: ""
+  },
   followers: [],
   following: [],
   topGames: [],

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const Footer = ({ classes }) => (
     <div className={classes.root}>
-        <p>By (trouver un nom de team) / Coding Academy Lyon 2020</p>
+        <p className={classes.text}>By Sebastion Choubrac, Vincent Contamine, Martin Hewitt / Coding Academy Lyon 2020</p>
     </div>
 )
 
@@ -12,7 +12,14 @@ const Footer = ({ classes }) => (
 const styles = {
     root: {
         textAlign: 'center',
-        marginTop: 20
+        marginTop: 20,
+        position: 'absolute',
+        left: "50%",
+        width: "700px",
+        marginLeft: "-350px"
+    },
+    text: {
+        color: "grey"
     }
 }
 
