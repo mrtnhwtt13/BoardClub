@@ -61,6 +61,10 @@ router.route('/login')
                     bcrypt.compare(req.body.password, user.password)
                     .then(isMatch => {
                         if (isMatch) {
+                            if (user.isBanned === true) {
+                                errors.login = 'User is banned';
+                                return res.status(404).json(errors);
+                            }
                             const token = jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: '1d' }, function (err, token) {
                                 return res.json({
                                     success: true,
