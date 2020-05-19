@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Login from './Auth/Login';
 
 
+
 class Home extends Component {
     render () {
         const { isAuthenticated } = this.props;
