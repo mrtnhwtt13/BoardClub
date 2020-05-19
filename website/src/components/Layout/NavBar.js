@@ -20,54 +20,99 @@ class Navbar extends Component {
   }
 
   render() {
-    const { classes, isAuthenticated } = this.props
-
+    const { classes, isAuthenticated, user } = this.props
 
     const guestLinks = null
+    var authLinks = null
 
-    const authLinks = isAuthenticated && (
-      <div>
-        <div className={classes.root}>
-          <AppBar elevation={0} position="static" style={{ backgroundColor: '#FFFFFF' }}>
-            <Container maxWidth="xl" >
-              <Toolbar className={classes.space}>
-                <div >
-                <Grid container spacing={3}>
-                <Grid container justify="center" item xs={6} sm={3}>
-                  <Button className={classes.btn} to="/" >
-                    Homepage
-                  </Button>
-                  </Grid>
-                  <Grid container justify="center" item xs={6} sm={3}>
+    if (isAuthenticated) {
+      if (user.isAdmin === false) {
+        authLinks = (      
+          <div>
+            <div className={classes.root}>
+              <AppBar elevation={0} position="static" style={{ backgroundColor: '#FFFFFF' }}>
+                <Container maxWidth="xl" >
+                  <Toolbar className={classes.space}>
+                    <div >
+                      <Grid container spacing={3}>
+                        <Grid container justify="center" item xs={6} sm={3}>
+                          <Button className={classes.btn} to="/" >
+                            Homepage
+                          </Button>
+                        </Grid>
+                        <Grid container justify="center" item xs={6} sm={3}>
+                          <Button className={classes.btn} to="/" >
+                            Profile
+                          </Button>
+                        </Grid>
+                        <Grid container justify="center" item xs={6} sm={3}>
+                          <Button className={classes.btn} to="/" >
+                            Friends
+                          </Button>
+                        </Grid>                    
+                        <Grid container justify="center" item xs={6} sm={3}>
+                          <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
+                            Logout
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </Toolbar>
+                </Container>
+              </AppBar>        
+            </div>
+          </div>
+        )
+      }
+      else {
+        authLinks = (      
+          <div>
+            <div className={classes.root}>
+              <AppBar elevation={0} position="static" style={{ backgroundColor: '#FFFFFF' }}>
+                <Container maxWidth="xl" >
+                  <Toolbar className={classes.space}>
+                    <div >
+                      <Grid container spacing={3}>
+                        <Grid container justify="center" item xs={4} sm={2}>
+                          <Button className={classes.btn} to="/" >
+                            Homepage
+                          </Button>
+                        </Grid>
+                        <Grid container justify="center" item xs={4} sm={2}>
+                          <Button className={classes.btn} to="/" >
+                            Profile
+                          </Button>
+                        </Grid>
+                        <Grid container justify="center" item xs={4} sm={2}>
+                          <Button className={classes.btn} to="/" >
+                            Friends
+                          </Button>
+                        </Grid>
+                        <Grid container justify="center" item xs={6} sm={2}>
+                          <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
+                            Admin
+                          </Button>
+                        </Grid>                  
+                        <Grid container justify="center" item xs={6} sm={2}>
+                          <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
+                            Logout
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </Toolbar>
+                </Container>
+              </AppBar>        
+            </div>
+          </div>
+        )
+      }
+    }
 
-                  <Button className={classes.btn} to="/" >
-                    Profile
-                  </Button>
-                  </Grid>
-                  <Grid container justify="center" item xs={6} sm={3}>
-
-                  <Button className={classes.btn} to="/" >
-                    Friends
-                  </Button>
-                  </Grid>
-                  <Grid container justify="center" item xs={6} sm={3}>
-
-                  <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
-                    Logout
-                  </Button>
-                  </Grid>
-                  </Grid>
-                </div>
-              </Toolbar>
-            </Container>
-          </AppBar>
-        
-        </div>
-      </div>
-    )
     return <div>{isAuthenticated ? authLinks : guestLinks}</div>
   }
 }
+
 
 const styles = {
   root: {
@@ -88,12 +133,16 @@ const styles = {
     marginLeft: '2rem',
     marginRight: '2rem' 
   }
-}
+};
+
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-})
+  auth: state.auth,
+  user: state.auth.user
+});
+
 
 export default connect(mapStateToProps, { logoutUser })(
-  withStyles(styles)(Navbar),
-)
+  withStyles(styles)(Navbar)
+);
