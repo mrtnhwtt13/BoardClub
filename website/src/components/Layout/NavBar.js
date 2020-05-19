@@ -12,15 +12,10 @@ import Grid from '@material-ui/core/Grid';
 class Navbar extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      anchorEl: null,
-    }
     this.handleLogout = this.handleLogout.bind(this)
   }
 
-
   handleLogout() {
-    this.setState({ anchorEl: null })
     this.props.logoutUser()
   }
 
