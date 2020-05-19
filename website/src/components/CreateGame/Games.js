@@ -11,7 +11,7 @@ class Games extends Component {
             errors: {}
         }
     }
-    
+    handleChange
 
     render(){
         const { errors } = this.state
