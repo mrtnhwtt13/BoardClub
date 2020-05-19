@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 
 class Navbar extends Component {
@@ -37,18 +38,31 @@ class Navbar extends Component {
             <Container maxWidth="md" >
               <Toolbar className={classes.space}>
                 <div >
+                <Grid container spacing={3}>
+                <Grid container justify="center" item xs={6} sm={3}>
                   <Button className={classes.btn} to="/" >
                     Homepage
                   </Button>
+                  </Grid>
+                  <Grid container justify="center" item xs={6} sm={3}>
+
                   <Button className={classes.btn} to="/" >
                     Profile
                   </Button>
+                  </Grid>
+                  <Grid container justify="center" item xs={6} sm={3}>
+
                   <Button className={classes.btn} to="/" >
                     Friends
                   </Button>
+                  </Grid>
+                  <Grid container justify="center" item xs={6} sm={3}>
+
                   <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
                     Logout
                   </Button>
+                  </Grid>
+                  </Grid>
                 </div>
               </Toolbar>
             </Container>

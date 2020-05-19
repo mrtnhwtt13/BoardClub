@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar'
 import { connect } from 'react-redux'
-
+import Grid from '@material-ui/core/Grid';
 
 
 class Header extends Component {
@@ -24,19 +24,27 @@ class Header extends Component {
     
         const authLinks = isAuthenticated && (
             <div>
-                <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '15rem', display: 'flex' ,alignItems: 'center' }} >
+                <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '18rem', display: 'flex' ,alignItems: 'center' }} >
             <Container maxWidth="lg">
             <Toolbar className={classes.space}>
                 <div >
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FE65DC", color: "white", padding: "30px"}} to="/" >
+                <Grid container spacing={3}>
+                    <Grid container justify="center" item xs={12} sm={4}>
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FE65DC", color: "white", width: "25vh", height: "9vh"}} to="/" >
                         Scheduled Games
                     </Button>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", padding: "30px"}} to="/" >
+                    </Grid>
+                    <Grid container justify="center" item xs={12} sm={4}>
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", width: "25vh", height: "9vh"}} to="/" >
                         Create a game
                     </Button>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", padding: "30px"}} to="/" >
+                    </Grid>
+                    <Grid container justify="center" item xs={12} sm={4}>
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", width: "25vh", height: "9vh"}} to="/" >
                         Search for a game
                     </Button>
+                    </Grid>
+                    </Grid>
                 </div>
                 </Toolbar>
             </Container>
@@ -54,8 +62,8 @@ const mapStateToProps = (state) => ({
 const styles = {
     btn: {
         color: "#595959",
-        marginLeft: '4rem',
-        marginRight: '4rem' 
+        // marginLeft: '4rem',
+        // marginRight: '4rem',
         },
         space: {
         justifyContent: 'center',
