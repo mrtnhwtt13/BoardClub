@@ -6,7 +6,7 @@ import Header from './Header'
 
 
 const Main = ({ children }) => (
-    <div>
+    <div style={{height: "100%"}}>
         <NavBar />
         <Header />
         <Grid container justify="center">
@@ -14,9 +14,7 @@ const Main = ({ children }) => (
                 {children}
             </Grid>
         </Grid>
-        <div>
-            <Footer />
-        </div>
+        <Footer />
     </div>
 );
 

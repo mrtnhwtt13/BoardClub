@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions'
 import { Link } from 'react-router-dom'
+import Container from '@material-ui/core/Container';
+
 
 
 class Login extends Component {
@@ -68,6 +70,7 @@ class Login extends Component {
                     Don't have an account? <Link to="/register">Register</Link>
                 </p>
                 <form onSubmit={this.handleSubmit}>
+                <Container maxWidth="sm">
                     <TextField 
                         type="text"
                         label="Login"
@@ -95,6 +98,7 @@ class Login extends Component {
                             Submit
                         </Button> 
                     </div>
+            </Container>
                 </form>
             </Paper>       
             </div>

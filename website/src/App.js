@@ -11,7 +11,6 @@ import NotFound from './components/NotFound';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
 
-
 if (localStorage.getItem('jwtToken')) {
   const currentTime = Date.now() / 1000
   const decode = jwt_decode(localStorage.getItem('jwtToken'))

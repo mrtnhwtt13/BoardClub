@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { registerUser } from '../../actions/authActions';
+import Container from '@material-ui/core/Container';
 
 
 class Register extends Component {
@@ -63,6 +64,7 @@ class Register extends Component {
                     Already have an account? <Link to="/login">Log in</Link>
                 </p>
                 <form onSubmit={this.handleSubmit}>
+                <Container maxWidth="sm">
                     <TextField 
                         type="email"
                         label="Email"
@@ -112,6 +114,7 @@ class Register extends Component {
                             Submit
                         </Button> 
                     </div>
+                    </Container>
                 </form>
             </Paper>  
             </div>
