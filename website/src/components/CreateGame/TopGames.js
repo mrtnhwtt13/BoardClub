@@ -1,6 +1,7 @@
 import React, { Component }from 'react'
-import { Text, Card, withStyles } from '@material-ui/core'
+import { withStyles } from '@material-ui/core'
 import { connect } from 'react-redux'
+import Card from './Card'
 import { withRouter } from 'react-router-dom'
 
 class TopGames extends Component {
