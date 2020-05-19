@@ -5,6 +5,9 @@ import { CardMedia } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+
 
 class Game extends Component {
     constructor (props) {
@@ -29,64 +32,87 @@ class Game extends Component {
     render () {
         const { classes, game } = this.props;
         const { boardGameDetails, loading } = this.state;
-        let boardGameInfos = null;
+        let boardGameImage = null;
+        let boardGameName = null;
 
         if (loading === false) {
-            boardGameInfos = (
-                <div className={classes.gameBlock}>
-                    <img
-                        src={boardGameDetails.data.thumbnail}
-                        height="100"
-                    />
-                    <span className={classes.bgTitle}><strong>Playing : </strong>{boardGameDetails.data.name}</span>
-                </div>
+            boardGameImage = (
+                <img
+                    src={boardGameDetails.data.thumbnail}
+                    height="100"
+                />  
+            )
+            boardGameName = (
+                <span className={classes.bgTitle}><strong>Playing : </strong>{boardGameDetails.data.name}</span>
             )
         }
 
         return (
-            <Paper className={classes.paper}>                 
-                <div>
-                    <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <h3 className={classes.title}>
-                            {game.title}
-                        </h3>
-                        <h4>
-                            {game.playersNumber}/{game.playersMax}  
-                        </h4>        
-                    </Grid>
-                    <span className={classes.time}>Event on {(new Date(game.gameDate)).toLocaleString()} at {game.city}</span>
-                    <br/>
-                    {boardGameInfos}
-                </div>
-            </Paper>
+            <div className={classes.root}>
+                <Link to={`/game/${game._id}`}>
+                    <Paper className={classes.paper}>                 
+                        <div>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="space-between"
+                            >
+                                <Grid item>
+                                    <h3 className={classes.title}>
+                                        {game.title}
+                                    </h3>
+                                </Grid>
+                                <Grid item>
+                                <h4>
+                                    {game.playersNumber}/{game.playersMax}  
+                                </h4>       
+                                </Grid> 
+                            </Grid>
+                            <span className={classes.time}>Event on {(new Date(game.gameDate)).toLocaleString("en-GB")} at {game.city}</span>
+                            <br/>
+                            <Grid
+                                container
+                                direction="row"
+                                className={classes.bgBlock}
+                            >
+                                <Grid item>
+                                    {boardGameImage}
+                                </Grid>
+                                <Grid item>
+                                    {boardGameName}
+                                </Grid>                        
+                            </Grid>
+                        </div>
+                    </Paper>
+                </Link>
+            </div>
         )
     }
 }
 
 
 const styles = {
+    root: {
+        flexGrow: 1,
+    },
     paper: {
         padding: 10,
-        display: 'flex',
         marginTop: 10
     },
     title: {
+        color: '#595959',
         marginBottom: 5
     },
     time: {
         color: '#bbb',
         fontSize: 14
     },
-    gameBlock: {
+    bgBlock: {
         width: '100%',
         marginTop: 10
     },
     bgTitle: {
+        color: '#595959',
         marginLeft: 10
     }
 }
