@@ -8,7 +8,7 @@ const Main = ({ children }) => (
     <div>
         <Header />
         <Grid container justify="center">
-            <Grid item xs={12} sm={6} style={{ marginTop: 30 }}>
+            <Grid item xs={12} sm={6} style={{ marginTop: 10 }}>
                 {children}
             </Grid>
         </Grid>
