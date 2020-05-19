@@ -30,17 +30,17 @@ class Header extends Component {
                 <div >
                 <Grid container spacing={3}>
                     <Grid container justify="center" item xs={12} sm={4}>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FE65DC", color: "white", width: "25vh", height: "9vh"}} to="/" >
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FE65DC", color: "white", width: "25vh", height: "4rem"}} to="/" >
                         Scheduled Games
                     </Button>
                     </Grid>
                     <Grid container justify="center" item xs={12} sm={4}>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", width: "25vh", height: "9vh"}} to="/" >
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", width: "25vh", height: "4rem"}} to="/" >
                         Create a game
                     </Button>
                     </Grid>
                     <Grid container justify="center" item xs={12} sm={4}>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", width: "25vh", height: "9vh"}} to="/" >
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", width: "25vh", height: "4rem"}} to="/" >
                         Search for a game
                     </Button>
                     </Grid>
@@ -61,9 +61,7 @@ const mapStateToProps = (state) => ({
 
 const styles = {
     btn: {
-        color: "#595959",
-        // marginLeft: '4rem',
-        // marginRight: '4rem',
+        color: "#595959"
         },
         space: {
         justifyContent: 'center',

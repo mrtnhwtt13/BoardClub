@@ -20,7 +20,8 @@ const styles = {
         marginLeft: "-350px"
     },
     text: {
-        color: "grey"
+        color: "grey",
+        fontSize: 10
     }
 }
 
