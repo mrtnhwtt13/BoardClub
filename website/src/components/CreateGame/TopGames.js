@@ -20,7 +20,7 @@ class TopGames extends Component {
             const cards = Object.keys(user.topGames)
             .map(key=> <Card key={key} details={user.topGames[key]}></Card>)
             return(
-                <div className="cards">
+                <div className="card">
                     {cards}
                 </div>
             )
@@ -35,9 +35,7 @@ class TopGames extends Component {
 const styles = {
  
     card: {
-        textAlign: 'center',
-        marginBottom: 10,
-        marginTop: 20
+        
     }
 }
 
