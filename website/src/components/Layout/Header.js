@@ -4,16 +4,27 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar'
+import { connect } from 'react-redux'
+
 
 
 class Header extends Component {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+          anchorEl: null,
+        }
+      }
     
     render() {
-        const { classes } = this.props
-        return(
+        const { classes, isAuthenticated } = this.props
+
+
+        const guestLinks = null
+    
+        const authLinks = isAuthenticated && (
             <div>
-                <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '20rem', display: 'flex' ,alignItems: 'center' }} >
+                <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '15rem', display: 'flex' ,alignItems: 'center' }} >
             <Container maxWidth="lg">
             <Toolbar className={classes.space}>
                 <div >
@@ -32,8 +43,13 @@ class Header extends Component {
                 </Typography>
             </div>
         )
+    return <div>{isAuthenticated ? authLinks : guestLinks}</div>
     }
 }
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+  })
 
 const styles = {
     btn: {
@@ -46,4 +62,4 @@ const styles = {
         },
 }
 
-export default withStyles(styles)(Header);
+export default connect(mapStateToProps)(withStyles(styles)(Header));

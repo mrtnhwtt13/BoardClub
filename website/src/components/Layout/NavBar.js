@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
-import Header from './Header'
 import Container from '@material-ui/core/Container';
 
 
@@ -54,7 +53,7 @@ class Navbar extends Component {
               </Toolbar>
             </Container>
           </AppBar>
-        <Header />
+        
         </div>
       </div>
     )
