@@ -38,7 +38,7 @@ class Navbar extends Component {
                       <Grid container spacing={3}>
                         <Grid container justify="center" item xs={6} sm={3}>
                           <Button className={classes.btn} component={Link} to="/" >
-                            Homepage
+                            Home
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={6} sm={3}>
@@ -76,7 +76,7 @@ class Navbar extends Component {
                       <Grid container spacing={3} style={{justifyContent: "center"}} >
                         <Grid container justify="center" item xs={4} sm={2}>
                           <Button className={classes.btn} component={Link} to="/" >
-                            Homepage
+                            Home
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
