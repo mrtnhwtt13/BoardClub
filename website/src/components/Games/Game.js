@@ -62,7 +62,7 @@ render() {
             <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                <h3 className={classes.title}>{game.title}</h3>
+                <div className={classes.title}>{game.title}</div>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                 {boardGameName}
@@ -85,9 +85,9 @@ render() {
             </Grid>
             <Grid item>
             <Typography variant="subtitle1">
-                <h4>
+                <div>
                     {game.playersNumber}/{game.playersMax}
-                </h4></Typography>
+                </div></Typography>
             </Grid>
             </Grid> 
             </Grid>

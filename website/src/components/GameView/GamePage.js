@@ -40,6 +40,8 @@ class Gamepage extends Component {
     render(){
         const { classes, loadingGame } = this.props;
         const { boardGameDetails, loadingBoardGameDetails } = this.state;
+        let boardGameImage = null
+        let boardGameName = null
 
         if (loadingGame === false && boardGameDetails === null) {
             this.getBoardGameDetails(this.props.list.boardGameId);
@@ -53,12 +55,21 @@ class Gamepage extends Component {
             )
         }
         else {
+            boardGameImage = (
+                <img src={boardGameDetails.data.thumbnail} height="100" />
+            )
+            boardGameName = (
+                <span className={classes.title}>
+                <strong>Playing : </strong>
+                {boardGameDetails.data.name}
+                </span>
+            )
             return (
                 <div>
                 <div>
                 <Grid container spacing={2} direction="row" className={classes.bgBlock}>
                 <Grid item>    
-                Image
+                {boardGameImage}
                 </Grid> 
                 <Grid item xs={7} sm container>
                 <Grid item xs container direction="column" spacing={2}>
