@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid';
-
+import AppBar from '@material-ui/core/AppBar';
 
 class Header extends Component {
     constructor(props) {
@@ -23,8 +23,8 @@ class Header extends Component {
         const guestLinks = null
     
         const authLinks = isAuthenticated && (
-            <div>
-                <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '18rem', display: 'flex' ,alignItems: 'center' }} >
+            <div className={classes.root}>
+            <AppBar position="static" elevation={0} style={{ backgroundColor: '#F5F9FC'}}>
             <Container maxWidth="lg">
             <Toolbar className={classes.space}>
                 <div >
@@ -48,7 +48,7 @@ class Header extends Component {
                 </div>
                 </Toolbar>
             </Container>
-                </Typography>
+        </AppBar>
             </div>
         )
     return <div>{isAuthenticated ? authLinks : guestLinks}</div>
@@ -64,7 +64,13 @@ const styles = {
         color: "#595959"
         },
         space: {
-        justifyContent: 'center',
+            justifyContent: 'center',
+            minHeight: 128,
+            marginTop: '10px',
+            marginBottom: '10px'
+        },
+        root: {
+            flexGrow: 1,
         },
 }
 

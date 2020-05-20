@@ -7,7 +7,11 @@ import Main from './components/Layout/Main';
 import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+<<<<<<< HEAD
 import Admin from './components/Admin/Admin';
+=======
+import GamePage from './components/GameView/GamePage'
+>>>>>>> 2740f9788953b217649fd67c8857ea4a803428f4
 import NotFound from './components/NotFound';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
@@ -40,6 +44,7 @@ class App extends Component {
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route path="/admin" component={Admin} />
+                <Route path="/game/:gameId" component={GamePage} />
                 <Route component={NotFound} />
               </Switch>
             </Main>

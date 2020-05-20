@@ -15,7 +15,7 @@ class ListGames extends Component {
         const items = list && list.map(el => <Game key={el._id} game={el} />)
 
         return (
-            <div>                
+            <div>            
                 { loading ? <LoadingGames /> : items }
             </div>
         )
