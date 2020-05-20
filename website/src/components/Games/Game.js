@@ -99,34 +99,36 @@ render() {
 }
 }
 
+
 const styles = {
-root: {
-    flexGrow: 1,
-},
-paper: {
-    padding: 10,
-    marginTop: 10,
-},
-bgBlock: {
-    width: '100%',
-    
-},
-gameDescriptionBlock: {
-    verticalAlign: 'top',
-    '& div': {  
-        whiteSpace: "normal",  
-        wordWrap: "break-word"  
-    }  
-},
-title: {
-    color: '#595959',
-    marginTop: "0px",
-    marginBottom: "0px",
-},
-time: {
-    color: '#bbb',
-    fontSize: 14,
-},
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: 10,
+        marginTop: 10,
+    },
+    bgBlock: {
+        width: '100%',
+        
+    },
+    gameDescriptionBlock: {
+        verticalAlign: 'top',
+        '& div': {  
+            whiteSpace: "normal",  
+            wordWrap: "break-word"  
+        }  
+    },
+    title: {
+        color: '#595959',
+        marginTop: "0px",
+        marginBottom: "0px",
+    },
+    time: {
+        color: '#bbb',
+        fontSize: 14,
+    }
 }
+
 
 export default withStyles(styles)(Game)

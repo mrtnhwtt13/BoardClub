@@ -7,9 +7,11 @@ import Main from './components/Layout/Main';
 import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+import Admin from './components/Admin/Admin';
 import NotFound from './components/NotFound';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
+
 
 if (localStorage.getItem('jwtToken')) {
   const currentTime = Date.now() / 1000
@@ -37,6 +39,7 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/admin" component={Admin} />
                 <Route component={NotFound} />
               </Switch>
             </Main>
