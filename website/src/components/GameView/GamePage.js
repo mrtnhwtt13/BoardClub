@@ -22,6 +22,7 @@ class Gamepage extends Component {
 
     componentDidMount() {
         this.props.getGameById(this.props.match.params.gameId);
+        /*
         axios
     .get(
         'https://bgg-json.azurewebsites.net/thing/' +
@@ -35,6 +36,7 @@ class Gamepage extends Component {
         console.log(response)}
     )
     .catch((err) => console.log(err))
+    */
     }  
 
     render(){

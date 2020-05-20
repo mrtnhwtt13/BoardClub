@@ -19,7 +19,7 @@ export const loadGames = () => dispatch => {
 // get game details by game Id
 export const getGameById = (gameId) => dispatch => {
     dispatch(loadGames())
-    axios.get('http://localhost:5000/api/games/find/', gameId)
+    axios.get(`http://localhost:5000/api/games/find/${gameId}`)
         .then(res => dispatch({
             type: GET_GAMES,
             payload: res.data
