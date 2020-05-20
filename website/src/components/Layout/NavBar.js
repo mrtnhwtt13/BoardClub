@@ -72,7 +72,7 @@ class Navbar extends Component {
                 <Container maxWidth="xl" >
                   <Toolbar className={classes.space}>
                     <div >
-                      <Grid container spacing={3}>
+                      <Grid container spacing={3} style={{justifyContent: "center"}} >
                         <Grid container justify="center" item xs={4} sm={2}>
                           <Button className={classes.btn} to="/" >
                             Homepage
@@ -84,22 +84,22 @@ class Navbar extends Component {
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
+                          <Button className={classes.btn} to="/">
+                            Admin
+                          </Button>
+                          </Grid>
+                        <Grid container justify="center" item xs={4} sm={2}>
                           <Button className={classes.btn} to="/" >
                             Friends
                           </Button>
                         </Grid>
-                        <Grid container justify="center" item xs={6} sm={2}>
-                          <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
-                            Admin
-                          </Button>
-                        </Grid>                  
-                        <Grid container justify="center" item xs={6} sm={2}>
+                        <Grid container justify="center" item xs={4} sm={2}>
                           <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
                             Logout
                           </Button>
                         </Grid>
                       </Grid>
-                    </div>
+                    </div>                                      
                   </Toolbar>
                 </Container>
               </AppBar>        
@@ -132,7 +132,7 @@ const styles = {
     color: "#595959",
     marginLeft: '2rem',
     marginRight: '2rem' 
-  }
+  },
 };
 
 
