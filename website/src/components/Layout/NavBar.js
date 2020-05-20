@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
@@ -84,10 +85,10 @@ class Navbar extends Component {
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
-                          <Button className={classes.btn} to="/">
+                          <Button className={classes.btn} component={Link} to="/admin" >
                             Admin
                           </Button>
-                          </Grid>
+                        </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
                           <Button className={classes.btn} to="/" >
                             Friends
