@@ -1,7 +1,8 @@
 import React, { Component } from "react"
-import { TextField, withStyles, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core'
+import { TextField, withStyles, FormControl, InputLabel, MenuItem, Select, Grid, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
 
 
 class InfoGame extends Component {
@@ -26,6 +27,21 @@ class InfoGame extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    handleSubmit (e) {
+        e.preventDefault();
+        const info = this.state.info
+        const createGameData = {
+            title: info.title,
+            level: info.level,
+            participant: info.participant,
+            date: info.date,
+            time: info.time,
+            city: info.city,
+            description: info.description
+
+        }
+        this.props.createGame(createGameData, this.props.history);
+    }    
 
     render(){
         
@@ -44,6 +60,12 @@ class InfoGame extends Component {
         const { errors } = this.state
         return(
             <form onSubmit={this.handleSubmit}>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
                 <TextField 
                     type="string"
                     label="Title"
@@ -126,9 +148,15 @@ class InfoGame extends Component {
                     label="Description"
                     multiline
                     rows={4}
-                    defaultValue="Default Value"
+                    defaultValue=""
                     variant="outlined"
                 />
+                <div className={classes.btnBlock}>
+                    <Button variant="outlined" type="submit" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} >
+                        Submit
+                    </Button> 
+                </div>
+            </Grid>
             </form>
         )
     }
@@ -149,8 +177,19 @@ const styles = {
       textField: {
         marginLeft: 20,
         marginRight: 20,
-        width: 200,
-      }
+        marginBottom: 20,
+        minWidth: 200,
+      },
+      btnBlock: {
+        textAlign: 'center',
+        marginBottom: 10,
+        marginTop: 20
+    },
+    btnStyle: {
+        backgroundColor: "#65A2FE",
+        color: "white",
+        border: "white",
+    }
 }
 
 const mapStateToProps = (state) => ({
