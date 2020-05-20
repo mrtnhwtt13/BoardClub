@@ -2,14 +2,7 @@ import React, { Component } from "react"
 import { TextField, withStyles, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
-import 'date-fns'
-import DateFnsUtils from '@date-io/date-fns'
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers'
+
 
 class InfoGame extends Component {
     constructor (props) {
@@ -33,13 +26,6 @@ class InfoGame extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    selectedDate = () => React.useState(new Date('2014-08-18T21:11:54'));
-    setSelectedDate = () => React.useState(new Date('2014-08-18T21:11:54'));
-
-
-    handleDateChange = (date) => {
-        setSelectedDate(date);
-    }
 
     render(){
         
@@ -102,31 +88,47 @@ class InfoGame extends Component {
                     ))}
                     </Select>
                 </FormControl>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Grid container justify="space-around">
-                    <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Date picker dialog"
-                    format="MM/dd/yyyy"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                        'aria-label': 'change date',
+                <TextField
+                    id="date"
+                    label="Date"
+                    type="date"
+                    defaultValue=""
+                    className={classes.textField}
+                    InputLabelProps={{
+                        shrink: true,
                     }}
-                    />
-                    <KeyboardTimePicker
-                    margin="normal"
-                    id="time-picker"
-                    label="Time picker"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                        'aria-label': 'change time',
+                />
+                <TextField
+                    id="time"
+                    label="Time"
+                    type="time"
+                    defaultValue="07:30"
+                    className={classes.textField}
+                    InputLabelProps={{
+                    shrink: true,
                     }}
-                    />
-                </Grid>
-                </MuiPickersUtilsProvider>
+                    inputProps={{
+                    step: 300, // 5 min
+                    }}
+                />
+                <TextField 
+                    type="string"
+                    label="City"
+                    name="city"           
+                    value={this.state.city}
+                    onChange={this.handleChange}         
+                    className={classes.textField}
+                    helperText={errors.city ? errors.city: ''}
+                    error={errors.city ? true : false}
+                />
+                <TextField
+                    id="outlined-multiline-static"
+                    label="Description"
+                    multiline
+                    rows={4}
+                    defaultValue="Default Value"
+                    variant="outlined"
+                />
             </form>
         )
     }
@@ -140,6 +142,15 @@ const styles = {
       selectEmpty: {
         marginTop: 20,
       },
+      container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      textField: {
+        marginLeft: 20,
+        marginRight: 20,
+        width: 200,
+      }
 }
 
 const mapStateToProps = (state) => ({
