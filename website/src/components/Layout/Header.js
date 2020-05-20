@@ -24,8 +24,7 @@ class Header extends Component {
     
         const authLinks = isAuthenticated && (
             <div className={classes.root}>
-                {/* <Typography component="div" style={{ backgroundColor: '#F5F9FC', height: '18rem', display: 'flex' ,alignItems: 'center' }} > */}
-            <AppBar position="static">
+            <AppBar position="static" elevation={0} style={{ backgroundColor: '#F5F9FC'}}>
             <Container maxWidth="lg">
             <Toolbar className={classes.space}>
                 <div >
@@ -65,8 +64,10 @@ const styles = {
         color: "#595959"
         },
         space: {
-        justifyContent: 'center',
-        minHeight: 128,
+            justifyContent: 'center',
+            minHeight: 128,
+            marginTop: '10px',
+            marginBottom: '10px'
         },
         root: {
             flexGrow: 1,

@@ -37,17 +37,17 @@ class Navbar extends Component {
                     <div >
                       <Grid container spacing={3}>
                         <Grid container justify="center" item xs={6} sm={3}>
-                          <Button className={classes.btn} to="/" >
+                          <Button className={classes.btn} component={Link} to="/" >
                             Homepage
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={6} sm={3}>
-                          <Button className={classes.btn} to="/" >
+                          <Button className={classes.btn} component={Link} to="/" >
                             Profile
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={6} sm={3}>
-                          <Button className={classes.btn} to="/" >
+                          <Button className={classes.btn} component={Link} to="/" >
                             Friends
                           </Button>
                         </Grid>                    
@@ -75,23 +75,23 @@ class Navbar extends Component {
                     <div >
                       <Grid container spacing={3} style={{justifyContent: "center"}} >
                         <Grid container justify="center" item xs={4} sm={2}>
-                          <Button className={classes.btn} to="/" >
+                          <Button className={classes.btn} component={Link} to="/" >
                             Homepage
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
-                          <Button className={classes.btn} to="/" >
+                          <Button className={classes.btn} component={Link} to="/" >
                             Profile
+                          </Button>
+                        </Grid>
+                        <Grid container justify="center" item xs={4} sm={2}>
+                          <Button className={classes.btn} component={Link} to="/" >
+                            Friends
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
                           <Button className={classes.btn} component={Link} to="/admin" >
                             Admin
-                          </Button>
-                        </Grid>
-                        <Grid container justify="center" item xs={4} sm={2}>
-                          <Button className={classes.btn} to="/" >
-                            Friends
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>

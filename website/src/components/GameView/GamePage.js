@@ -12,7 +12,7 @@ class Gamepage extends Component {
     render(){
         return (
             <div>
-                hello
+                Nothing here yet.
             </div>
         )
     }
