@@ -10,7 +10,7 @@ const Main = ({ children }) => (
         <NavBar />
         <Header />
         <Grid container justify="center">
-            <Grid item xs={12} sm={8} style={{ marginTop: 10 }}>
+            <Grid item xs={10} sm={8} style={{ marginTop: 10 }}>
                 {children}
             </Grid>
         </Grid>

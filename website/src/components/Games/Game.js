@@ -39,7 +39,7 @@ render() {
 
     if (loading === false) {
     boardGameImage = (
-        <img src={boardGameDetails.data.thumbnail} height="100" />
+        <img className={classes.image} src={boardGameDetails.data.thumbnail} height="100" />
     )
     boardGameName = (
         <span className={classes.title}>
@@ -62,7 +62,7 @@ render() {
             <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                <h3 className={classes.title}>{game.title}</h3>
+                <div className={classes.title}>{game.title}</div>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                 {boardGameName}
@@ -85,9 +85,9 @@ render() {
             </Grid>
             <Grid item>
             <Typography variant="subtitle1">
-                <h4>
+                <div>
                     {game.playersNumber}/{game.playersMax}
-                </h4></Typography>
+                </div></Typography>
             </Grid>
             </Grid> 
             </Grid>
@@ -101,33 +101,37 @@ render() {
 
 
 const styles = {
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: 10,
-        marginTop: 10,
-    },
-    bgBlock: {
-        width: '100%',
-        
-    },
-    gameDescriptionBlock: {
-        verticalAlign: 'top',
-        '& div': {  
-            whiteSpace: "normal",  
-            wordWrap: "break-word"  
-        }  
-    },
-    title: {
-        color: '#595959',
-        marginTop: "0px",
-        marginBottom: "0px",
-    },
-    time: {
-        color: '#bbb',
-        fontSize: 14,
-    }
+root: {
+    flexGrow: 1,
+},
+paper: {
+    padding: 10,
+    marginTop: 10,
+},
+bgBlock: {
+    width: '100%',
+    
+},
+gameDescriptionBlock: {
+    verticalAlign: 'top',
+    '& div': {  
+        whiteSpace: "normal",  
+        wordWrap: "break-word"  
+    }  
+},
+title: {
+    color: '#595959',
+    marginTop: "0px",
+    marginBottom: "0px",
+},
+time: {
+    color: '#bbb',
+    fontSize: 14,
+},
+image: {
+    borderRadius: 5,
+    overflow: "hidden",
+}
 }
 
 

@@ -81,9 +81,9 @@ router.route('/')
     })
 
 // get one game by game Id
-router.route('/find')
+router.route('/find/:gameId')
     .get((req, res) => {
-        Game.findById(req.body.gameId)
+        Game.find({ _id: req.params.gameId })
             .then(game => {
                 if (game) {
                     return res.json(game)
