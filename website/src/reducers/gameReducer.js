@@ -2,6 +2,7 @@ import {
     ADD_GAME,
     LOADING_GAMES,
     GET_GAMES,
+    GET_GAMEBYID,
     DELETE_GAME
 } from '../constants';
 
@@ -25,6 +26,12 @@ export default function (state = initialState, action) {
                 loading: true
             }
         case GET_GAMES:
+            return {
+                ...state,
+                loading: false,
+                list: action.payload
+            }
+            case GET_GAMEBYID:
             return {
                 ...state,
                 loading: false,

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import Game from './Game';
+import Details from './Details';
 import { connect } from 'react-redux';
-import { LoadingGames, getGames } from '../../actions/gameActions';
+import { LoadingGames, getGameById } from '../../actions/gameActions';
 
 
-class ListGames extends Component {
+class GameDisplay extends Component {
 
     componentDidMount() {
-        this.props.getGames()
+        this.props.getGameById(this.props.match.params.gameId)
     }  
 
     render () {
         const { list, loading } = this.props
+        console.log('GameDisplay')
         console.log(list)
-        const items = list && list.map(el => <Game key={el._id} game={el} />)
+        const items = list && list.map(el => <Details key={el._id} game={el} />)
 
         return (
             <div>            
@@ -30,4 +31,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { getGames })(ListGames);
+export default connect(mapStateToProps, { getGameById })(GameDisplay);

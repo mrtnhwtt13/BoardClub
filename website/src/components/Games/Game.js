@@ -39,7 +39,7 @@ render() {
 
     if (loading === false) {
     boardGameImage = (
-        <img src={boardGameDetails.data.thumbnail} height="100" />
+        <img className={classes.image} src={boardGameDetails.data.thumbnail} height="100" />
     )
     boardGameName = (
         <span className={classes.title}>
@@ -127,6 +127,10 @@ time: {
     color: '#bbb',
     fontSize: 14,
 },
+image: {
+    borderRadius: 5,
+    overflow: "hidden",
+}
 }
 
 export default withStyles(styles)(Game)

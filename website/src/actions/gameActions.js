@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
     ADD_GAME,
     GET_GAMES,
+    GET_GAMEBYID,
     LOADING_GAMES,
     DELETE_GAME,
     GET_ERRORS
@@ -21,7 +22,7 @@ export const getGameById = (gameId) => dispatch => {
     dispatch(loadGames())
     axios.get(`http://localhost:5000/api/games/find/${gameId}`)
         .then(res => dispatch({
-            type: GET_GAMES,
+            type: GET_GAMEBYID,
             payload: res.data
         }))
         .catch(err => console.log(err))
