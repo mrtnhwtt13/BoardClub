@@ -23,8 +23,13 @@ class Gamepage extends Component {
     }
 
     componentDidMount() {
+        console.log("i'm useless")
         this.props.getGameById(this.props.match.params.gameId)
     }
+    // componentDidUpdate(){
+    //     console.log("i'm useless too")
+    //     this.props.getGameById(this.props.match.params.gameId)
+    // }
 
     getBoardGameDetails (bgId) {
         axios.get('https://bgg-json.azurewebsites.net/thing/' + bgId)
@@ -42,7 +47,7 @@ class Gamepage extends Component {
         const { boardGameDetails, loadingBoardGameDetails } = this.state;
         let boardGameImage = null
         let boardGameName = null
-
+        
         if (loadingGame === false && boardGameDetails === null) {
             this.getBoardGameDetails(this.props.list.boardGameId);
         }
@@ -56,10 +61,10 @@ class Gamepage extends Component {
         }
         else {
             boardGameImage = (
-                <img src={boardGameDetails.data.thumbnail} height="100" />
+                <img src={boardGameDetails.data.image} height="300" />
             )
             boardGameName = (
-                <span className={classes.title}>
+                <span className={classes.game}>
                 <strong>Playing : </strong>
                 {boardGameDetails.data.name}
                 </span>
@@ -75,24 +80,37 @@ class Gamepage extends Component {
                 <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                     <Typography gutterBottom variant="subtitle1">
-                    <div className={classes.title}>Title</div>
+                        <div className={classes.title}>{this.props.list.title}</div>
                     </Typography>
                     <Typography variant="body2" gutterBottom>
-                    Game
+                    {boardGameName}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
                     <span className={classes.time}>
-                        Time
+                    Event on{' '}
+                    {new Date(this.props.list.gameDate).toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    })}{' '}
+                    at {this.props.list.city}
+                    </span>
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                    <span className={classes.desc}>
+                    {this.props.list.description}
                     </span>
                     </Typography>
                 </Grid>
                 
                 </Grid>
-                <Grid item>
                 <Typography variant="subtitle1">
                     <div>
-                        NaN/NaN
+                    {this.props.list.playersNumber}/{this.props.list.playersMax}
                     </div></Typography>
+                <Grid item>
                 </Grid>
                 </Grid> 
                 </Grid>
@@ -124,6 +142,16 @@ const styles = {
         },
         root: {
             flexGrow: 1,
+        },
+        title: {
+            color: '#595959',
+            marginTop: "0px",
+            marginBottom: "0px",
+            fontSize: 30,
+        },
+        time: {
+            color: '#bbb',
+            fontSize: 14,
         },
 }
 
