@@ -9,6 +9,7 @@ import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import GamePage from './components/GameView/GameDisplay'
 import NotFound from './components/NotFound';
+import Admin from './components/Admin/Admin'
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
 
