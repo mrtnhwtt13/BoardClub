@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+    GET_ERRORS,
     GET_USERS,
     LOADING_USERS,
     DELETE_USER,
@@ -42,4 +43,13 @@ export const banUser = userData => dispatch => {
             payload: res.data
         }))
         .catch(err => console.log(err))
+}
+
+export const editUser = (userData, history) => dispatch => {
+    axios.post('http://localhost:5000/api/users/edit', userData)
+        .then(res => history.push(`/admin`))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
 }

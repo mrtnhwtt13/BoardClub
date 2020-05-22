@@ -228,8 +228,8 @@ router.route('/find/:id')
     })
 
 
-// edit user infos 
-router.route('/modify')
+// edit user infos from admin section
+router.route('/edit')
     .post(
         passport.authenticate('jwt', { session: false }), (req, res) => {
         const { isValid, errors } = validateRegisterInput(req.body);
@@ -240,14 +240,14 @@ router.route('/modify')
 
         User.findOne({ login: req.body.login })
             .then(user => {
-                if (user && user.login !== req.user.login) {
+                if (user && user.login !== req.body.oldLogin) {
                     errors.login = 'Login already used !'
                     return res.status(404).json(errors);
                 }
 
                 User.findOne({ email: req.body.email })
                     .then(user => {
-                        if (user && user.email !== req.user.email) {
+                        if (user && user.email !== req.body.oldEmail) {
                             errors.email = 'Email already used !'
                             return res.status(404).json(errors);
                         }
@@ -255,7 +255,7 @@ router.route('/modify')
                         bcrypt.genSalt(10, function (err, salt) {
                             bcrypt.hash(req.body.password, salt, function(err, hash) {
                                 User.findOneAndUpdate({
-                                    _id: req.user.id
+                                    _id: req.body._id
                                 }, {
                                     login: req.body.login,
                                     email: req.body.email,
