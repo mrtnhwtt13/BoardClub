@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { TextField, withStyles, FormControl, InputLabel, MenuItem, Select, Grid, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { createGame } from '../../actions/gameActions'
 
 
 
@@ -9,44 +10,51 @@ class InfoGame extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            info: {
-                title: '',
-                level: '',
-                participant: '',
-                date: '',
-                time: '',
-                city: '',
-                description: ''
-            },
+            title: '',
+            playersLevel: '',
+            playersMax: '',
+            gameDate: '',
+            time: '',
+            city: '',
+            description: '',
+            boardGameId: '237182',
+            userId: '5ec16b2d22194ba5ce8b62da',
             errors: {}
         }
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
+    // voir la mémoïsation -->
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.errors) {
+    //         this.setState({ errors: nextProps.errors })
+    //     }
+    // }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     handleSubmit (e) {
-        e.preventDefault();
-        const info = this.state.info
+        e.preventDefault()
         const createGameData = {
-            title: info.title,
-            level: info.level,
-            participant: info.participant,
-            date: info.date,
-            time: info.time,
-            city: info.city,
-            description: info.description
+            userId: this.state.userId,
+            boardGameId: this.state.boardGameId,
+            title: this.state.title,
+            playersLevel: this.state.playersLevel,
+            playersMax: this.state.playersMax,
+            gameDate: new Date(this.state.gameDate+"T"+this.state.time+"Z"),
+            city: this.state.city,
+            description: this.state.description
 
         }
-        this.props.createGame(createGameData, this.props.history);
+        this.props.createGame(createGameData, this.props.history)
     }    
 
     render(){
         
         const participant = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,42]
-        const ITEM_HEIGHT = 48;
+        const ITEM_HEIGHT = 42;
         const ITEM_PADDING_TOP = 8;
         const MenuProps = {
             PaperProps: {
@@ -75,23 +83,25 @@ class InfoGame extends Component {
                     className={classes.textField}
                     helperText={errors.title ? errors.title: ''}
                     error={errors.title ? true : false}
+                    variant="outlined"
                 />
                 <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel id="demo-simple-select-outlined-label">Level</InputLabel>
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={this.state.level}
+                    name="playersLevel"
+                    value={this.state.playersLevel}
                     onChange={this.handleChange}
                     label="level"
                     MenuProps={MenuProps}
                     >
-                        <MenuItem value={0}>
+                        <MenuItem value="Piece of Cake">
                             <em>Piece of Cake</em>
                         </MenuItem>
-                        <MenuItem value={1}>Let's Rock</MenuItem>
-                        <MenuItem value={2}>Come Get Some</MenuItem>
-                        <MenuItem value={3}>Damn I'm Good</MenuItem>
+                        <MenuItem value="Let's Rock">Let's Rock</MenuItem>
+                        <MenuItem value="Come Get Some">Come Get Some</MenuItem>
+                        <MenuItem value="Damn I'm Good">Damn I'm Good</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl variant="outlined" className={classes.formControl}>
@@ -99,7 +109,8 @@ class InfoGame extends Component {
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={this.state.participant}
+                    name="playersMax"
+                    value={this.state.playersMax}
                     onChange={this.handleChange}
                     label="participant"
                     MenuProps={MenuProps}
@@ -114,8 +125,12 @@ class InfoGame extends Component {
                     id="date"
                     label="Date"
                     type="date"
-                    defaultValue=""
+                    name="gameDate"
+                    value={this.state.gameDate}
+                    onChange={this.handleChange}    
                     className={classes.textField}
+                    variant="outlined"
+                    data-parse="date"
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -124,13 +139,16 @@ class InfoGame extends Component {
                     id="time"
                     label="Time"
                     type="time"
-                    defaultValue="07:30"
+                    name="time"
+                    value={this.state.time}
+                    onChange={this.handleChange}    
                     className={classes.textField}
+                    variant="outlined"
                     InputLabelProps={{
-                    shrink: true,
+                        shrink: true,
                     }}
                     inputProps={{
-                    step: 300, // 5 min
+                        step: 300, // 5 min
                     }}
                 />
                 <TextField 
@@ -142,13 +160,17 @@ class InfoGame extends Component {
                     className={classes.textField}
                     helperText={errors.city ? errors.city: ''}
                     error={errors.city ? true : false}
+                    variant="outlined"
                 />
                 <TextField
                     id="outlined-multiline-static"
                     label="Description"
+                    name="description"
                     multiline
                     rows={4}
-                    defaultValue=""
+                    className={classes.textField}
+                    value={this.state.description}
+                    onChange={this.handleChange}    
                     variant="outlined"
                 />
                 <div className={classes.btnBlock}>
@@ -166,6 +188,7 @@ const styles = {
     formControl: {
         margin: 10,
         minWidth: 120,
+        width: '100%'
       },
       selectEmpty: {
         marginTop: 20,
@@ -179,6 +202,7 @@ const styles = {
         marginRight: 20,
         marginBottom: 20,
         minWidth: 200,
+        width: '100%'
       },
       btnBlock: {
         textAlign: 'center',
@@ -194,8 +218,9 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
-    user: state.auth.user
+    user: state.auth.user,
+    errors: state.errors
    })
 
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(InfoGame)))
+export default connect(mapStateToProps, { createGame })(withRouter(withStyles(styles)(InfoGame)))
 

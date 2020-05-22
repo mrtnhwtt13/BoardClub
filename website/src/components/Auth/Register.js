@@ -23,11 +23,13 @@ class Register extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors })
-        }
-    }
+    // Regarder le mémoîsation pour remplacer : 
+    // 
+    //componentWillReceiveProps(nextProps) {
+    //     if (nextProps.errors) {
+    //         this.setState({ errors: nextProps.errors })
+    //     }
+    // }
 
     handleChange (e) {
         this.setState({ [e.target.name]: e.target.value })
