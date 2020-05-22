@@ -43,6 +43,7 @@ class Details extends Component {
         let boardGameImage = null;
         let boardGameName = null;
         let boardGameTime = null;
+        let creator = null;
         let link = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
 
         if (loading === false) {
@@ -60,13 +61,14 @@ class Details extends Component {
             boardGameTime = (
                 <div><strong>Average playtime : </strong>{boardGameDetails.data.playingTime} minutes</div>
             )
-        }
-        if (this.props.loadingUser === false){
-            for (const user in this.props.list){
-            console.log(user)
+            if (this.props.loadingUser === false){
+                creator = (
+                    <span className={classes.creator}>
+                        By {this.props.list[0].login}
+                    </span>
+                    )
 
             }
-            console.log(this.props.list)
         }
 
         return (
@@ -82,7 +84,7 @@ class Details extends Component {
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs>
                                     <Typography component={'span'} gutterBottom variant="subtitle1">
-                                        <div className={classes.title}><strong>{game.title}</strong></div>
+                                        <div className={classes.title}><strong>{game.title}</strong> {creator}</div>
                                     </Typography>
                                     <Typography component={'span'} variant="body2" gutterBottom>
                                         <div className={classes.gameInfo}>
@@ -177,6 +179,9 @@ const styles = {
     image: {
         borderRadius: 5,
         overflow: "hidden",
+    },
+    creator: {
+        fontSize: 14
     }
 }
 
