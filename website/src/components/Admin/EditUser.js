@@ -12,8 +12,8 @@ class EditUser extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            email: '',
-            login: '',
+            email: this.props.location.state.user.email,
+            login: this.props.location.state.user.login,
             password: '',
             password2: '',
             errors: {}
@@ -59,7 +59,7 @@ class EditUser extends Component {
                         label="Login"
                         type="text"
                         name="login"                                   
-                        value={this.props.location.state.user.login}  
+                        value={this.state.login}  
                         onChange={this.handleChange}    
                         className={classes.textField}
                         helperText={errors.login ? errors.login : ''}
@@ -69,7 +69,7 @@ class EditUser extends Component {
                         type="email"
                         label="Email"
                         name="email"           
-                        value={this.props.location.state.user.email}
+                        value={this.state.email}
                         onChange={this.handleChange}         
                         className={classes.textField}
                         helperText={errors.email ? errors.email : ''}
