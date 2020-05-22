@@ -5,13 +5,31 @@ import { Link } from 'react-router-dom';
 
 
 class Card extends Component {
+
+    componentDidMount() {
+        axios
+        .get(
+            'https://bgg-json.azurewebsites.net/thing/' +
+            this.props.details,
+        )
+        .then((response) =>
+            this.setState({
+            boardGameDetails: response,
+            loading: false,
+            }),
+        )
+        .catch((err) => console.log(err))
+    }
+
+    console.log(boardGameDetails)
+
     render () {
         const { classes, details } = this.props;
 
         return (
             <Paper className={classes.paper}>                 
                 <div>
-                    <h3 className={classes.login}>
+                    <h3 >
                         {details}
                     </h3>
                 </div>
@@ -19,6 +37,7 @@ class Card extends Component {
         )
     }
 }
+
 
 
 const styles = {
