@@ -7,7 +7,8 @@ import Main from './components/Layout/Main';
 import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
-import GamePage from './components/GameView/GameDisplay'
+import GamePage from './components/GameView/GamePage';
+import EditUser from './components/Admin/EditUser';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin/Admin'
 import setAuthHeader from './utils/setAuthHeader';
@@ -41,6 +42,7 @@ class App extends Component {
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route path="/admin" component={Admin} />
+                <Route exact path="/admin/user/edit" component={EditUser} />
                 <Route path="/game/:gameId" component={GamePage} />
                 <Route component={NotFound} />
               </Switch>

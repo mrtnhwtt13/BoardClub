@@ -88,6 +88,46 @@ router.route('/login')
     })
 
 
+// delete an existing user
+router.route('/delete')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            if (req.user.isAdmin === true) {
+                User.findOneAndRemove({_id: req.body.userId}, req.body)
+                    .then(res.json("Ok"))
+                    .catch(err => console.log(err))
+            }
+            else {
+                errors = 'Unauthorized';
+                return res.status(404).json(errors);
+            }
+        }    
+    )
+
+
+// ban an user
+router.route('/ban')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            if (req.user.isAdmin === true) {
+                User.findOneAndUpdate({
+                    _id: req.body.userId                    
+                }, {
+                    isBanned: req.body.ban
+                }, {new: true})
+                    .then(User => res.json(User))
+                    .catch(err => console.log(err))
+            }                
+            else {
+                errors = 'Unauthorized';
+                return res.status(404).json(errors);
+            }
+        }    
+    )
+
+
 // get all users sorted by login
 router.route('/all')
     .get((req, res) => {
