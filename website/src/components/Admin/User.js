@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid'
 
 
 class User extends Component {
@@ -10,27 +11,29 @@ class User extends Component {
         const { classes, user } = this.props;
 
         return (
-            <Paper className={classes.paper}>                
-                <div>
-                    <h3 className={classes.login}>
-                        <Link to={`/profile/${user._id}`}>{user.login}</Link>
-                    </h3>
-                </div>
-            </Paper>
+            <div className={classes.root}>
+                <Paper className={classes.paper}>                
+                    <div>
+                        <Grid container direction="row">
+                            <h3 className={classes.login}>
+                                <Link to={`/profile/${user._id}`}>{user.login}</Link>
+                            </h3>
+                        </Grid>
+                    </div>
+                </Paper>
+            </div>
         )
     }
 }
 
 
 const styles = {
+    root: {
+        flexGrow: 1,
+    },
     paper: {
         padding: 10,
-        display: 'flex',
-        marginTop: 10
-    },
-    avatar: {
-        minWidth: 10,
-        margin: '4px 10px 4px 4px'
+        marginTop: 3
     },
     login: {
         marginBottom: 5
