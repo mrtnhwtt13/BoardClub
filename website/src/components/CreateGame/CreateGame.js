@@ -11,7 +11,7 @@ class CreateGame extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            newGame: 'seven'
+            newGame: ''
         }
         this.handleChange = this.handleChange.bind(this)
     }

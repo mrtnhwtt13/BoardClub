@@ -11,8 +11,6 @@ class TopGames extends Component {
             user: {}
         }
     }
-    
-    
 
     render(){
         const {user} = this.props

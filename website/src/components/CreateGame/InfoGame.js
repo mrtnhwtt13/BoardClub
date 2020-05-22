@@ -18,18 +18,17 @@ class InfoGame extends Component {
             city: '',
             description: '',
             boardGameId: '237182',
-            userId: '5ec16b2d22194ba5ce8b62da',
             errors: {}
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     // voir la mémoïsation -->
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.errors) {
-    //         this.setState({ errors: nextProps.errors })
-    //     }
-    // }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors })
+        }
+    }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
@@ -38,7 +37,7 @@ class InfoGame extends Component {
     handleSubmit (e) {
         e.preventDefault()
         const createGameData = {
-            userId: this.state.userId,
+            userId: this.props.user.userId,
             boardGameId: this.state.boardGameId,
             title: this.state.title,
             playersLevel: this.state.playersLevel,
