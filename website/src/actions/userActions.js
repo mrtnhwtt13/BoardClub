@@ -43,3 +43,12 @@ export const banUser = userData => dispatch => {
         }))
         .catch(err => console.log(err))
 }
+export const getUserById = (userId) => dispatch => {
+    dispatch(loadUsers)
+    axios.get(`http://localhost:5000/api/users/find/${userId}`)
+        .then(res => dispatch({
+            type: GET_USERS,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}

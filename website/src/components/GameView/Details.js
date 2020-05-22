@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import { getUserById } from '../../actions/userActions'
+
 
 class Details extends Component {
     constructor(props) {
@@ -16,6 +20,8 @@ class Details extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.game.userId)
+        this.props.getUserById(this.props.game.userId)
         axios
             .get(
                 'https://bgg-json.azurewebsites.net/thing/' +
@@ -33,8 +39,12 @@ class Details extends Component {
     render() {
         const { classes, game } = this.props
         const { boardGameDetails, loading } = this.state
-        let boardGameImage = null
-        let boardGameName = null
+        const preventDefault = (event) => event.preventDefault();
+        let boardGameImage = null;
+        let boardGameName = null;
+        let boardGameTime = null;
+        let creator = null;
+        let link = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
 
         if (loading === false) {
             boardGameImage = (
@@ -43,9 +53,22 @@ class Details extends Component {
             boardGameName = (
                 <span className={classes.game}>
                     <strong>Playing : </strong>
-                    {boardGameDetails.data.name}
+                    <a title="Learn more about this game on Board Game Geek"href={link}>
+                        {boardGameDetails.data.name}
+                    </a>
                 </span>
             )
+            boardGameTime = (
+                <div><strong>Average playtime : </strong>{boardGameDetails.data.playingTime} minutes</div>
+            )
+            if (this.props.loadingUser === false){
+                creator = (
+                    <span className={classes.creator}>
+                        By {this.props.list[0].login}
+                    </span>
+                    )
+
+            }
         }
 
         return (
@@ -53,21 +76,29 @@ class Details extends Component {
                 <div>
                     <Grid container spacing={2} direction="row" className={classes.bgBlock}>
                         <Grid item>
+                            <div>
                             {boardGameImage}
+                            </div>
                         </Grid>
-                        <Grid alignContent='center'  item xs={12} sm container>
+                        <Grid alignContent='center' item sm={12} md container>
                             <Grid item xs container direction="column" spacing={2}>
-                                <Grid  item xs>
-                                    <Typography gutterBottom variant="subtitle1">
-                                        <div className={classes.title}><strong>{game.title}</strong></div>
-                                        <div className={classes.players}>{game.playersNumber} spot filled out of {game.playersMax}.</div>
+                                <Grid item xs>
+                                    <Typography component={'span'} gutterBottom variant="subtitle1">
+                                        <div className={classes.title}><strong>{game.title}</strong> {creator}</div>
                                     </Typography>
-                                    <Typography variant="body2" gutterBottom>
-                                        <div className={classes.gameName}>
-                                        {boardGameName}
+                                    <Typography component={'span'} variant="body2" gutterBottom>
+                                        <div className={classes.gameInfo}>
+                                            <div>
+                                            {boardGameName}
+                                            </div>
+                                                <div>{boardGameTime}</div>
+                                            <div className={classes.players}><strong>{game.playersNumber}</strong> spot filled out of <strong>{game.playersMax}</strong></div>
+                                            <div>
+                                                <strong>Game level :</strong> {game.playersLevel}
+                                            </div>
                                         </div>
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography component={'span'} variant="body2" color="textSecondary">
                                         <div className={classes.time}>
                                             Event on{' '}
                                             {new Date(game.gameDate).toLocaleString('en-GB', {
@@ -80,18 +111,17 @@ class Details extends Component {
                                             at {game.city}
                                         </div>
                                     </Typography>
-                                    <Typography variant="body2" >
-                                            <div className={classes.desc}>
-                                                {game.description}
-                                            </div>
-                                        </Typography>
+                                    <Typography component={'span'} variant="body2" >
+                                        <div className={classes.desc}>
+                                            {game.description}
+                                        </div>
+                                    </Typography>
                                 </Grid>
-
                             </Grid>
                             <Grid item>
-                                <Typography variant="subtitle1">
+                                <Typography component={'span'} variant="subtitle1">
                                     <div className={classes.btn}>
-                                            <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white"}} >Join</Button>
+                                        <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
                                     </div>
                                 </Typography>
                             </Grid>
@@ -129,16 +159,19 @@ const styles = {
         fontSize: 14,
         marginTop: 10,
     },
-    btn : {
+    btn: {
         marginTop: 8,
     },
     desc: {
         color: '#595959',
         marginTop: 10
     },
-    gameName: {
+    gameInfo: {
         color: '#595959',
 
+    },
+    game: {
+        fontSize: 18
     },
     players: {
         color: '#595959',
@@ -146,7 +179,15 @@ const styles = {
     image: {
         borderRadius: 5,
         overflow: "hidden",
+    },
+    creator: {
+        fontSize: 14
     }
 }
 
-export default withStyles(styles)(Details)
+const mapStateToProps = (state) => ({
+    list: state.user.list,
+    loadingUser: state.user.loading
+})
+
+export default connect(mapStateToProps, { getUserById })(withStyles(styles)(Details))

@@ -7,7 +7,7 @@ import Main from './components/Layout/Main';
 import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
-import GamePage from './components/GameView/GamePage';
+import GamePage from './components/GameView/GameDisplay';
 import EditUser from './components/Admin/EditUser';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin/Admin'

@@ -205,20 +205,10 @@ router.route('/search')
 // get infos from one user with user id
 router.route('/find/:id')
     .get((req, res) => {
-        User.findById(req.params.id)
+        User.find({_id: req.params.id})
             .then(user => {
                 if (user) {
-                    return res.json({
-                        _id: req.user._id,
-                        login: req.user.login,
-                        email: req.user.email,            
-                        followers: req.user.followers,
-                        following: req.user.following,
-                        topGames: req.user.topGames,
-                        blockedUsers: req.user.blockedUsers,
-                        isAdmin: req.user.isAdmin,
-                        isBanned: req.user.isBanned
-                    })
+                    return res.json(user)
                 }
                 else {
                     return res.status(404).json({ msg: 'User not found'})
