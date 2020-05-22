@@ -99,6 +99,7 @@ render() {
 }
 }
 
+
 const styles = {
 root: {
     flexGrow: 1,
@@ -132,5 +133,6 @@ image: {
     overflow: "hidden",
 }
 }
+
 
 export default withStyles(styles)(Game)

@@ -16,8 +16,8 @@ module.exports = function (data) {
   if (Validator.isEmpty(data.description)) {
     errors.description = "Description field is required";
   }
-  else if (!Validator.isLength(data.description, { min: 1, max: 255 })) {
-    errors.description = "Description must be between 1 and 255 characters";
+  else if (!Validator.isLength(data.description, { min: 1, max: 500 })) {
+    errors.description = "Description must be between 1 and 500 characters";
   }  
   
   // City checks
