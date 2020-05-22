@@ -86,7 +86,7 @@ class User extends Component {
                 <StyledTableCell align="right">{ admin }</StyledTableCell>
                 <StyledTableCell align="right">{ ban }</StyledTableCell>
                 <StyledTableCell align="right">
-                    <span title="Edit user"><Link to={`/admin/user/edit`} user={user}><EditIcon /></Link></span>
+                    <span title="Edit user"><Link to={{ pathname: '/admin/user/edit', state: { user: user} }}><EditIcon /></Link></span>
                     <span title="Ban user"><BlockIcon onClick={this.handleBan} /></span>
                     <span title="Delete user"><DeleteIcon onClick={this.handleDelete} /></span>
                 </StyledTableCell>
