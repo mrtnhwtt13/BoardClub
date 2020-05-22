@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import AllUsers from './AllUsers.js';
 
 
-class Admin extends Component {
+class Admin extends Component {    
+    componentDidMount() {
+        if (this.props.user.isAdmin === false) {
+            this.props.history.push('/');
+        }
+    }
+
     render () {
         const { isAuthenticated } = this.props;
         return (
             <div>
-                test
+                <AllUsers />
             </div>
         )
     }
@@ -15,7 +23,9 @@ class Admin extends Component {
 
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: !!state.auth.isAuthenticated
+    isAuthenticated: !!state.auth.isAuthenticated,
+    auth: state.auth,
+    user: state.auth.user
 })
 
 
