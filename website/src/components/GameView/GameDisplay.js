@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Details from './Details';
 import { connect } from 'react-redux';
 import { LoadingGames, getGameById } from '../../actions/gameActions';
+import { getUserById } from '../../actions/userActions'
 
 
 class GameDisplay extends Component {

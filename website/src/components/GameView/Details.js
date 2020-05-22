@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
+import { getUserById } from '../../actions/userActions'
 
 
 class Details extends Component {
@@ -18,6 +20,8 @@ class Details extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.game.userId)
+        this.props.getUserById(this.props.game.userId)
         axios
             .get(
                 'https://bgg-json.azurewebsites.net/thing/' +
@@ -48,15 +52,21 @@ class Details extends Component {
             boardGameName = (
                 <span className={classes.game}>
                     <strong>Playing : </strong>
-                   <a href={link}>
-                    {boardGameDetails.data.name}
-                   </a>
-                    
+                    <a title="Learn more about this game on Board Game Geek"href={link}>
+                        {boardGameDetails.data.name}
+                    </a>
                 </span>
             )
             boardGameTime = (
                 <div><strong>Average playtime : </strong>{boardGameDetails.data.playingTime} minutes</div>
             )
+        }
+        if (this.props.loadingUser === false){
+            for (const user in this.props.list){
+            console.log(user)
+
+            }
+            console.log(this.props.list)
         }
 
         return (
@@ -64,15 +74,17 @@ class Details extends Component {
                 <div>
                     <Grid container spacing={2} direction="row" className={classes.bgBlock}>
                         <Grid item>
+                            <div>
                             {boardGameImage}
+                            </div>
                         </Grid>
-                        <Grid alignContent='center' item xs={12} sm container>
+                        <Grid alignContent='center' item sm={12} md container>
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs>
-                                    <Typography gutterBottom variant="subtitle1">
+                                    <Typography component={'span'} gutterBottom variant="subtitle1">
                                         <div className={classes.title}><strong>{game.title}</strong></div>
                                     </Typography>
-                                    <Typography variant="body2" gutterBottom>
+                                    <Typography component={'span'} variant="body2" gutterBottom>
                                         <div className={classes.gameInfo}>
                                             <div>
                                             {boardGameName}
@@ -84,7 +96,7 @@ class Details extends Component {
                                             </div>
                                         </div>
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography component={'span'} variant="body2" color="textSecondary">
                                         <div className={classes.time}>
                                             Event on{' '}
                                             {new Date(game.gameDate).toLocaleString('en-GB', {
@@ -97,16 +109,15 @@ class Details extends Component {
                                             at {game.city}
                                         </div>
                                     </Typography>
-                                    <Typography variant="body2" >
+                                    <Typography component={'span'} variant="body2" >
                                         <div className={classes.desc}>
                                             {game.description}
                                         </div>
                                     </Typography>
                                 </Grid>
-
                             </Grid>
                             <Grid item>
-                                <Typography variant="subtitle1">
+                                <Typography component={'span'} variant="subtitle1">
                                     <div className={classes.btn}>
                                         <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
                                     </div>
@@ -169,4 +180,9 @@ const styles = {
     }
 }
 
-export default withStyles(styles)(Details)
+const mapStateToProps = (state) => ({
+    list: state.user.list,
+    loadingUser: state.user.loading
+})
+
+export default connect(mapStateToProps, { getUserById })(withStyles(styles)(Details))
