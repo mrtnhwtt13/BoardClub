@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 
+
 class Navbar extends Component {
   constructor(props) {
     super(props)
@@ -17,7 +18,9 @@ class Navbar extends Component {
   }
 
   handleLogout() {
-    this.props.logoutUser()
+    // this.props.router.push('/')
+    this.props.logoutUser();
+    // window.location.reload();
   }
 
   render() {
@@ -52,7 +55,7 @@ class Navbar extends Component {
                           </Button>
                         </Grid>                    
                         <Grid container justify="center" item xs={6} sm={3}>
-                          <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
+                          <Button className={classes.btn} component={Link} to="/" onClick={this.handleLogout}>
                             Logout
                           </Button>
                         </Grid>
@@ -95,7 +98,7 @@ class Navbar extends Component {
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={4} sm={2}>
-                          <Button className={classes.btn} to="/#" onClick={this.handleLogout}>
+                          <Button className={classes.btn} component={Link} to="/" onClick={this.handleLogout}>
                             Logout
                           </Button>
                         </Grid>
