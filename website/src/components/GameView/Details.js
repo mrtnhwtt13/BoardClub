@@ -42,7 +42,7 @@ class Details extends Component {
         let boardGameTime = null;
         let creator = null;
 
-        if (game) {
+        if (game && this.state.loadingBoardgameDetails === true) {
             this.getGameDetails()
         }   
                    
