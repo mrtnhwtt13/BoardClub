@@ -17,30 +17,34 @@ class Details extends Component {
             boardGameDetails: null,
             loadingBoardgameDetails: true,
         }
+
+        this.getGameDetails = this.getGameDetails.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.game) {
-            this.props.getUserById(this.props.game.userId)
+    getGameDetails() {
+        this.props.getUserById(this.props.game.userId)
             
-            axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.game.boardGameId)
-                .then((response) =>
-                    this.setState({
-                        boardGameDetails: response,
-                        loadingBoardgameDetails: false
-                    })
-                )
-                .catch((err) => console.log(err))
-        }
+        axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.game.boardGameId)
+            .then((response) =>
+                this.setState({
+                    boardGameDetails: response,
+                    loadingBoardgameDetails: false
+                })
+            )
+            .catch((err) => console.log(err))
     }
 
-    render() {
+    render() {            
         const { classes, game, user, loadingUser } = this.props
         const { boardGameDetails, loadingBoardgameDetails } = this.state
         let boardGameImage = null;
         let boardGameName = null;
         let boardGameTime = null;
         let creator = null;
+
+        if (game) {
+            this.getGameDetails()
+        }   
                    
         if (game && user && loadingUser === false && loadingBoardgameDetails === false) {
             let link = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
