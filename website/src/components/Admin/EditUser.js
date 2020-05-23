@@ -43,7 +43,7 @@ class EditUser extends Component {
             oldEmail: this.props.location.state.user.email,
             _id: this.props.location.state.user._id
         }
-        this.props.modifyUser(userData, this.props.history);
+        this.props.editUser(userData, this.props.history);
     }    
 
     render () {
