@@ -27,7 +27,7 @@ class GameDisplay extends Component {
 
 
 const mapStateToProps = (state) => ({
-    list: state.game.list,
+    list: state.game.single,
     loading: state.game.loading
 })
 

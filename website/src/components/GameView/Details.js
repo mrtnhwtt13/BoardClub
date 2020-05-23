@@ -64,7 +64,7 @@ class Details extends Component {
             if (this.props.loadingUser === false){
                 creator = (
                     <span className={classes.creator}>
-                        By {this.props.list[0].login}
+                        {/* By {this.props.list[0].login} */}
                     </span>
                     )
 
@@ -82,7 +82,7 @@ class Details extends Component {
                         </Grid>
                         <Grid alignContent='center' item sm={12} md container>
                             <Grid item xs container direction="column" spacing={2}>
-                                <Grid item xs>
+                                <Grid item md={12}>
                                     <Typography component={'span'} gutterBottom variant="subtitle1">
                                         <div className={classes.title}><strong>{game.title}</strong> {creator}</div>
                                     </Typography>

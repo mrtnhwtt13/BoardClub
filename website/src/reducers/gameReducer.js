@@ -9,7 +9,8 @@ import {
 
 const initialState = {
     list: null,
-    loading: false
+    loading: false,
+    single: null
 }
 
 
@@ -35,7 +36,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                list: action.payload
+                single: action.payload
             }
         case DELETE_GAME:
             return {
