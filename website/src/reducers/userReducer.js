@@ -1,12 +1,14 @@
 import {
     LOADING_USERS,
     GET_USERS,
+    GET_USER,
     DELETE_USER,
     BAN_USER
 } from '../constants';
 
 const initialState = {
     list: null,
+    user: null,
     loading: false
 }
 
@@ -22,6 +24,12 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: false,
                 list: action.payload
+            }
+        case GET_USER:
+            return {
+                ...state,
+                loading: false,
+                user: action.payload
             }
         case BAN_USER:
             return {

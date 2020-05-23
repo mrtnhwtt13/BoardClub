@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
     GET_ERRORS,
     GET_USERS,
+    GET_USER,
     LOADING_USERS,
     DELETE_USER,
     BAN_USER
@@ -50,7 +51,7 @@ export const getUserById = (userId) => dispatch => {
     dispatch(loadUsers)
     axios.get(`http://localhost:5000/api/users/find/${userId}`)
         .then(res => dispatch({
-            type: GET_USERS,
+            type: GET_USER,
             payload: res.data
         }))
         .catch(err => console.log(err))

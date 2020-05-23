@@ -3,12 +3,14 @@ import {
     LOADING_GAMES,
     GET_GAMES,
     GET_GAMEBYID,
-    DELETE_GAME
+    DELETE_GAME,
+    GET_GAME
 } from '../constants';
 
 
 const initialState = {
     list: null,
+    game: null,
     loading: false
 }
 
@@ -31,11 +33,11 @@ export default function (state = initialState, action) {
                 loading: false,
                 list: action.payload
             }
-            case GET_GAMEBYID:
+        case GET_GAME:
             return {
-                ...state,
+                ...state,                
                 loading: false,
-                list: action.payload
+                game: action.payload
             }
         case DELETE_GAME:
             return {

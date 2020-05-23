@@ -205,7 +205,7 @@ router.route('/search')
 // get infos from one user with user id
 router.route('/find/:id')
     .get((req, res) => {
-        User.find({_id: req.params.id})
+        User.findById(req.params.id)
             .then(user => {
                 if (user) {
                     return res.json(user)

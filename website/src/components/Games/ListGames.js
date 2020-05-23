@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Game from './Game';
 import { connect } from 'react-redux';
-import { LoadingGames, getGames } from '../../actions/gameActions';
+import { getGames } from '../../actions/gameActions';
+import LoadingGames from './LoadingGames';
 
 
 class ListGames extends Component {
@@ -12,7 +13,6 @@ class ListGames extends Component {
 
     render () {
         const { list, loading } = this.props
-        console.log(list)
         const items = list && list.map(el => <Game key={el._id} game={el} />)
 
         return (
