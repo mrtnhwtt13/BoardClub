@@ -41,6 +41,7 @@ class Details extends Component {
         let boardGameName = null;
         let boardGameTime = null;
         let creator = null;
+        let JoinLeave = null;
 
         if (game && this.state.loadingBoardgameDetails === true) {
             this.getGameDetails()
@@ -66,6 +67,11 @@ class Details extends Component {
                 <span className={classes.creator}>
                     By {user.login}
                 </span>
+            )
+            JoinLeave = (
+                <div className={classes.btn}>
+                    <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
+                </div>
             )
 
             return (
@@ -119,9 +125,7 @@ class Details extends Component {
                                 </Grid>
                                 <Grid item>
                                     <Typography component={'span'} variant="subtitle1">
-                                        <div className={classes.btn}>
-                                            <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
-                                        </div>
+                                        {JoinLeave}
                                     </Typography>
                                 </Grid>
                             </Grid>
