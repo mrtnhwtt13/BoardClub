@@ -17,11 +17,9 @@ class Details extends Component {
             boardGameDetails: null,
             loadingBoardgameDetails: true,
         }
-
-        this.getGameDetails = this.getGameDetails.bind(this);
     }
 
-    getGameDetails() {
+    componentDidMount () {
         this.props.getUserById(this.props.game.userId)
             
         axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.game.boardGameId)
@@ -42,12 +40,8 @@ class Details extends Component {
         let boardGameTime = null;
         let creator = null;
         let JoinLeave = null;
-
-        if (game && this.state.loadingBoardgameDetails === true) {
-            this.getGameDetails()
-        }   
                    
-        if (game && user && loadingUser === false && loadingBoardgameDetails === false) {
+        if (loadingUser === false && loadingBoardgameDetails === false) {
             let link = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
             boardGameImage = (
                 <img className={classes.image} src={boardGameDetails.data.image} height="270" />
@@ -140,6 +134,7 @@ class Details extends Component {
     }
 }
 
+
 const styles = {
     root: {
         flexGrow: 1,
@@ -192,9 +187,11 @@ const styles = {
     }
 }
 
+
 const mapStateToProps = (state) => ({
     user: state.user.user,
     loadingUser: state.user.loading
 })
+
 
 export default connect(mapStateToProps, { getUserById })(withStyles(styles)(Details))

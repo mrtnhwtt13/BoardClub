@@ -6,13 +6,28 @@ import LoadingGame from './LoadingGame';
 
 
 class GameDisplay extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            game: null,
+            loading: true,
+        }
+    }
 
     componentDidMount() {
-        this.props.getGameById(this.props.match.params.gameId)
+        getGameById(this.props.match.params.gameId).then(
+            (response) => {
+              this.setState({ game: response, loading: false })
+            },
+            (error) => {
+              console.log('error: ', error)
+            }
+          )
     }  
 
     render () {
-        const { game, loading } = this.props
+        const { game, loading } = this.state
 
         return (
             <div>            
@@ -23,10 +38,4 @@ class GameDisplay extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
-    game: state.game.game,
-    loading: state.game.loading
-})
-
-
-export default connect(mapStateToProps, { getGameById })(GameDisplay);
+export default (GameDisplay);
