@@ -13,11 +13,9 @@ const styles = {
     root: {
         textAlign: 'center',
         marginTop: 20,
-        position: 'absolute',
+        // position: 'absolute',
         // bottom: 0,
-        left: "50%",
-        width: "700px",
-        marginLeft: "-350px"
+        width: "100%",
     },
     text: {
         color: "grey",
