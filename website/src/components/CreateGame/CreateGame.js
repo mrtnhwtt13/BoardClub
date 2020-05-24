@@ -14,27 +14,32 @@ class CreateGame extends React.Component {
             newGame: ''
         }
         this.handleChange = this.handleChange.bind(this)
+        this.selectGame = this.selectGame.bind(this)
+
     }
 
     handleChange (e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    
+    selectGame(gameDetails) {
+        this.setState({newGame: gameDetails.data.gameId})
+        console.log(gameDetails.data.gameId)
+    }
 
     render(){
         const { errors } = this.state
         if(this.state.newGame != ''){
             return(
                 <Paper style={{ padding: 15 }}>
-                    <InfoGame></InfoGame>
+                    <InfoGame boardGameId={ this.state.newGame }></InfoGame>
                 </Paper>
             )
         } else {
             return(
                 <Paper  style={{ padding: 15 }}>
                     <div>
-                        <TopGames></TopGames>
+                        <TopGames handleChange={this.selectGame}></TopGames>
                     </div>
                     <div>
                         <Games></Games>

@@ -17,7 +17,7 @@ class InfoGame extends Component {
             time: '',
             city: '',
             description: '',
-            boardGameId: '237182',
+            boardGameId: '',
             errors: {}
         }
         this.handleChange = this.handleChange.bind(this)
@@ -38,7 +38,7 @@ class InfoGame extends Component {
         e.preventDefault()
         const createGameData = {
             userId: this.props.user.userId,
-            boardGameId: this.state.boardGameId,
+            boardGameId: this.props.boardGameId,
             title: this.state.title,
             playersLevel: this.state.playersLevel,
             playersMax: this.state.playersMax,
@@ -47,7 +47,7 @@ class InfoGame extends Component {
             description: this.state.description
 
         }
-        this.props.createGame(createGameData, this.props.history)
+        this.props.createGame(createGameData, this.props.history.push('/'))
     }    
 
     render(){
@@ -188,22 +188,22 @@ const styles = {
         margin: 10,
         minWidth: 120,
         width: '100%'
-      },
-      selectEmpty: {
+    },
+    selectEmpty: {
         marginTop: 20,
-      },
-      container: {
+    },
+    container: {
         display: 'flex',
         flexWrap: 'wrap',
-      },
-      textField: {
+    },
+    textField: {
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 20,
         minWidth: 200,
         width: '100%'
-      },
-      btnBlock: {
+    },
+    btnBlock: {
         textAlign: 'center',
         marginBottom: 10,
         marginTop: 20
