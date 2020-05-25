@@ -41,7 +41,7 @@ class Details extends Component {
         let creator = null;
         let JoinLeave = null;
                    
-        if (loadingUser === false && loadingBoardgameDetails === false) {
+        if (user && loadingUser === false && loadingBoardgameDetails === false) {
             let link = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
             boardGameImage = (
                 <img className={classes.image} src={boardGameDetails.data.image} height="270" />
