@@ -27,6 +27,17 @@ export const getAllUsers = () => dispatch => {
 }
 
 
+export const getFollowingUsers = () => dispatch => {
+    dispatch(loadUsers)
+    axios.get('http://localhost:5000/api/users/following')
+        .then(res => dispatch({
+            type: GET_USERS,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}
+
+
 export const deleteUser = userData => dispatch => {
     axios.post('http://localhost:5000/api/users/delete', userData)
         .then(res => dispatch({
