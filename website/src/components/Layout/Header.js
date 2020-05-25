@@ -62,7 +62,8 @@ const mapStateToProps = (state) => ({
 
 const styles = {
     btn: {
-        color: "#595959"
+        color: "#595959",
+        'text-align': "center"
         },
         space: {
             justifyContent: 'center',

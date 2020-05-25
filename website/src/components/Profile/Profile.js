@@ -11,21 +11,38 @@ import { Link } from 'react-router-dom';
 
 
 class Profile extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            currentId: 0
+        }
+    }
+
     componentDidMount() {
         this.props.getUserById(this.props.match.params.userId)
-
+        const pageUserId = this.props.match.params.userId
+        this.setState({currentId: pageUserId})
     }
+
     render() {
-        const { user, loadingUser, classes } = this.props;
+        const { user, authUser,loadingUser, classes } = this.props;
         let username = null;
         let avatar = null;
         let location = null;
         let inscription = null;
+        let button = null;
         let exist = false;
-
-
+        
         if (user && loadingUser === false) {
             exist = true;
+
+            if (this.state.currentId !== this.props.match.params.userId){
+                this.componentDidMount()
+            }
+
+
             if (user.avatar === "") {
                 avatar = (
                     <img className={classes.image} src="https://i.imgur.com/wPNa9Vj.jpg" height="100" />
@@ -65,6 +82,16 @@ class Profile extends Component {
                     })}{' '}
                 </div>
             )
+            if (user._id !== authUser._id){
+                button = (
+                    <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Follow</Button>
+                )
+            }
+            else {
+                button = (
+                <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Edit</Button>
+                )
+            }
 
         }
         return (
@@ -98,7 +125,7 @@ class Profile extends Component {
                             </Grid>
                             <Grid container item xs={12} sm={2} md={2} direction="column" alignItems="center">
                                 <Grid item >
-                                    <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Follow</Button>
+                                    {button}
                                 </Grid>
                             </Grid>
                     </Grid>
@@ -151,7 +178,8 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     user: state.user.user,
-    loadingUser: state.user.loading
+    loadingUser: state.user.loading,
+    authUser: state.auth.user
 })
 
 export default connect(mapStateToProps, { getUserById })(withStyles(styles)(Profile))
