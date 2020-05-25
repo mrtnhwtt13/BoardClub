@@ -27,7 +27,7 @@ class Profile extends Component {
             <div>
                 <Paper elevation={2} style={{ padding: 15 }}>
                     <Grid md={12} spacing={3} container justify="center" alignItems="center">
-                        <Grid container md={6} direction="column" container justify="center" alignItems="center">
+                        <Grid container xs={6} direction="column" container justify="center" alignItems="center">
                             <Grid item>
                                 {username}
                             </Grid>
@@ -35,7 +35,7 @@ class Profile extends Component {
                                 {username}
                             </Grid>
                         </Grid>
-                        <Grid container md={6} direction="column" container justify="center" alignItems="center">
+                        <Grid container xs={6} direction="column" container justify="center" alignItems="center">
                             <Grid item direction="column">
                                 <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Follow</Button>
                             </Grid>
