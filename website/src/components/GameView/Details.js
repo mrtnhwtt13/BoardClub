@@ -72,12 +72,12 @@ class Details extends Component {
                 <div className={classes.root}>
                     <div>
                         <Grid container spacing={2} direction="row" className={classes.bgBlock} justify='center'>
-                            <Grid item justify='center'>
+                            <Grid item container justify='center'>
                                 <div>
                                     {boardGameImage}
                                 </div>
                             </Grid>
-                            <Grid alignContent='center' item sm={12} lg container>
+                            <Grid alignContent='center' item sm={12} md container>
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item md={12}>
                                         <Typography component={'span'} gutterBottom variant="subtitle1">
