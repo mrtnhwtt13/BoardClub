@@ -2,40 +2,32 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
-import CreateGame from './CreateGame'
-import { createGame } from '../../actions/gameActions';
 
 
 class Card extends Component {
     constructor(props) {
         super(props)
+
         this.state = {
-        boardGameDetails: null,
-        loading: true,
-        }
-    
+            boardGameDetails: null,
+            loading: true
+        }    
     }
 
     componentDidMount() {
-        axios
-        .get(
-            'https://bgg-json.azurewebsites.net/thing/' +
-            this.props.details
-        )
-        .then((response) =>
-            this.setState({
-            boardGameDetails: response,
-            loading: false,
-            }),
-        )
-        .catch((err) => console.log(err))
+        axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.boardGameId)
+            .then((response) =>
+                this.setState({
+                    boardGameDetails: response,
+                    loading: false,
+                })
+            )
+            .catch((err) => console.log(err))
     }
 
-
     render () {
-        const { classes } = this.props;
+        const { classes, boardGameId } = this.props;
         const { boardGameDetails, loading } = this.state
         let boardGameImage = null
         let boardGameName = null
@@ -52,20 +44,19 @@ class Card extends Component {
         return (
             <div>
                 <Paper className={classes.paper}>    
-                <Button onClick={() => this.props.handleChange(boardGameDetails)} >           
-                    <div>
-                       { boardGameImage }
-                    </div>
-                    <div>
-                        { boardGameName }
-                    </div>
-                </Button>  
+                    <Button onClick={() => this.props.selectBoardGameId(boardGameId)} >           
+                        <div>
+                            { boardGameImage }
+                        </div>
+                        <div>
+                            { boardGameName }
+                        </div>
+                    </Button>  
                 </Paper>
             </div>
         )
     }
 }
-
 
 
 const styles = {

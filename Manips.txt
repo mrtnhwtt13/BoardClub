@@ -1,0 +1,4 @@
+sudo mongod
+server -> npm start
+server/modules/cors-anywhere -> node server.js
+client -> npm start

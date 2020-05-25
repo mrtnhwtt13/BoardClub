@@ -49,7 +49,7 @@ class App extends Component {
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/game/:gameId" component={GamePage} />
                 <Route path="/profile/:userId" component={Profile} />
-                <Route path="/createGame" component={CreateGame} />
+                <Route path="/create" component={CreateGame} />
                 <Route component={NotFound} />
               </Switch>
             </Main>

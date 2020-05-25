@@ -36,7 +36,7 @@ class Header extends Component {
                     </Button>
                     </Grid>
                     <Grid container justify="center" item xs={12} sm={4}>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", width: "10rem", height: "4rem"}} to="/" >
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#65A2FE", color: "white", width: "10rem", height: "4rem"}} component={Link} to="/create" >
                         Create a game
                     </Button>
                     </Grid>

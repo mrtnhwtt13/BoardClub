@@ -1,56 +1,52 @@
 import React from'react'
-import { Paper, TextField, withStyles, Button } from '@material-ui/core'
+import { Paper, withStyles } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 import TopGames from './TopGames'
-import Games from './Games'
-import InfoGame from './InfoGame' 
+import SearchGames from './SearchGames'
+import InfoGame from './InfoGame'
 
 
 class CreateGame extends React.Component {
     constructor (props) {
         super(props)
+
         this.state = {
             searchGame: '',
             newGame: '',
-            boardGameDetails: null,
             loading: false
         }
-        this.handleChange = this.handleChange.bind(this)
+
         this.selectGame = this.selectGame.bind(this)
     }
-
-    handleChange (e) {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-
-    selectGame(gameDetails) {
-        this.setState({newGame: gameDetails.data.gameId})
+    
+    selectGame (selectedGameId) {
+        this.setState({newGame: selectedGameId})
     }
 
     render(){
-        const { errors } = this.state
-        if(this.state.newGame != ''){
+        if(this.state.newGame != '') {
             return(
                 <Paper style={{ padding: 15 }}>
-                    <InfoGame boardGameId={ this.state.newGame }></InfoGame>
+                    <InfoGame boardGameId={this.state.newGame} />
                 </Paper>
             )
-        } else {
-            return(
-                <Paper  style={{ padding: 15 }}>
+        }
+        else {
+            return (
+                <Paper style={{ padding: 15 }}>
                     <div>
-                        <TopGames handleChange={this.selectGame}></TopGames>
+                        <TopGames selectedGame={this.selectGame} />
                     </div>
                     <div>
-                        <Games></Games>
+                        <SearchGames selectedGame={this.selectGame} />
                     </div>
                 </Paper>
             )
         }
     }
 }
+
 
 const styles = {
     btnBlock: {
@@ -68,6 +64,7 @@ const styles = {
 const mapStateToProps = (state) => ({
     auth: state.auth,
     user: state.auth.user
-   })
+})
+
 
 export default connect(mapStateToProps)(withRouter(withStyles(styles)(CreateGame)))
