@@ -8,8 +8,9 @@ class Games extends Component {
     constructor(props){
         super(props)
         this.state = {
-            newGame:'',
+            searchGame: '',
             boardGameDetails: {},
+            loading: true,
             errors: {}
         }
         this.handleChange = this.handleChange.bind(this)
@@ -20,17 +21,19 @@ class Games extends Component {
         e.preventDefault()
         axios
         .get(
-            'https://bgg-json.azurewebsites.net/collection/' +
-            this.state.newGame
+            'http://localhost:8080/https://boardgamegeek.com/xmlapi2/search?query=' +
+            this.state.searchGame
         )
         .then((response) =>
             this.setState({
-            boardGameDetails: response,
-            loading: false,
+            boardGameDetails: response.data,
+            loading: false
             }),
+            this.xmlSearch
         )
         .catch((err) => console.log(err))
     }
+
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     } 
@@ -43,12 +46,12 @@ class Games extends Component {
                 <TextField 
                     type="string"
                     label="Search Game"
-                    name="newGame"           
-                    value={this.state.newGame}
+                    name="searchGame"           
+                    value={this.state.searchGame}
                     onChange={this.handleChange}         
                     className={classes.textField}
-                    helperText={errors.newGame ? errors.newGame: ''}
-                    error={errors.newGame ? true : false}
+                    helperText={errors.newGame ? errors.searchGame: ''}
+                    error={errors.searchGame ? true : false}
                 />
                 <div className={classes.btnBlock}>
                     <Button variant="outlined" type="submit" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} >
@@ -56,7 +59,7 @@ class Games extends Component {
                     </Button> 
                 </div>
                 <div>
-
+        {this.state.loading ? <div>no game</div> : console.log(this.state.boardGameDetails) }
                 </div>
             </form>
         )

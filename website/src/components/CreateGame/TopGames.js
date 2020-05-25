@@ -30,7 +30,7 @@ class TopGames extends Component {
             )
         } else {
             return(
-                <p>pas glop !</p>
+                <p>remember to indicate your favorite games in your personal space</p>
             )
         }
     }
@@ -38,8 +38,7 @@ class TopGames extends Component {
 
 const styles = {
  
-    card: {
-        
+    card: {    
     }
 }
 

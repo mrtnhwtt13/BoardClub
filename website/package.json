@@ -9,6 +9,7 @@
     "@material-ui/pickers": "^3.2.10",
     "axios": "^0.19.2",
     "date-fns": "^2.14.0",
+    "fast-xml-parser": "^3.17.2",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
