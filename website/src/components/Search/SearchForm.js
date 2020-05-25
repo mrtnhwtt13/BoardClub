@@ -15,81 +15,77 @@ import Paper from '@material-ui/core/Paper'
 
 
 class SearchForm extends Component {
-	constructor (props) {
+	constructor(props) {
 		super(props)
 
 		this.state = {
-            searchTerm: "all"
-        }
+			searchTerm: "all"
+		}
 
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-	handleChange (event) {
+	handleChange(event) {
 		this.setState({ searchTerm: event.target.value });
 	}
 
-	handleSubmit (e) {
+	handleSubmit(e) {
 		const searchData = {
 			text: e.target.value
 		}
 
 		if (e.key === 'Enter') {
-			this.props.searchGames	(searchData, this.props.history)
+			this.props.searchGames(searchData, this.props.history)
 		}
 	}
 
-	render () {
+	render() {
 		const { classes } = this.props;
 		const { searchTerm } = this.state;
 
 		return (
 			<div className={classes.root}>
-				<Paper className={classes.paper}>
-					<div>
-						<Grid container spacing={2} direction="row" className={classes.bgBlock}>
-							<Grid item xs={7} sm={7} >
-								<div className={classes.search}>
-									<div className={classes.searchIcon}>
-										<SearchIcon />
-									</div>
-									<div>
-										<InputBase
-											placeholder="Search games" 
-											classes={{
-												root: classes.inputRoot,
-												input: classes.inputInput
-											}}
-											
-											onKeyPress={this.handleSubmit}
-										/>
-									</div>
-								</div>
-							</Grid>
-							<Grid item xs={5} sm={5} >
-								<div>
-									<div>
-										<FormControl className={classes.formControl}>
-											<InputLabel >Search by : </InputLabel>
-											<Select
-												className={classes.selector}
-												value={searchTerm}
-												onChange={this.handleChange}
-												variant="filled"
-											>
-												<MenuItem value={"all"}>All</MenuItem>
-												<MenuItem value={"boardGameName"}>Board Games</MenuItem>
-												<MenuItem value={"city"}>Cities</MenuItem>
-												<MenuItem value={"playerName"}>Users</MenuItem>
-											</Select>
-										</FormControl>
-									</div>
-								</div>
-							</Grid>
-						</Grid>
-					</div>
-				</Paper>
+				<Grid container justify="center" alignItems="center" direction="row" className={classes.bgBlock} style={{ border: '1px solid white' }}>
+					<Grid item xs={6} sm={5} >
+						<div className={classes.search} >
+							<div className={classes.searchIcon} >
+								<SearchIcon />
+							</div>
+							<div>
+								<InputBase
+									variant="outlined"
+									placeholder="Search games"
+									classes={{
+										root: classes.inputRoot,
+										input: classes.inputInput
+									}}
+									style={{ height: 55, border: '1px solid #C4C4C4', borderRadius: 4 }}
+									onKeyPress={this.handleSubmit}
+								/>
+							</div>
+						</div>
+					</Grid>
+					<Grid item xs={3} sm={2} md={1} >
+						<div >
+
+							<FormControl className={classes.formControl} >
+								{/* <InputLabel >Search by : </InputLabel> */}
+								<Select
+									className={classes.selector}
+									value={searchTerm}
+									onChange={this.handleChange}
+									variant="outlined"
+								>
+									<MenuItem value={"all"}>All</MenuItem>
+									<MenuItem value={"boardGameName"}>Games</MenuItem>
+									<MenuItem value={"city"}>Cities</MenuItem>
+									<MenuItem value={"playerName"}>Users</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
+					</Grid>
+				</Grid>
 			</div>
 		)
 	}
@@ -107,7 +103,7 @@ const styles = (theme) => ({
 	},
 	bgBlock: {
 		width: '100%',
-		
+
 	},
 	search: {
 		position: 'relative',
@@ -117,15 +113,14 @@ const styles = (theme) => ({
 			backgroundColor: fade(theme.palette.common.white, 0.25)
 		},
 		marginRight: theme.spacing.unit * 2,
-		marginLeft: 0,
 		width: '100%',
-		[theme.breakpoints.up('sm')]: {
-			marginLeft: theme.spacing.unit * 3,
-			width: 'auto'
-		}
+		// [theme.breakpoints.up('sm')]: {
+		// 	marginLeft: theme.spacing.unit * 3,
+		// 	width: 'auto'
+		// }
 	},
 	searchIcon: {
-		width: theme.spacing.unit * 9,
+		width: theme.spacing.unit * 5,
 		height: '100%',
 		position: 'absolute',
 		pointerEvents: 'none',
@@ -141,21 +136,19 @@ const styles = (theme) => ({
 		paddingTop: theme.spacing.unit,
 		paddingRight: theme.spacing.unit,
 		paddingBottom: theme.spacing.unit,
-		paddingLeft: theme.spacing.unit * 10,
+		paddingLeft: theme.spacing.unit * 7,
 		transition: theme.transitions.create('width'),
 		width: '100%',
-		[theme.breakpoints.up('md')]: {
-			width: 200
-		}
+		// [theme.breakpoints.up('md')]: {
+		// 	width: 200
+		// }
 	},
 	formControl: {
-		margin: theme.spacing(1),
-		minWidth: 120,
+		margin: theme.spacing(2),
+		// minWidth: 120,
 	},
-	selector:{
-		// width: "100%"
-	}
+
 })
 
 
-export default connect(null, { })(withRouter(withStyles(styles)(SearchForm)))
+export default connect(null, {})(withRouter(withStyles(styles)(SearchForm)))
