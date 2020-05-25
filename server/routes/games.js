@@ -120,6 +120,19 @@ router.route('/leave')
             .catch(err => console.log(err))
         }
     )
+
+
+// get all the games joined by the current user
+router.route('/scheduled')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.find({ players: req.user.id
+            })
+            .sort({ gameDate: -1 })
+            .then(games => res.json(games))
+            .catch(err => console.log(err))
+    })
     
 
 // get all games sorted by game date desc
