@@ -10,15 +10,19 @@ class TopGames extends Component {
         this.state = {
             user: {}
         }
+        this.selectGame = this.selectGame.bind(this)
     }
-    
-    
+
+    selectGame(gameDetails) {
+        this.props.handleChange(gameDetails)
+    }
+
 
     render(){
         const {user} = this.props
         if (user){
             const cards = Object.keys(user.topGames)
-            .map(key=> <Card key={key} details={user.topGames[key]}></Card>)
+            .map(key=> <Card key={key} details={user.topGames[key]} handleChange={this.selectGame}></Card>)
             return(
                 <div className="card">
                     {cards}
@@ -26,7 +30,7 @@ class TopGames extends Component {
             )
         } else {
             return(
-                <p>pas glop !</p>
+                <p>remember to indicate your favorite games in your personal space</p>
             )
         }
     }
@@ -34,8 +38,7 @@ class TopGames extends Component {
 
 const styles = {
  
-    card: {
-        
+    card: {    
     }
 }
 

@@ -1,24 +1,71 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Button } from '@material-ui/core'
+import CreateGame from './CreateGame'
+import { createGame } from '../../actions/gameActions';
 
 
 class Card extends Component {
-    render () {
-        const { classes, details } = this.props;
+    constructor(props) {
+        super(props)
+        this.state = {
+        boardGameDetails: null,
+        loading: true,
+        }
+    
+    }
 
+    componentDidMount() {
+        axios
+        .get(
+            'https://bgg-json.azurewebsites.net/thing/' +
+            this.props.details
+        )
+        .then((response) =>
+            this.setState({
+            boardGameDetails: response,
+            loading: false,
+            }),
+        )
+        .catch((err) => console.log(err))
+    }
+
+
+    render () {
+        const { classes } = this.props;
+        const { boardGameDetails, loading } = this.state
+        let boardGameImage = null
+        let boardGameName = null
+    
+        if (loading === false) {
+            boardGameImage = (
+                <img className={classes.image} src={boardGameDetails.data.thumbnail} height="100" />
+            )
+            boardGameName = (
+                <span className={classes.title}> {boardGameDetails.data.name} </span>
+            )
+        }
+        
         return (
-            <Paper className={classes.paper}>                 
-                <div>
-                    <h3 className={classes.login}>
-                        {details}
-                    </h3>
-                </div>
-            </Paper>
+            <div>
+                <Paper className={classes.paper}>    
+                <Button onClick={() => this.props.handleChange(boardGameDetails)} >           
+                    <div>
+                       { boardGameImage }
+                    </div>
+                    <div>
+                        { boardGameName }
+                    </div>
+                </Button>  
+                </Paper>
+            </div>
         )
     }
 }
+
 
 
 const styles = {
@@ -27,40 +74,14 @@ const styles = {
         display: 'flex',
         marginTop: 10
     },
-    avatar: {
-        minWidth: 10,
-        margin: '4px 10px 4px 4px'
-    },
-    login: {
-        marginBottom: 5
-    },
-    time: {
+    title: {
+        fontSize: '2rem',
+        color: '#595959',
         marginLeft: 10,
-        color: '#bbb',
-        fontSize: 14
     },
-    btnBlock: {
-        width: '100%',
-        textAlign: 'right'
-    },
-    btnDelete: {
-        backgroundColor: '#7584ff',
-        color: 'white',
-        '&:hover': {
-            color: '#7584ff',
-            borderColor: '#7584ff',
-            backgroundColor: 'white'
-        }
-    },
-    btnEdit: {
-        marginRight: "3px",
-        backgroundColor: '#7584ff',
-        color: 'white',
-        '&:hover': {
-            color: '#7584ff',
-            borderColor: '#7584ff',
-            backgroundColor: 'white'
-        }
+    image: {
+        borderRadius: 5,
+        overflow: "hidden",
     }
 }
 
