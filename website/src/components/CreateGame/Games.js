@@ -59,7 +59,7 @@ class Games extends Component {
                     </Button> 
                 </div>
                 <div>
-        {this.state.loading ? <div>no game</div> : console.log(this.state.boardGameDetails) }
+                    {this.state.loading ? <div>no game</div> : console.log(this.state.boardGameDetails) }
                 </div>
             </form>
         )
