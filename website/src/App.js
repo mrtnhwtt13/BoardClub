@@ -10,7 +10,8 @@ import Login from './components/Auth/Login';
 import GamePage from './components/GameView/GameDisplay';
 import EditUser from './components/Admin/EditUser';
 import NotFound from './components/NotFound';
-import Admin from './components/Admin/Admin'
+import Admin from './components/Admin/Admin';
+import SearchPage from './components/Search/SearchPage';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
 
@@ -41,6 +42,7 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/search" component={SearchPage} />
                 <Route path="/admin/user/edit" component={EditUser} />
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/game/:gameId" component={GamePage} />

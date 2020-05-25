@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar'
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
@@ -40,7 +41,7 @@ class Header extends Component {
                     </Button>
                     </Grid>
                     <Grid container justify="center" item xs={12} sm={4}>
-                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", width: "10rem", height: "4rem"}} to="/" >
+                    <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#FED365", color: "white", width: "10rem", height: "4rem"}} component={Link} to="/search" >
                         Search for a game
                     </Button>
                     </Grid>
