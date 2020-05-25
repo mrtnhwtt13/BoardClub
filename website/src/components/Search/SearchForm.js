@@ -61,6 +61,7 @@ class SearchForm extends Component {
 												root: classes.inputRoot,
 												input: classes.inputInput
 											}}
+											
 											onKeyPress={this.handleSubmit}
 										/>
 									</div>
@@ -70,12 +71,12 @@ class SearchForm extends Component {
 								<div>
 									<div>
 										<FormControl className={classes.formControl}>
-											<InputLabel id="demo-simple-select-label">Search by : </InputLabel>
+											<InputLabel >Search by : </InputLabel>
 											<Select
-												labelId="demo-simple-select-label"
-												id="demo-simple-select"
+												className={classes.selector}
 												value={searchTerm}
 												onChange={this.handleChange}
+												variant="filled"
 											>
 												<MenuItem value={"all"}>All</MenuItem>
 												<MenuItem value={"boardGameName"}>Board Games</MenuItem>
@@ -102,7 +103,7 @@ const styles = (theme) => ({
 	paper: {
 		padding: 10,
 		marginTop: 10,
-		background: "#F5F9FC"
+		// background: "#F5F9FC"
 	},
 	bgBlock: {
 		width: '100%',
@@ -150,6 +151,9 @@ const styles = (theme) => ({
 	formControl: {
 		margin: theme.spacing(1),
 		minWidth: 120,
+	},
+	selector:{
+		// width: "100%"
 	}
 })
 
