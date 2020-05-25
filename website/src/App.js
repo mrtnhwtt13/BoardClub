@@ -47,15 +47,12 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
-<<<<<<< HEAD
                 <Route path="/createGame" component={CreateGame} />
-=======
                 <Route path="/search" component={SearchPage} />
                 <Route path="/admin/user/edit" component={EditUser} />
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/game/:gameId" component={GamePage} />
                 <Route path="/profile/:userId" component={Profile} />
->>>>>>> dev
                 <Route component={NotFound} />
               </Switch>
             </Main>
