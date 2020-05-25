@@ -7,8 +7,16 @@ import Main from './components/Layout/Main';
 import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+<<<<<<< HEAD
 import CreateGame from './components/CreateGame/CreateGame';
+=======
+import GamePage from './components/GameView/GameDisplay';
+import EditUser from './components/Admin/EditUser';
+>>>>>>> dev
 import NotFound from './components/NotFound';
+import Admin from './components/Admin/Admin'
+import Profile from './components/Profile/Profile'
+import SearchPage from './components/Search/SearchPage';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
 
@@ -39,7 +47,15 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+<<<<<<< HEAD
                 <Route path="/createGame" component={CreateGame} />
+=======
+                <Route path="/search" component={SearchPage} />
+                <Route path="/admin/user/edit" component={EditUser} />
+                <Route exact path="/admin" component={Admin} />
+                <Route path="/game/:gameId" component={GamePage} />
+                <Route path="/profile/:userId" component={Profile} />
+>>>>>>> dev
                 <Route component={NotFound} />
               </Switch>
             </Main>

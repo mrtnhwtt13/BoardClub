@@ -1,45 +1,43 @@
 import {
-    ADD_GAME,
-    LOADING_GAMES,
-    GET_GAMES,
-    GET_GAMEBYID,
-    DELETE_GAME,
-    GET_GAME
+    LOADING_USERS,
+    GET_USERS,
+    GET_USER,
+    DELETE_USER,
+    BAN_USER
 } from '../constants';
-
 
 const initialState = {
     list: null,
-    game: null,
+    user: null,
     loading: false
 }
 
-
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_GAME:
-            return {
-                ...state,
-                list: [action.payload, ...state.list]
-            }
-        case LOADING_GAMES:
+        case LOADING_USERS:
             return {
                 ...state,
                 loading: true
             }
-        case GET_GAMES:
+        case GET_USERS:
             return {
                 ...state,
                 loading: false,
                 list: action.payload
             }
-        case GET_GAME:
+        case GET_USER:
             return {
-                ...state,                
+                ...state,
                 loading: false,
-                game: action.payload
+                user: action.payload
             }
-        case DELETE_GAME:
+        case BAN_USER:
+            return {
+                ...state,
+                loading: false,
+                list: state.list
+            }
+        case DELETE_USER:
             return {
                 ...state,
                 loading: false,
