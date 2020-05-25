@@ -71,6 +71,57 @@ router.route('/edit')
         }    
     )
 
+
+// join a game
+router.route('/join')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.findOneAndUpdate({
+                _id: req.body.gameId
+            }, {
+                $push: { players: req.user.id}
+            },
+            { new: true})
+            .then(game1 => {
+                Game.findOneAndUpdate({
+                    _id: req.body.gameId
+                }, {
+                    playersNumber: (game1.playersNumber + 1)
+                }, { new: true })
+                .then(game2 => res.json({ players: game2.players }))
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+        }
+    )
+
+
+// leave a game
+router.route('/leave')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.findOneAndUpdate({
+                _id: req.body.gameId
+            }, {
+                $pull: { players: req.user.id}
+            },
+            { new: true })
+            .then(game1 => {
+                Game.findOneAndUpdate({
+                    _id: req.body.gameId
+                }, {
+                    playersNumber: (game1.playersNumber - 1)
+                }, { new: true })
+                .then(game2 => res.json({ players: game2.players }))
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+        }
+    )
+    
+
 // get all games sorted by game date desc
 router.route('/')
     .get((req, res) => {
