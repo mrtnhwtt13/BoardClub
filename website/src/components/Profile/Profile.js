@@ -14,9 +14,15 @@ class Profile extends Component {
 
     }
     render() {
-        const { user, loadingUser } = this.props;
+        const { user, loadingUser, classes } = this.props;
         let username = null;
+        let avatar = null;
         if (user && loadingUser === false) {
+            if (user.avatar === ""){
+                avatar = (
+                    <img className={classes.image} src="https://i.imgur.com/wPNa9Vj.jpg" height="100" />
+                )
+            }
             username = (
                 <div>
                     {user.login}
@@ -26,8 +32,17 @@ class Profile extends Component {
         return (
             <div>
                 <Paper elevation={2} style={{ padding: 15 }}>
-                    <Grid md={12} spacing={3} container justify="center" alignItems="center">
-                        <Grid container xs={6} direction="column" container justify="center" alignItems="center">
+                    <Grid md={12} spacing={2} container justify="center" alignItems="center">
+                    <Grid container xs={2} direction="column" container justify="center" alignItems="center">
+                            <Grid item direction="column">
+
+                                    {avatar}
+                            </Grid>
+                        </Grid>
+                        <Grid container xs={6} direction="column" container justify="center">
+                            <Grid item>
+                                {username}
+                            </Grid>
                             <Grid item>
                                 {username}
                             </Grid>
@@ -35,7 +50,7 @@ class Profile extends Component {
                                 {username}
                             </Grid>
                         </Grid>
-                        <Grid container xs={6} direction="column" container justify="center" alignItems="center">
+                        <Grid container xs={2} direction="column" container justify="center" alignItems="center">
                             <Grid item direction="column">
                                 <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Follow</Button>
                             </Grid>
@@ -48,7 +63,10 @@ class Profile extends Component {
 }
 
 const styles = {
-
+    image: {
+        borderRadius: 8,
+        overflow: "hidden",
+    },
 }
 
 const mapStateToProps = (state) => ({
