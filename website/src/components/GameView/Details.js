@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 import { getUserById } from '../../actions/userActions'
 import LoadingGame from './LoadingGame';
+import { Link } from 'react-router-dom';
+
 
 
 class Details extends Component {
@@ -19,9 +21,9 @@ class Details extends Component {
         }
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.props.getUserById(this.props.game.userId)
-            
+
         axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.game.boardGameId)
             .then((response) =>
                 this.setState({
@@ -32,7 +34,7 @@ class Details extends Component {
             .catch((err) => console.log(err))
     }
 
-    render() {            
+    render() {
         const { classes, game, user, loadingUser } = this.props
         const { boardGameDetails, loadingBoardgameDetails } = this.state
         let boardGameImage = null;
@@ -40,12 +42,11 @@ class Details extends Component {
         let boardGameTime = null;
         let creator = null;
         let JoinLeave = null;
-                   
+
         if (user && loadingUser === false && loadingBoardgameDetails === false) {
-            let linkuser = null
             let linkbgg = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
             boardGameImage = (
-                <img className={classes.image} src={boardGameDetails.data.image} height="270" />
+                <img className={classes.image} src={boardGameDetails.data.image}  />
             )
             boardGameName = (
                 <span className={classes.game}>
@@ -60,7 +61,10 @@ class Details extends Component {
             )
             creator = (
                 <span className={classes.creator}>
-                    By {user.login}
+                    By{' '}
+                    <Link to={`/profile/${user._id}`}>
+                        {user.login}
+                    </Link>
                 </span>
             )
             JoinLeave = (
@@ -72,15 +76,15 @@ class Details extends Component {
             return (
                 <div className={classes.root}>
                     <div>
-                        <Grid container spacing={2} direction="row" className={classes.bgBlock} justify='center'>
-                            <Grid item container justify='center'>
+                        <Grid container spacing={1} direction="row" className={classes.bgBlock} justify='center'>
+                            <Grid item sm={12} md={6} container justify='center' alignItems="center">
                                 <div>
                                     {boardGameImage}
                                 </div>
                             </Grid>
-                            <Grid alignContent='center' item sm={12} md container>
-                            <Grid item xs container direction="column" spacing={2}>
-                                <Grid item md={12}>
+                            <Grid alignContent='center' item sm={12} md={6} container>
+                                <Grid item xs md={10} container direction="column" spacing={2}>
+                                    <Grid item >
                                         <Typography component={'span'} gutterBottom variant="subtitle1">
                                             <div className={classes.title}><strong>{game.title}</strong> {creator}</div>
                                         </Typography>
@@ -89,9 +93,9 @@ class Details extends Component {
                                                 <div>
                                                     {boardGameName}
                                                 </div>
-                                                    <div>
-                                                        {boardGameTime}
-                                                    </div>
+                                                <div>
+                                                    {boardGameTime}
+                                                </div>
                                                 <div className={classes.players}><strong>{game.playersNumber}</strong> spot filled out of <strong>{game.playersMax}</strong></div>
                                                 <div>
                                                     <strong>Game level :</strong> {game.playersLevel}
@@ -118,7 +122,7 @@ class Details extends Component {
                                         </Typography>
                                     </Grid>
                                 </Grid>
-                                <Grid item>
+                                <Grid item md={2}>
                                     <Typography component={'span'} variant="subtitle1">
                                         {JoinLeave}
                                     </Typography>
@@ -182,9 +186,24 @@ const styles = {
     image: {
         borderRadius: 5,
         overflow: "hidden",
+        width: 300
+    },
+    '@media (max-width: 959px)': {
+        image: {
+            borderRadius: 5,
+            overflow: "hidden",
+            width: 400
+        },
+    },
+    '@media (min-width: 1550px)': {
+        image: {
+            borderRadius: 5,
+            overflow: "hidden",
+            width: 500
+        },
     },
     creator: {
-        fontSize: 14
+        fontSize: 20
     }
 }
 
