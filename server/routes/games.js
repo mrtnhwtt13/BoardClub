@@ -2,6 +2,7 @@ const router = require("express").Router();
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const Game = require("../models/Game");
+const User = require("../models/User");
 const validateCreationInput = require('../validation/createGame')
 
 
@@ -33,6 +34,7 @@ router.route('/create')
         }    
     )
 
+
 // delete an existing game
 router.route('/delete')
     .post(
@@ -43,6 +45,7 @@ router.route('/delete')
                 .catch(err => console.log(err))
         }    
     )
+
 
 // edit an existing game
 router.route('/edit')
@@ -71,6 +74,118 @@ router.route('/edit')
         }    
     )
 
+
+// join a game
+router.route('/join')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.findOneAndUpdate({
+                _id: req.body.gameId
+            }, {
+                $push: { players: req.user.id}
+            },
+            { new: true})
+            .then(game1 => {
+                Game.findOneAndUpdate({
+                    _id: req.body.gameId
+                }, {
+                    playersNumber: (game1.playersNumber + 1)
+                }, { new: true })
+                .then(game2 => res.json({ players: game2.players }))
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+        }
+    )
+
+
+// leave a game
+router.route('/leave')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.findOneAndUpdate({
+                _id: req.body.gameId
+            }, {
+                $pull: { players: req.user.id}
+            },
+            { new: true })
+            .then(game1 => {
+                Game.findOneAndUpdate({
+                    _id: req.body.gameId
+                }, {
+                    playersNumber: (game1.playersNumber - 1)
+                }, { new: true })
+                .then(game2 => res.json({ players: game2.players }))
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+        }
+    )
+
+
+// get all the games joined by the current user
+router.route('/scheduled')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.find({ players: req.user.id
+            })
+            .sort({ gameDate: -1 })
+            .then(games => res.json(games))
+            .catch(err => console.log(err))
+    })
+
+
+// search games
+router.route('/search')
+	.post((req, res) => {        
+
+        User.find({ login: new RegExp(".*" + req.body.searchText + ".*", "i")})
+            .then(users => 
+                {   var userSearch = [];
+                    users.forEach(element => {
+                        userSearch.push(element.id)
+                    });
+
+                    var query;
+                    if (req.body.searchTerm === "all") {
+                        query = {
+                            $or: [
+                                {boardGameName: new RegExp(".*" + req.body.searchText + ".*", "i")},
+                                {city: new RegExp(".*" + req.body.searchText + ".*", "i")},
+                                {players: { $in: userSearch }}
+                            ]
+                        }
+                    }
+                    else if (req.body.searchTerm === "boardGameName") {
+                        query = {
+                            boardGameName: new RegExp(".*" + req.body.searchText + ".*", "i")
+                            
+                        }
+                    }
+                    else if (req.body.searchTerm === "city") {
+                        query = {
+                            city: new RegExp(".*" + req.body.searchText + ".*", "i")
+                            
+                        }
+                    }
+                    else if (req.body.searchTerm === "playerName") {
+                        query = {
+                            players: { $in: userSearch }                            
+                        }
+                    }
+
+                    Game.find(query)
+                        .sort({ gameDate: -1 })
+		                .then(games => res.json(games))
+                        .catch(err => res.status(404).json({ msg: 'Games not found'}))
+                })
+            .catch(err => console.log(err))
+    })
+    
+
 // get all games sorted by game date desc
 router.route('/')
     .get((req, res) => {
@@ -79,6 +194,7 @@ router.route('/')
             .then(games => res.json(games))
             .catch(err => console.log(err))
     })
+
 
 // get one game by game Id
 router.route('/find/:gameId')
@@ -94,6 +210,7 @@ router.route('/find/:gameId')
             })
             .catch(err => console.log(err))                
     })
+
 
 // get all games of an user by user Id (sorted by game date desc)
 router.route('/:userId')

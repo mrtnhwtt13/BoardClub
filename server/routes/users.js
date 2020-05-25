@@ -188,6 +188,19 @@ router.route('/unfollow')
     )
 
 
+// get all the users followed by the current user
+router.route('/following')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            User.find({ _id: { $in: req.user.following }
+            })
+            .sort({ login: 1 })
+            .then(users => res.json(users))
+            .catch(err => console.log(err))
+    })
+
+
 // get user id with name or email
 router.route('/search')
 	.post((req, res) => {
