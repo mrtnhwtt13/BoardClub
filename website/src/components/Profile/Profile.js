@@ -65,7 +65,7 @@ class Profile extends Component {
         }
         return (
             <div>
-                <Paper elevation={2} style={{ padding: 20, paddingTop: 40, paddingBottom: 40 }}>
+                <Paper elevation={2} style={{ padding: 20, paddingTop: 40, paddingBottom: 40, marginTop: 25 }}>
                     <Grid spacing={2} container justify="center" alignItems="center">
                         <Grid container item sm={12} md={2}  justify="center" alignItems="center">
                             <Grid item>
