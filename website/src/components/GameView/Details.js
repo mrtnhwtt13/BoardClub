@@ -42,14 +42,15 @@ class Details extends Component {
         let JoinLeave = null;
                    
         if (user && loadingUser === false && loadingBoardgameDetails === false) {
-            let link = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
+            let linkuser = null
+            let linkbgg = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
             boardGameImage = (
                 <img className={classes.image} src={boardGameDetails.data.image} height="270" />
             )
             boardGameName = (
                 <span className={classes.game}>
                     <strong>Playing : </strong>
-                    <a title="Learn more about this game on Board Game Geek" href={link}>
+                    <a title="Learn more about this game on Board Game Geek" href={linkbgg}>
                         {boardGameDetails.data.name}
                     </a>
                 </span>
