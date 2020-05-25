@@ -106,7 +106,7 @@ root: {
 },
 paper: {
     padding: 10,
-    marginTop: 10,
+    marginTop: 10
 },
 bgBlock: {
     width: '100%',
