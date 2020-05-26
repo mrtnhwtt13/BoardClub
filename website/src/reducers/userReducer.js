@@ -4,8 +4,7 @@ import {
     GET_USER,
     DELETE_USER,
     BAN_USER,
-    FOLLOW,
-	UNFOLLOW
+    
 } from '../constants';
 
 const initialState = {
@@ -44,22 +43,6 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: false,
                 list: state.list.filter(item => item !== action.payload)
-            }
-            case FOLLOW:
-			return {
-				...state,
-				user: {
-					...state.user,
-					following: [...state.user.following, action.payload]
-				}
-			}
-		case UNFOLLOW:
-			return {
-				...state,
-				user: {
-					...state.user,
-					following: state.user.following.filter(item => item !== action.payload)
-                }
             }
         default:
             return state
