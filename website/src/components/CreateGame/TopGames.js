@@ -12,8 +12,8 @@ class TopGames extends Component {
         this.selectGame = this.selectGame.bind(this)
     }
 
-    selectGame(selectedGameId) {
-        this.props.selectedGame(selectedGameId)
+    selectGame(selectedGameId, selectedGameName) {
+        this.props.selectedGame(selectedGameId, selectedGameName)
     }
 
     render(){

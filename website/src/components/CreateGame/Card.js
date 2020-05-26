@@ -54,8 +54,9 @@ class Card extends Component {
     render () {
         const { classes, boardGameId } = this.props;
         const { boardGameImagePath, boardGameName, loading, invalidGame } = this.state
-        let boardGameImageBloc = null
-        let boardGameNameBloc = null
+        let boardGameImageBloc = null;
+        let boardGameNameBloc = null;
+        let boardGameBloc = null;
     
         if (loading === false) {
             boardGameImageBloc = (
@@ -63,6 +64,16 @@ class Card extends Component {
             )
             boardGameNameBloc = (
                 <span className={classes.title}> {boardGameName} </span>
+            )
+            boardGameBloc = (
+                <Button onClick={() => this.props.selectBoardGameId(boardGameId, boardGameName)} >           
+                    <div>
+                        { boardGameImageBloc }
+                    </div>
+                    <div>
+                        { boardGameNameBloc }
+                    </div>
+                </Button>
             )
         }
         
@@ -73,14 +84,7 @@ class Card extends Component {
             return (
                 <div>
                     <Paper className={classes.paper}>    
-                        <Button onClick={() => this.props.selectBoardGameId(boardGameId)} >           
-                            <div>
-                                { boardGameImageBloc }
-                            </div>
-                            <div>
-                                { boardGameNameBloc }
-                            </div>
-                        </Button>  
+                        {boardGameBloc}  
                     </Paper>
                 </div>
             )

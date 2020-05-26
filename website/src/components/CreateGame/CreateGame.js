@@ -13,22 +13,26 @@ class CreateGame extends React.Component {
 
         this.state = {
             searchGame: '',
-            newGame: '',
+            newGameId: '',
+            newGameName: '',
             loading: false
         }
 
         this.selectGame = this.selectGame.bind(this)
     }
     
-    selectGame (selectedGameId) {
-        this.setState({newGame: selectedGameId})
+    selectGame (selectedGameId, selectedGameName) {
+        this.setState({
+            newGameId: selectedGameId,
+            newGameName: selectedGameName
+        })
     }
 
     render(){
-        if(this.state.newGame != '') {
+        if(this.state.newGameId != '') {
             return(
                 <Paper style={{ padding: 15 }}>
-                    <InfoGame boardGameId={this.state.newGame} />
+                    <InfoGame boardGameId={this.state.newGameId} boardGameName={this.state.newGameName} />
                 </Paper>
             )
         }

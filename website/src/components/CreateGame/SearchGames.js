@@ -56,8 +56,8 @@ class SearchGames extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    selectGame(selectedGameId) {
-        this.props.selectedGame(selectedGameId)
+    selectGame(selectedGameId, selectedGameName) {
+        this.props.selectedGame(selectedGameId, selectedGameName)
     }
 
     render () {

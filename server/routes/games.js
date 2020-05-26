@@ -22,6 +22,7 @@ router.route('/create')
                 description: req.body.description.trim(),
                 gameDate: req.body.gameDate,
                 boardGameId: req.body.boardGameId,
+                boardGameName: req.body.boardGameName,
                 city: req.body.city,
                 playersLevel: req.body.playersLevel,
                 players: [req.user.id],

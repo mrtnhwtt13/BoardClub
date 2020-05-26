@@ -35,7 +35,7 @@ export const createGame = (gameData, history) => dispatch => {
             type: ADD_GAME,
             payload: res.data
         }))
-        .then(res => history.push(`/admin`))
+        .then(res => history.push(`/`))
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data

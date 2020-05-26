@@ -18,6 +18,7 @@ class InfoGame extends Component {
             city: '',
             description: '',
             boardGameId: '',
+            boardGameName: '',
             errors: {}
         }
         this.handleChange = this.handleChange.bind(this)
@@ -39,6 +40,7 @@ class InfoGame extends Component {
         const createGameData = {
             userId: this.props.user.userId,
             boardGameId: this.props.boardGameId,
+            boardGameName: this.props.boardGameName,
             title: this.state.title,
             playersLevel: this.state.playersLevel,
             playersMax: this.state.playersMax,
