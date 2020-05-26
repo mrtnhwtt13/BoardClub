@@ -11,3 +11,5 @@ export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const BAN_USER = 'BAN_USER';
+export const FOLLOW = 'FOLLOW';
+export const UNFOLLOW = 'UNFOLLOW';
