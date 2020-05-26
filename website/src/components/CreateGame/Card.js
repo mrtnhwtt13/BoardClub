@@ -83,7 +83,7 @@ class Card extends Component {
         else {
             return (
                 <div>
-                    <Paper className={classes.paper}>    
+                    <Paper elevation={2} className={classes.paper}>    
                         {boardGameBloc}  
                     </Paper>
                 </div>

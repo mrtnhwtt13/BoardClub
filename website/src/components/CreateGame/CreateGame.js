@@ -46,13 +46,14 @@ class CreateGame extends React.Component {
         else {
             return (
                 <div className={classes.root}>
-                    <Paper style={{ padding: 15 }}>
+                    <Paper elevation={3} style={{ padding: 15, marginTop: 30 }}>
                         <h1 className={classes.title}>SELECT A BOARD GAME</h1>
-                        <ExpansionPanel>
+                        <ExpansionPanel style={{ borderRadius: 4, marginBottom: 60, marginTop: 40 }}>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
+                                // aria-controls="panel1a-content"
+                                // id="panel1a-header"
+                                
                             >
                                 <Typography className={classes.heading}>Choose from your favorite games</Typography>
                             </ExpansionPanelSummary>
