@@ -53,7 +53,7 @@ class Game extends Component {
 
         if (loading === false) {
             boardGameImageBloc = (
-                <img className={classes.image} src={boardGameImagePath} height="100" />
+                <img className={classes.image} src={boardGameImagePath} width="100" />
             )
             boardGameNameBloc = (
                 <span className={classes.title}>
@@ -68,8 +68,8 @@ class Game extends Component {
                 <Link to={`/game/${game._id}`}>
                     <Paper className={classes.paper}>
                         <div>
-                            <Grid container spacing={2} direction="row" className={classes.bgBlock}>
-                                <Grid item>    
+                            <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
+                                <Grid item justify='center' alignItems="center">    
                                     {boardGameImageBloc}
                                 </Grid> 
                                 <Grid item xs={7} sm container>
