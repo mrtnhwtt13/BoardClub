@@ -5,6 +5,11 @@ import { withRouter } from 'react-router-dom'
 import TopGames from './TopGames'
 import SearchGames from './SearchGames'
 import InfoGame from './InfoGame'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 class CreateGame extends React.Component {
@@ -29,6 +34,8 @@ class CreateGame extends React.Component {
     }
 
     render(){
+        const { classes } = this.props;
+
         if(this.state.newGameId !== '') {
             return(
                 <Paper style={{ padding: 15 }}>
@@ -38,14 +45,28 @@ class CreateGame extends React.Component {
         }
         else {
             return (
-                <Paper style={{ padding: 15 }}>
-                    <div>
-                        <TopGames selectedGame={this.selectGame} />
-                    </div>
-                    <div>
-                        <SearchGames selectedGame={this.selectGame} />
-                    </div>
-                </Paper>
+                <div className={classes.root}>
+                    <Paper style={{ padding: 15 }}>
+                        <h1 className={classes.title}>SELECT A BOARD GAME</h1>
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography className={classes.heading}>Choose from your favorite games</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                <div>
+                                    <TopGames selectedGame={this.selectGame} />
+                                </div>
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>                        
+                        <div>
+                            <SearchGames selectedGame={this.selectGame} />
+                        </div>
+                    </Paper>
+                </div>
             )
         }
     }
@@ -53,6 +74,18 @@ class CreateGame extends React.Component {
 
 
 const styles = {
+    root: {
+        width: '100%',
+    },
+      heading: {
+        fontSize: "15",
+        color: "#595959"
+    }, 
+    title: {
+        color: '#595959',
+        display: 'flex',
+        justifyContent: 'center'
+    },  
     btnBlock: {
         textAlign: 'center',
         marginBottom: 10,
