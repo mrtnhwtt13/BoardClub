@@ -47,7 +47,7 @@ class Game extends Component {
 
     render() {
         const { classes, game } = this.props
-        const { boardGameDetails, boardGameImagePath, boardGameName, loading } = this.state
+        const { boardGameImagePath, boardGameName, loading } = this.state
         let boardGameImageBloc = null
         let boardGameNameBloc = null
 
