@@ -13,7 +13,8 @@ class Card extends Component {
             boardGameDetails: null,
             boardGameImagePath: "",
             boardGameName: "",
-            loading: true
+            loading: true,
+            invalidGame: false
         }
 
         this.parseResponse = this.parseResponse.bind(this)
@@ -35,17 +36,24 @@ class Card extends Component {
             
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
-            
-        this.setState ({
-            boardGameImagePath: xmlDoc.getElementsByTagName("thumbnail")[0].childNodes[0].nodeValue,
-            boardGameName: xmlDoc.getElementsByTagName("name")[0].getAttribute('value'),
-            loading: false
-        })
+           
+        if (xmlDoc.getElementsByTagName("thumbnail").length === 0) {
+            this.setState({
+                invalidGame: true
+            })
+        }
+        else {
+            this.setState ({
+                boardGameImagePath: xmlDoc.getElementsByTagName("thumbnail")[0].childNodes[0].nodeValue,
+                boardGameName: xmlDoc.getElementsByTagName("name")[0].getAttribute('value'),
+                loading: false
+            })
+        }
     }
 
     render () {
         const { classes, boardGameId } = this.props;
-        const { boardGameImagePath, boardGameName, loading } = this.state
+        const { boardGameImagePath, boardGameName, loading, invalidGame } = this.state
         let boardGameImageBloc = null
         let boardGameNameBloc = null
     
@@ -58,20 +66,25 @@ class Card extends Component {
             )
         }
         
-        return (
-            <div>
-                <Paper className={classes.paper}>    
-                    <Button onClick={() => this.props.selectBoardGameId(boardGameId)} >           
-                        <div>
-                            { boardGameImageBloc }
-                        </div>
-                        <div>
-                            { boardGameNameBloc }
-                        </div>
-                    </Button>  
-                </Paper>
-            </div>
-        )
+        if (invalidGame === true) {
+            return null;
+        }
+        else {
+            return (
+                <div>
+                    <Paper className={classes.paper}>    
+                        <Button onClick={() => this.props.selectBoardGameId(boardGameId)} >           
+                            <div>
+                                { boardGameImageBloc }
+                            </div>
+                            <div>
+                                { boardGameNameBloc }
+                            </div>
+                        </Button>  
+                    </Paper>
+                </div>
+            )
+        }
     }
 }
 
