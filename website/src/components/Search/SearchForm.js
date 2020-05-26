@@ -6,12 +6,9 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper'
 
 
 class SearchForm extends Component {
@@ -32,11 +29,12 @@ class SearchForm extends Component {
 
 	handleSubmit(e) {
 		const searchData = {
-			text: e.target.value
-		}
+            searchText: e.target.value,
+            searchTerm: this.state.searchTerm
+        }
 
 		if (e.key === 'Enter') {
-			this.props.searchGames(searchData, this.props.history)
+			this.props.searchingGame(searchData)
 		}
 	}
 

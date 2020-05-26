@@ -61,6 +61,17 @@ export const editGame = (gameData, history) => dispatch => {
 }
 
 
+// search games
+export const searchGames = gameData => dispatch => {
+    axios.post('http://localhost:5000/api/games/search', gameData)
+        .then(res => dispatch({
+            type: GET_GAMES,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}
+
+
 // get all games
 export const getGames = () => dispatch => {
     dispatch(loadGames)

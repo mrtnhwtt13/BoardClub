@@ -1,6 +1,5 @@
 import React, { Component }from 'react'
 import { TextField, withStyles, Button } from '@material-ui/core'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import Card from './Card'
