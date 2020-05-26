@@ -17,47 +17,66 @@ class Details extends Component {
 
         this.state = {
             boardGameDetails: null,
+            boardGameImagePath: "",
+            boardGameName: "",
+            boardGameTime: "",
             loadingBoardgameDetails: true,
         }
+
+        this.parseResponse = this.parseResponse.bind(this)
     }
 
     componentDidMount() {
         this.props.getUserById(this.props.game.userId)
 
-        axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.game.boardGameId)
-            .then((response) =>
+        axios.get('http://localhost:8080/https://boardgamegeek.com/xmlapi2/thing?id=' + this.props.game.boardGameId)
+            .then(response => {
                 this.setState({
-                    boardGameDetails: response,
-                    loadingBoardgameDetails: false
-                })
-            )
+                    boardGameDetails: response
+                });
+                this.parseResponse();
+            })
             .catch((err) => console.log(err))
+    }
+
+    parseResponse () {
+        var parser, xmlDoc;
+            
+        parser = new DOMParser();
+        xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
+            
+        this.setState ({
+            boardGameImagePath: xmlDoc.getElementsByTagName("image")[0].childNodes[0].nodeValue,
+            boardGameTime: xmlDoc.getElementsByTagName("playingtime")[0].getAttribute('value'),
+            boardGameName: xmlDoc.getElementsByTagName("name")[0].getAttribute('value'),
+            loadingBoardgameDetails: false
+        })
     }
 
     render() {
         const { classes, game, user, loadingUser } = this.props
-        const { boardGameDetails, loadingBoardgameDetails } = this.state
-        let boardGameImage = null;
-        let boardGameName = null;
-        let boardGameTime = null;
+        const { boardGameImagePath, boardGameName, boardGameTime, loadingBoardgameDetails } = this.state
+        let boardGameImageBloc = null;
+        let boardGameNameBloc = null;
+        let boardGameTimeBloc = null;
         let creator = null;
         let JoinLeave = null;
 
         if (user && loadingUser === false && loadingBoardgameDetails === false) {
             let linkbgg = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
-            boardGameImage = (
-                <img className={classes.image} src={boardGameDetails.data.image}  />
+            boardGameImageBloc = (
+                <img className={classes.image} src={boardGameImagePath}  />
             )
-            boardGameName = (
+            boardGameNameBloc = (
                 <span className={classes.game}>
                     <strong>Playing : </strong>
                     <a title="Learn more about this game on Board Game Geek" href={linkbgg}>
-                        {boardGameDetails.data.name}
+                        {boardGameName}
                     </a>
                 </span>
             )
-            boardGameTime = (
-                <div><strong>Average playtime : </strong>{boardGameDetails.data.playingTime} minutes</div>
+            boardGameTimeBloc = (
+                <div><strong>Average playtime : </strong>{boardGameTimeBloc} minutes</div>
             )
             creator = (
                 <span className={classes.creator}>
@@ -79,7 +98,7 @@ class Details extends Component {
                         <Grid container spacing={1} direction="row" className={classes.bgBlock} justify='center'>
                             <Grid item sm={12} md={6} container justify='center' alignItems="center">
                                 <div>
-                                    {boardGameImage}
+                                    {boardGameImageBloc}
                                 </div>
                             </Grid>
                             <Grid alignContent='center' item sm={12} md={6} container>
@@ -91,10 +110,10 @@ class Details extends Component {
                                         <Typography component={'span'} variant="body2" gutterBottom>
                                             <div className={classes.gameInfo}>
                                                 <div>
-                                                    {boardGameName}
+                                                    {boardGameNameBloc}
                                                 </div>
                                                 <div>
-                                                    {boardGameTime}
+                                                    {boardGameTimeBloc}
                                                 </div>
                                                 <div className={classes.players}><strong>{game.playersNumber}</strong> spot filled out of <strong>{game.playersMax}</strong></div>
                                                 <div>

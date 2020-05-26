@@ -11,33 +11,50 @@ class Card extends Component {
 
         this.state = {
             boardGameDetails: null,
+            boardGameImagePath: "",
+            boardGameName: "",
             loading: true
-        }    
+        }
+
+        this.parseResponse = this.parseResponse.bind(this)
     }
 
     componentDidMount() {
-        axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.boardGameId)
-            .then((response) =>
+        axios.get('http://localhost:8080/https://boardgamegeek.com/xmlapi2/thing?id=' + this.props.boardGameId)
+            .then((response) => {
                 this.setState({
-                    boardGameDetails: response,
-                    loading: false,
-                })
-            )
+                    boardGameDetails: response
+                });
+                this.parseResponse();
+            })
             .catch((err) => console.log(err))
+    }
+
+    parseResponse () {
+        var parser, xmlDoc;
+            
+        parser = new DOMParser();
+        xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
+            
+        this.setState ({
+            boardGameImagePath: xmlDoc.getElementsByTagName("thumbnail")[0].childNodes[0].nodeValue,
+            boardGameName: xmlDoc.getElementsByTagName("name")[0].getAttribute('value'),
+            loading: false
+        })
     }
 
     render () {
         const { classes, boardGameId } = this.props;
-        const { boardGameDetails, loading } = this.state
-        let boardGameImage = null
-        let boardGameName = null
+        const { boardGameImagePath, boardGameName, loading } = this.state
+        let boardGameImageBloc = null
+        let boardGameNameBloc = null
     
         if (loading === false) {
-            boardGameImage = (
-                <img className={classes.image} src={boardGameDetails.data.thumbnail} height="100" />
+            boardGameImageBloc = (
+                <img className={classes.image} src={boardGameImagePath} height="100" />
             )
-            boardGameName = (
-                <span className={classes.title}> {boardGameDetails.data.name} </span>
+            boardGameNameBloc = (
+                <span className={classes.title}> {boardGameName} </span>
             )
         }
         
@@ -46,10 +63,10 @@ class Card extends Component {
                 <Paper className={classes.paper}>    
                     <Button onClick={() => this.props.selectBoardGameId(boardGameId)} >           
                         <div>
-                            { boardGameImage }
+                            { boardGameImageBloc }
                         </div>
                         <div>
-                            { boardGameName }
+                            { boardGameNameBloc }
                         </div>
                     </Button>  
                 </Paper>
