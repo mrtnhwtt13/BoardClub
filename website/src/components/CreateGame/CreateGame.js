@@ -10,6 +10,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 
 class CreateGame extends React.Component {
@@ -24,6 +26,7 @@ class CreateGame extends React.Component {
         }
 
         this.selectGame = this.selectGame.bind(this)
+        this.changeGame = this.changeGame.bind(this)
     }
     
     selectGame (selectedGameId, selectedGameName) {
@@ -33,12 +36,28 @@ class CreateGame extends React.Component {
         })
     }
 
+    changeGame () {
+        this.setState({
+            newGameId: '',
+            newGameName: '',
+            searchGame: '',
+            loading: false
+        })
+    }
+
     render(){
         const { classes } = this.props;
 
         if(this.state.newGameId !== '') {
             return(
-                <Paper style={{ padding: 15 }}>
+                <Paper elevation={3} style={{ padding: 15, marginTop: 30 }}>
+                    <div className={classes.btn}>
+                        <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#959fef", color: "white", width: "10rem", height: "2rem"}} onClick={() => { this.changeGame(); }} >
+                            Change game
+                        </Button>
+                    </div>
+                    <h1 className={classes.title}>CREATE YOUR GAME FOR</h1>
+                    <h1 className={classes.title}>{this.state.newGameName.toUpperCase()}</h1>
                     <InfoGame boardGameId={this.state.newGameId} boardGameName={this.state.newGameName} />
                 </Paper>
             )
@@ -86,18 +105,13 @@ const styles = {
         color: '#595959',
         display: 'flex',
         justifyContent: 'center'
-    },  
-    btnBlock: {
-        textAlign: 'center',
-        marginBottom: 10,
-        marginTop: 20
     },
-    btnStyle: {
-        backgroundColor: "#65A2FE",
-        color: "white",
-        border: "white",
+    btn: {
+        display: 'flex',
+        justifyContent: 'center'
     }
 }
+
 
 const mapStateToProps = (state) => ({
     auth: state.auth,

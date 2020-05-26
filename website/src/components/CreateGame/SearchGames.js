@@ -50,6 +50,7 @@ class SearchGames extends Component {
             //create an array of all game's id
             this.state.boardGameIds.push(items[i].getAttribute('id'));
         }
+        this.forceUpdate()
     }
 
     handleChange = (e) => {
