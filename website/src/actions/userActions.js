@@ -5,7 +5,9 @@ import {
     GET_USER,
     LOADING_USERS,
     DELETE_USER,
-    BAN_USER
+    BAN_USER,
+    FOLLOW,
+	UNFOLLOW
 } from '../constants';
 
 
@@ -35,6 +37,25 @@ export const getFollowingUsers = () => dispatch => {
             payload: res.data
         }))
         .catch(err => console.log(err))
+}
+
+export const followUser = (userId) => dispatch => {
+	axios.post('http://localhost:5000/api/users/follow', { userId })
+		.then(res => dispatch({
+			type: FOLLOW,
+			payload: res.data.userId
+		}))
+		.catch(err => console.log(err))
+}
+
+export const unfollowUser = (userId) => dispatch => {
+
+	axios.post('http://localhost:5000/api/users/unfollow', { userId })
+		.then(res => dispatch({
+			type: UNFOLLOW,
+			payload: res.data.userId
+		}))
+		.catch(err => console.log(err))
 }
 
 

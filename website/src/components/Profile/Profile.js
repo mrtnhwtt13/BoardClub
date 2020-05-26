@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getUserById } from '../../actions/userActions'
+import { getUserById, followUser, unfollowUser, } from '../../actions/userActions'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -14,7 +14,8 @@ class Profile extends Component {
 
     constructor(props) {
         super(props)
-
+        this.handleFollow = this.handleFollow.bind(this)
+		this.handleUnfollow = this.handleUnfollow.bind(this)
         this.state = {
             currentId: 0
         }
@@ -25,6 +26,15 @@ class Profile extends Component {
         const pageUserId = this.props.match.params.userId
         this.setState({currentId: pageUserId})
     }
+    
+
+    handleFollow (){
+		this.props.followUser(this.props.match.params.userId)
+	}
+
+	handleUnfollow () {
+		this.props.unfollowUser(this.props.match.params.userId)
+	}
 
     render() {
         const { user, authUser,loadingUser, classes } = this.props;
@@ -83,9 +93,32 @@ class Profile extends Component {
                 </div>
             )
             if (user._id !== authUser._id){
-                button = (
-                    <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Follow</Button>
-                )
+                if (
+                    user &&
+                    user.following &&
+                    user.following.indexOf(this.props.match.params.userId) === -1
+                ) {
+                    button = (<div className={classes.btnBlock}>
+                        <Button 
+                            style={{ backgroundColor: "#65A2FE", color: "white" }}
+                            disableElevation variant="contained" 
+                            className={classes.btnFollow} 
+                            onClick={this.handleFollow}>
+                            Add Friend
+                        </Button>
+                    </div>)
+                } else {
+                    button = (<div className={classes.btnBlock}>
+                        <Button 
+                            style={{ backgroundColor: "#65A2FE", color: "white" }}
+                            disableElevation variant="contained" 
+                            className={classes.btnFollow}
+                            onClick={this.handleUnfollow}
+                        >
+                            Remove Friend
+                        </Button>
+                    </div>)
+                }
             }
             else {
                 button = (
@@ -182,4 +215,4 @@ const mapStateToProps = (state) => ({
     authUser: state.auth.user
 })
 
-export default connect(mapStateToProps, { getUserById })(withStyles(styles)(Profile))
+export default connect(mapStateToProps, { getUserById, followUser, unfollowUser })(withStyles(styles)(Profile))
