@@ -14,6 +14,10 @@ const commentSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  gameId: {
+    type: String,
+    required: true
   }
 });
 

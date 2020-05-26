@@ -13,3 +13,6 @@ export const DELETE_USER = 'DELETE_USER';
 export const BAN_USER = 'BAN_USER';
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const LOADING_COMMENTS = 'LOADING_COMMENTS';

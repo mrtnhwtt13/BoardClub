@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Details from './Details';
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getGameById } from '../../actions/gameActions';
 import LoadingGame from './LoadingGame';
+import ListComments from './Comments/ListComments';
 
 
 class GameDisplay extends Component {
@@ -31,11 +33,22 @@ class GameDisplay extends Component {
 
         return (
             <div>            
-                { loading ? <LoadingGame /> : <Details game={game} /> }
+                {
+                    loading ?
+                        <LoadingGame /> :
+                        <div>
+                            <div>
+                                <Details game={game} />
+                            </div>
+                            <div>
+                                <ListComments gameId={game._id} />
+                            </div>
+                        </div>
+                }
             </div>
         )
     }
 }
 
 
-export default (GameDisplay);
+export default withRouter(GameDisplay);
