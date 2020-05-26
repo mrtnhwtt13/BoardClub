@@ -98,6 +98,11 @@ class Profile extends Component {
                     user.following &&
                     user.following.indexOf(this.props.match.params.userId) === -1
                 ) {
+                    console.log(user.login)
+                    console.log(user.following)
+                    console.log("authUser's id " + authUser._id)
+                    console.log("this user's id "+this.props.match.params.userId)
+
                     button = (<div className={classes.btnBlock}>
                         <Button 
                             style={{ backgroundColor: "#65A2FE", color: "white" }}
@@ -108,6 +113,10 @@ class Profile extends Component {
                         </Button>
                     </div>)
                 } else {
+                    console.log(user.login)
+                    console.log(user.following)
+                    console.log("authUser's id " + authUser._id)
+                    console.log("this user's id "+this.props.match.params.userId)
                     button = (<div className={classes.btnBlock}>
                         <Button 
                             style={{ backgroundColor: "#65A2FE", color: "white" }}
