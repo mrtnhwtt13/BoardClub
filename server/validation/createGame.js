@@ -27,6 +27,22 @@ module.exports = function (data) {
   else if (!Validator.isLength(data.city, { min: 1, max: 50 })) {
     errors.city = "City must be between 1 and 50 characters";
   }
+
+  // Players level checks
+  if (Validator.isEmpty(data.playersLevel)) {
+    errors.playersLevel = "Player level field is required";
+  }
+
+  // Players number checks
+  if (Validator.isEmpty(data.playersMax)) {
+    errors.playersMax = "Player number field is required";
+  }
+
+  // Game date checks
+  if (data.gameDate === null) {
+    errors.gameDate = "Game date field is required";
+    errors.gameHour = "Game hour field is required";
+  }
   
   return {
     errors,
