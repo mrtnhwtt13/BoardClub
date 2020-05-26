@@ -110,15 +110,12 @@ const styles = (theme) => ({
 		'&:hover': {
 			backgroundColor: fade(theme.palette.common.white, 0.25)
 		},
-		marginRight: theme.spacing.unit * 2,
+		marginRight: theme.spacing(2),
 		width: '100%',
-		// [theme.breakpoints.up('sm')]: {
-		// 	marginLeft: theme.spacing.unit * 3,
-		// 	width: 'auto'
-		// }
+		
 	},
 	searchIcon: {
-		width: theme.spacing.unit * 5,
+		width: theme.spacing(5),
 		height: '100%',
 		position: 'absolute',
 		pointerEvents: 'none',
@@ -131,19 +128,16 @@ const styles = (theme) => ({
 		width: '100%'
 	},
 	inputInput: {
-		paddingTop: theme.spacing.unit,
-		paddingRight: theme.spacing.unit,
-		paddingBottom: theme.spacing.unit,
-		paddingLeft: theme.spacing.unit * 7,
+		paddingTop: theme.spacing(1),
+		paddingRight: theme.spacing(1),
+		paddingBottom: theme.spacing(1),
+		paddingLeft: theme.spacing(7),
 		transition: theme.transitions.create('width'),
 		width: '100%',
-		// [theme.breakpoints.up('md')]: {
-		// 	width: 200
-		// }
 	},
 	formControl: {
 		margin: theme.spacing(2),
-		// minWidth: 120,
+		
 	},
 
 })

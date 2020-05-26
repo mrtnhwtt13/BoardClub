@@ -29,7 +29,7 @@ class CreateGame extends React.Component {
     }
 
     render(){
-        if(this.state.newGameId != '') {
+        if(this.state.newGameId !== '') {
             return(
                 <Paper style={{ padding: 15 }}>
                     <InfoGame boardGameId={this.state.newGameId} boardGameName={this.state.newGameName} />

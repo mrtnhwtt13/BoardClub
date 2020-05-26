@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Details from './Details';
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux';
 import { getGameById } from '../../actions/gameActions';
 import LoadingGame from './LoadingGame';
 import ListComments from './Comments/ListComments';
@@ -20,19 +19,19 @@ class GameDisplay extends Component {
     componentDidMount() {
         getGameById(this.props.match.params.gameId).then(
             (response) => {
-              this.setState({ game: response, loading: false })
+                this.setState({ game: response, loading: false })
             },
             (error) => {
-              console.log('error: ', error)
+                console.log('error: ', error)
             }
-          )
-    }  
+        )
+    }
 
-    render () {
+    render() {
         const { game, loading } = this.state
 
         return (
-            <div>            
+            <div>
                 {
                     loading ?
                         <LoadingGame /> :
