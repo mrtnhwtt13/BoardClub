@@ -23,7 +23,7 @@ class InfoGame extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-    // voir la mémoïsation -->
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors })
@@ -47,7 +47,7 @@ class InfoGame extends Component {
             description: this.state.description
 
         }
-        this.props.createGame(createGameData, this.props.history.push('/'))
+        this.props.createGame(createGameData, this.props.history)
     }    
 
     render(){
@@ -65,6 +65,7 @@ class InfoGame extends Component {
         };
         const { classes } = this.props
         const { errors } = this.state
+
         return(
             <form onSubmit={this.handleSubmit}>
                 <Grid
@@ -80,7 +81,7 @@ class InfoGame extends Component {
                     value={this.state.title}
                     onChange={this.handleChange}         
                     className={classes.textField}
-                    helperText={errors.title ? errors.title: ''}
+                    helperText={errors.title ? errors.title : ''}
                     error={errors.title ? true : false}
                     variant="outlined"
                 />
@@ -171,6 +172,8 @@ class InfoGame extends Component {
                     value={this.state.description}
                     onChange={this.handleChange}    
                     variant="outlined"
+                    helperText={errors.description ? errors.description : ''}
+                    error={errors.description ? true : false}
                 />
                 <div className={classes.btnBlock}>
                     <Button variant="outlined" type="submit" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} >
