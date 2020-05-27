@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 
-class EditUserInformations extends Component {
+class EditTopGames extends Component {
     render () {
         return (
             <div>
@@ -18,4 +18,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps)(EditUserInformations);
+export default connect(mapStateToProps)(EditTopGames);

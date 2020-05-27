@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import EditLoginInformations from './EditLoginInformations';
-import EditUserInformations from './EditUserInformations';
+import EditTopGames from './EditTopGames';
 
 
 function TabPanel(props) {
@@ -72,13 +72,13 @@ export default function EditProfile() {
         centered
       >
           <Tab label="User informations" {...a11yProps(0)} />
-          <Tab label="Login informations" {...a11yProps(1)} />
+          <Tab label="Favorite board games" {...a11yProps(1)} />
         </Tabs>
       <TabPanel value={value} index={0}>
-        < EditUserInformations />
+        < EditLoginInformations />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        < EditLoginInformations />
+        < EditTopGames />
       </TabPanel>
     </Paper>
   );

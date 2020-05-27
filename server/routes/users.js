@@ -316,8 +316,9 @@ router.route('/editprofile')
                                     }, {
                                         login: req.body.login,
                                         email: req.body.email,
-                                        password: hash
-
+                                        password: hash,
+                                        city: req.body.city,
+                                        avatar: req.body.avatar
                                     },
                                     { new: true })
                                     .then(User => res.json(User))
@@ -341,7 +342,9 @@ router.route('/')
             topGames: req.user.topGames,
             blockedUsers: req.user.blockedUsers,
             isAdmin: req.user.isAdmin,
-            isBanned: req.user.isBanned
+            isBanned: req.user.isBanned,
+            city: req.user.city,
+            avatar: req.user.avatar
         })
     })
 
