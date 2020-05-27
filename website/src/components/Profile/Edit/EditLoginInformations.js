@@ -65,7 +65,7 @@ class EditLoginInformations extends Component {
         return (
             <Paper style={{ padding: 15 }}>                
                 {errors.update ?
-                    <Alert severity="success">
+                    <Alert elevation={0} severity="success">
                         {errors.update}
                     </Alert> :
                     ''
