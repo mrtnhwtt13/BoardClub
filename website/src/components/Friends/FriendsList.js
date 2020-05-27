@@ -3,31 +3,29 @@ import { connect } from 'react-redux'
 import { withStyles, Paper } from '@material-ui/core'
 import Card from './Card'
 import { getFollowingUsers } from '../../actions/userActions'
+import LoadingGames from '../Games/LoadingGames'
 
 
 
 
 class Friends extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }   
-    }
 
     componentDidMount() {
         this.props.getFollowingUsers()
     }
     
     render() {
-        const {list} = this.props
+        const {list, loading} = this.props
         const cards =  list && list.map(user => <Card key={user._id} user={user} /> )
-        if (list){
+        console.log(list)
+        if (list && list.length !=0 ){
             return(
-                <div className="card">
+                <div>
                     {cards}
                 </div>
             )
+        } else if(loading){
+                <LoadingGames />
         } else {
             return(
                 <p>You don't have friends !!</p>
