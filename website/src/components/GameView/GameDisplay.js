@@ -13,7 +13,9 @@ class GameDisplay extends Component {
         this.state = {
             game: null,
             loading: true,
+
         }
+        
     }
 
     componentDidMount() {
@@ -29,7 +31,7 @@ class GameDisplay extends Component {
 
     render() {
         const { game, loading } = this.state
-
+        
         return (
             <div>
                 {
@@ -37,7 +39,7 @@ class GameDisplay extends Component {
                         <LoadingGame /> :
                         <div>
                             <div>
-                                <Details game={game} />
+                                <Details game={game} rerenderParentCallback={this.rerenderParentCallback} />
                             </div>
                             <div>
                                 <ListComments gameId={game._id} />
