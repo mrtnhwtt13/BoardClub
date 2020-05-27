@@ -7,7 +7,9 @@ import {
     DELETE_USER,
     BAN_USER,
     FOLLOW,
-	UNFOLLOW
+    UNFOLLOW,
+    REMOVE_FAVORITES,
+    ADD_FAVORITES
 } from '../constants';
 
 
@@ -54,6 +56,24 @@ export const unfollowUser = (userId) => dispatch => {
 		.then(res => dispatch({
 			type: UNFOLLOW,
 			payload: res.data.userId
+		}))
+		.catch(err => console.log(err))
+}
+
+export const addBoardGameToFavorites = (userData) => dispatch => {
+	axios.post('http://localhost:5000/api/users/addtofavorites', userData)
+		.then(res => dispatch({
+			type: ADD_FAVORITES,
+			payload: userData.boardGameId
+		}))
+		.catch(err => console.log(err))
+}
+
+export const removeBoardGameFromFavorites = (userData) => dispatch => {
+	axios.post('http://localhost:5000/api/users/removefromfavorites', userData)
+		.then(res => dispatch({
+			type: REMOVE_FAVORITES,
+			payload: userData.boardGameId
 		}))
 		.catch(err => console.log(err))
 }

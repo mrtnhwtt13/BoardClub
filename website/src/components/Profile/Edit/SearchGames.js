@@ -2,7 +2,7 @@ import React, { Component }from 'react'
 import { TextField, withStyles, Button } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
-import Card from './Card'
+import SearchCard from './SearchCard'
 
 
 class SearchGames extends Component {
@@ -19,7 +19,6 @@ class SearchGames extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.parseResponse = this.parseResponse.bind(this)
-        this.selectGame = this.selectGame.bind(this)
     }
 
     handleSubmit (e) {
@@ -57,14 +56,10 @@ class SearchGames extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    selectGame(selectedGameId, selectedGameName) {
-        this.props.selectedGame(selectedGameId, selectedGameName)
-    }
-
     render () {
         const { errors, boardGameIds } = this.state
         const { classes } = this.props
-        const items = boardGameIds.map(element=> <Card key={element} boardGameId={element} selectBoardGameId={this.selectGame} />)
+        const items = boardGameIds.map(element=> <SearchCard key={element} boardGameId={element} />)
 
         return (
             <form onSubmit={this.handleSubmit}>
