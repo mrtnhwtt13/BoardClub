@@ -13,7 +13,10 @@ class GameDisplay extends Component {
         this.state = {
             game: null,
             loading: true,
+            thisGameId: null,
+            thisGamePlayers: null,
         }
+        
     }
 
     componentDidMount() {
@@ -29,7 +32,15 @@ class GameDisplay extends Component {
 
     render() {
         const { game, loading } = this.state
-
+        if (game){
+            if (this.state.thisGameId === null){
+                this.setState({thisGameId: game._id})
+            }
+            if (this.state.thisGamePlayers === null){
+                this.setState({thisGamePlayers: game.players})
+                console.log('players updated')
+            }
+        }
         return (
             <div>
                 {
@@ -37,7 +48,7 @@ class GameDisplay extends Component {
                         <LoadingGame /> :
                         <div>
                             <div>
-                                <Details game={game} />
+                                <Details game={game} rerenderParentCallback={this.rerenderParentCallback} />
                             </div>
                             <div>
                                 <ListComments gameId={game._id} />

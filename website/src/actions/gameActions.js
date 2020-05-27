@@ -5,7 +5,9 @@ import {
     GET_GAME,
     LOADING_GAMES,
     DELETE_GAME,
-    GET_ERRORS
+    GET_ERRORS,
+    JOIN_GAME,
+    LEAVE_GAME
 } from '../constants';
 
 
@@ -85,4 +87,22 @@ export const getGames = () => dispatch => {
             payload: res.data
         }))
         .catch(err => console.log(err))
+}
+
+export const joinGame = (gameId) => dispatch => { 
+    axios.post('http://localhost:5000/api/games/join', { gameId })
+    .then(res => dispatch({
+        type: JOIN_GAME,
+        payload: res.data.players
+    }))
+    .catch(err => console.log(err))
+}
+
+export const leaveGame = (gameId) => dispatch => { 
+    axios.post('http://localhost:5000/api/games/leave', { gameId })
+    .then(res => dispatch({
+        type: LEAVE_GAME,
+        payload: res.data.players
+    }))
+    .catch(err => console.log(err))
 }
