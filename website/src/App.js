@@ -18,6 +18,7 @@ import Friends from './components/Friends/FriendsList';
 import SearchPage from './components/Search/SearchPage';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
+import ScheduledGames from './components/ScheduledGames/ScheduledGames';
 
 
 if (localStorage.getItem('jwtToken')) {
@@ -54,6 +55,7 @@ class App extends Component {
                 <Route path="/profile/:userId" component={Profile} />
                 <Route path="/create" component={CreateGame} />
                 <Route path="/friends" component={Friends} />
+                <Route path="/scheduledGames" component={ScheduledGames} />
 
                 <Route component={NotFound} />
               </Switch>
