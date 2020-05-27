@@ -22,6 +22,8 @@ class Details extends Component {
             boardGameName: "",
             boardGameTime: "",
             loadingBoardgameDetails: true,
+            thisGameId: null,
+            thisGamePlayers: null,
         }
 
         this.parseResponse = this.parseResponse.bind(this)
@@ -77,7 +79,16 @@ class Details extends Component {
         if (user && loadingUser === false && loadingBoardgameDetails === false) {
             let linkbgg = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
             
-            console.log(this.state.thisGameId)
+            if (game){
+                if (this.state.thisGameId === null){
+                    this.setState({thisGameId: game._id})
+                }
+                if (this.state.thisGamePlayers === null){
+                    this.setState({thisGamePlayers: game.players})
+                    console.log('players updated')
+                }
+            }
+
             boardGameImageBloc = (
                 <img className={classes.image} src={boardGameImagePath}  />
             )
