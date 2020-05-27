@@ -275,6 +275,60 @@ router.route('/edit')
     })
 
 
+// edit profile login infos
+router.route('/editprofile')
+    .post(
+        passport.authenticate('jwt', { session: false }), (req, res) => {
+        const { isValid, errors } = validateRegisterInput(req.body);
+
+        if (!isValid) {
+            return res.status(404).json(errors);
+        }
+
+        User.findOne({ login: req.body.login })
+            .then(user => {
+                if (user && user.login !== req.body.oldLogin) {
+                    errors.login = 'Login already used !'
+                    return res.status(404).json(errors);
+                }
+
+                User.findOne({ email: req.body.email })
+                    .then(user => {
+                        if (user && user.email !== req.body.oldEmail) {
+                            errors.email = 'Email already used !'
+                            return res.status(404).json(errors);
+                        }
+                            User.findOne({ _id: req.user._id })
+                            .then(user => {
+                                bcrypt.compare(req.body.oldPassword, user.password)
+                                .then(isMatch => {
+                                    if (isMatch === false) {
+                                        errors.oldPassword = 'Password is incorrect';
+                                        return res.status(404).json(errors);
+                                    }
+                                })
+                            })
+
+                            bcrypt.genSalt(10, function (err, salt) {
+                                bcrypt.hash(req.body.password, salt, function(err, hash) {
+                                    User.findOneAndUpdate({
+                                        _id: req.body._id
+                                    }, {
+                                        login: req.body.login,
+                                        email: req.body.email,
+                                        password: hash
+
+                                    },
+                                    { new: true })
+                                    .then(User => res.json(User))
+                                    .catch(err => console.log(err))
+                                })                
+                            })
+                })
+            })
+    })
+
+
 // get the informations of the current user
 router.route('/')
     .get( passport.authenticate('jwt', { session: false }),(req, res) => {

@@ -122,7 +122,7 @@ class Profile extends Component {
             }
             else {
                 button = (
-                <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>Edit</Button>
+                <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} component={Link} to="/profile/edit" >Edit</Button>
                 )
             }
 

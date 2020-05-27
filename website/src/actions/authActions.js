@@ -70,3 +70,19 @@ export const logoutUser = () => dispatch => {
 	setAuthHeader()
 	dispatch(setCurrentUser())
 }
+
+
+export const editProfile = (userData) => dispatch => {
+    axios.post('http://localhost:5000/api/users/editprofile', userData)
+        .then(res => {
+            dispatch(getCurrentUser());
+            dispatch({
+                type: GET_ERRORS,
+                payload: { update: "Login informations updated" }
+            });
+        })
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
+}
