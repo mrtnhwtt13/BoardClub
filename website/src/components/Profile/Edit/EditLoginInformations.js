@@ -6,6 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editProfile } from '../../../actions/authActions';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 
 class EditLoginInformations extends Component {
@@ -17,7 +23,9 @@ class EditLoginInformations extends Component {
             oldPassword: '',
             password: '',
             password2: '',
-            errors: {}
+            errors: {},
+            city: this.props.user.city,
+            avatar: this.props.user.avatar
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +39,7 @@ class EditLoginInformations extends Component {
 
     handleChange (e) {
         this.setState({ [e.target.name]: e.target.value })
-    }
+    }   
 
     handleSubmit (e) {
         e.preventDefault();
@@ -43,18 +51,25 @@ class EditLoginInformations extends Component {
             password2: this.state.password2,
             oldLogin: this.props.user.login,
             oldEmail: this.props.user.email,
-            _id: this.props.user._id
+            _id: this.props.user._id,
+            city: this.state.city,
+            avatar: this.state.avatar
         }
         this.props.editProfile(userData);
     }    
 
     render () {
-        const { classes, user } = this.props;
+        const { classes } = this.props;
         const { errors } = this.state
 
         return (
-            <Paper style={{ padding: 15 }}> 
-                <h4 className={classes.message}>{errors.update ? errors.update : ''}</h4>               
+            <Paper style={{ padding: 15 }}>                
+                {errors.update ?
+                    <Alert elevation={0} severity="success">
+                        {errors.update}
+                    </Alert> :
+                    ''
+                }               
                 <h4>
                     <b>Modify</b> below
                 </h4>                
@@ -80,6 +95,24 @@ class EditLoginInformations extends Component {
                         variant="outlined"
                         helperText={errors.email ? errors.email : ''}
                         error={errors.email ? true : false}
+                    />
+                    <TextField
+                        label="City"
+                        type="text"
+                        name="city"                                   
+                        value={this.state.city}  
+                        onChange={this.handleChange}    
+                        className={classes.textField}
+                        variant="outlined"
+                    />
+                    <TextField
+                        label="Avatar"
+                        type="text"
+                        name="avatar"                                   
+                        value={this.state.avatar}  
+                        onChange={this.handleChange}    
+                        className={classes.textField}
+                        variant="outlined"
                     />
                     <TextField
                         label="Old password"
@@ -135,11 +168,6 @@ const styles = {
         textAlign: 'center',
         marginBottom: 10,
         marginTop: 20
-    },
-    message: {
-        color: '#65f369',
-        display: 'flex',
-        justifyContent: 'center'
     }
 }
 
