@@ -86,3 +86,14 @@ export const getGames = () => dispatch => {
         }))
         .catch(err => console.log(err))
 }
+
+// get all games schedulded for the current user
+export const getScheduldedGames = () => dispatch => {
+    dispatch(loadGames)
+    axios.get('http://localhost:5000/api/games/schedulded')
+        .then(res => dispatch({
+            type: GET_GAMES,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}
