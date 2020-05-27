@@ -7,15 +7,9 @@ import Main from './components/Layout/Main';
 import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
-<<<<<<< HEAD
 import GamePage from './components/GameView/GameDisplay';
 import EditUser from './components/Admin/EditUser';
 import CreateGame from './components/CreateGame/CreateGame';
-=======
-import CreateGame from './components/CreateGame/CreateGame';
-import GamePage from './components/GameView/GameDisplay';
-import EditUser from './components/Admin/EditUser';
->>>>>>> Vincent
 import NotFound from './components/NotFound';
 import Admin from './components/Admin/Admin'
 import Profile from './components/Profile/Profile'
