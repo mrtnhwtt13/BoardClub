@@ -50,7 +50,7 @@ class Navbar extends Component {
                           </Button>
                         </Grid>
                         <Grid container justify="center" item xs={6} sm={3}>
-                          <Button className={classes.btn} component={Link} to="/" >
+                          <Button className={classes.btn} component={Link} to="/friends" >
                             Friends
                           </Button>
                         </Grid>                    
