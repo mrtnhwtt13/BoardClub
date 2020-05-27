@@ -53,8 +53,6 @@ class Card extends Component {
     }
 }
 
-
-
 const styles = {
 root: {
     flexGrow: 1,
