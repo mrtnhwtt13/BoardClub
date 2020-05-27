@@ -44,12 +44,14 @@ class Details extends Component {
     handleJoin (){
         console.log('joining')
         this.props.joinGame(this.state.thisGameId)
+        this.props.rerenderParentCallback();
         
 	}
 
 	handleLeave () {
         console.log('leaving')
         this.props.leaveGame(this.state.thisGameId)
+        this.props.rerenderParentCallback();
         
 	}
 

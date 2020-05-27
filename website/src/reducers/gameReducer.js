@@ -4,7 +4,9 @@ import {
     GET_GAMES,
     GET_GAMEBYID,
     DELETE_GAME,
-    GET_GAME
+    GET_GAME,
+    JOIN_GAME,
+    LEAVE_GAME
 } from '../constants';
 
 
@@ -44,6 +46,18 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: false,
                 list: state.list.filter(item => item !== action.payload)
+            }
+            case JOIN_GAME:
+            return {
+                ...state,                
+                loading: false,
+                game: action.payload
+            }
+            case LEAVE_GAME:
+            return {
+                ...state,                
+                loading: false,
+                game: action.payload
             }
         default:
             return state
