@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { searchGames } from '../../actions/gameActions';
 import SearchForm from './SearchForm';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Game from '../Games/Game';
+import LoadingPage from './LoadingPage';
 
 
 class SearchPage extends Component {
@@ -9,25 +12,53 @@ class SearchPage extends Component {
         super(props)
 
         this.state = {
-            search: null,
-            loading: true,
+            search: false,
+            searchText: "",
+            searchTerm: ""
         }
+
+        this.searchingGame = this.searchingGame.bind(this)
     }
 
-    componentDidMount() {
-        
-    }  
+    searchingGame(searchingData) {
+        this.props.searchGames(searchingData);
+        this.setState({ 
+            search: true
+        })
+    }
 
     render () {
-        const { search, loading } = this.state
+        const { search } = this.state;
+        const { list, loading } = this.props;
+        var results = null;
+
+        if (search === true) {
+            if (loading === false && list) {
+                results = list && list.map(el => <Game key={el._id} game={el} />)
+            }
+            else {
+                results = < LoadingPage />
+            }
+        }
 
         return (
-            <div>            
-                <SearchForm />
+            <div>
+                <div>            
+                    <SearchForm searchingGame={this.searchingGame} />
+                </div>
+                <div>
+                    {results}
+                </div>
             </div>
         )
     }
 }
 
 
-export default (SearchPage);
+const mapStateToProps = (state) => ({
+    list: state.game.list,
+    loading: state.game.loading
+})
+
+
+export default connect(mapStateToProps, { searchGames })(withRouter(SearchPage))

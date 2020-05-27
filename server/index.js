@@ -7,6 +7,7 @@ const passport = require('passport');
 
 const users = require('./routes/users');
 const games = require('./routes/games');
+const comments = require('./routes/comments');
 
 //setup environment
 dotenv.config();
@@ -25,6 +26,7 @@ require('./config/passport')(passport);
 
 app.use('/api/users', users);
 app.use('/api/games', games);
+app.use('/api/comments', comments);
 
 // run app
 const PORT = process.env.PORT || 5000;

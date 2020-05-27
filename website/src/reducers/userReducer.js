@@ -3,7 +3,8 @@ import {
     GET_USERS,
     GET_USER,
     DELETE_USER,
-    BAN_USER
+    BAN_USER,
+    
 } from '../constants';
 
 const initialState = {

@@ -11,50 +11,84 @@ class Card extends Component {
 
         this.state = {
             boardGameDetails: null,
-            loading: true
-        }    
+            boardGameImagePath: "",
+            boardGameName: "",
+            loading: true,
+            invalidGame: false
+        }
+
+        this.parseResponse = this.parseResponse.bind(this)
     }
 
     componentDidMount() {
-        axios.get('https://bgg-json.azurewebsites.net/thing/' + this.props.boardGameId)
-            .then((response) =>
+        axios.get('http://localhost:8080/https://boardgamegeek.com/xmlapi2/thing?id=' + this.props.boardGameId)
+            .then((response) => {
                 this.setState({
-                    boardGameDetails: response,
-                    loading: false,
-                })
-            )
+                    boardGameDetails: response
+                });
+                this.parseResponse();
+            })
             .catch((err) => console.log(err))
+    }
+
+    parseResponse () {
+        var parser, xmlDoc;
+            
+        parser = new DOMParser();
+        xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
+           
+        if (xmlDoc.getElementsByTagName("thumbnail").length === 0) {
+            this.setState({
+                invalidGame: true
+            })
+        }
+        else {
+            this.setState ({
+                boardGameImagePath: xmlDoc.getElementsByTagName("thumbnail")[0].childNodes[0].nodeValue,
+                boardGameName: xmlDoc.getElementsByTagName("name")[0].getAttribute('value'),
+                loading: false
+            })
+        }
     }
 
     render () {
         const { classes, boardGameId } = this.props;
-        const { boardGameDetails, loading } = this.state
-        let boardGameImage = null
-        let boardGameName = null
+        const { boardGameImagePath, boardGameName, loading, invalidGame } = this.state
+        let boardGameImageBloc = null;
+        let boardGameNameBloc = null;
+        let boardGameBloc = null;
     
         if (loading === false) {
-            boardGameImage = (
-                <img className={classes.image} src={boardGameDetails.data.thumbnail} height="100" />
+            boardGameImageBloc = (
+                <img className={classes.image} src={boardGameImagePath} height="100" />
             )
-            boardGameName = (
-                <span className={classes.title}> {boardGameDetails.data.name} </span>
+            boardGameNameBloc = (
+                <span className={classes.title}> {boardGameName} </span>
+            )
+            boardGameBloc = (
+                <Button onClick={() => this.props.selectBoardGameId(boardGameId, boardGameName)} >           
+                    <div>
+                        { boardGameImageBloc }
+                    </div>
+                    <div>
+                        { boardGameNameBloc }
+                    </div>
+                </Button>
             )
         }
         
-        return (
-            <div>
-                <Paper className={classes.paper}>    
-                    <Button onClick={() => this.props.selectBoardGameId(boardGameId)} >           
-                        <div>
-                            { boardGameImage }
-                        </div>
-                        <div>
-                            { boardGameName }
-                        </div>
-                    </Button>  
-                </Paper>
-            </div>
-        )
+        if (invalidGame === true) {
+            return null;
+        }
+        else {
+            return (
+                <div>
+                    <Paper elevation={2} className={classes.paper}>    
+                        {boardGameBloc}  
+                    </Paper>
+                </div>
+            )
+        }
     }
 }
 

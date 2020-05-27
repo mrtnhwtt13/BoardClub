@@ -6,12 +6,9 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper'
 
 
 class SearchForm extends Component {
@@ -32,11 +29,12 @@ class SearchForm extends Component {
 
 	handleSubmit(e) {
 		const searchData = {
-			text: e.target.value
-		}
+            searchText: e.target.value,
+            searchTerm: this.state.searchTerm
+        }
 
 		if (e.key === 'Enter') {
-			this.props.searchGames(searchData, this.props.history)
+			this.props.searchingGame(searchData)
 		}
 	}
 
@@ -112,15 +110,12 @@ const styles = (theme) => ({
 		'&:hover': {
 			backgroundColor: fade(theme.palette.common.white, 0.25)
 		},
-		marginRight: theme.spacing.unit * 2,
+		marginRight: theme.spacing(2),
 		width: '100%',
-		// [theme.breakpoints.up('sm')]: {
-		// 	marginLeft: theme.spacing.unit * 3,
-		// 	width: 'auto'
-		// }
+		
 	},
 	searchIcon: {
-		width: theme.spacing.unit * 5,
+		width: theme.spacing(5),
 		height: '100%',
 		position: 'absolute',
 		pointerEvents: 'none',
@@ -133,19 +128,16 @@ const styles = (theme) => ({
 		width: '100%'
 	},
 	inputInput: {
-		paddingTop: theme.spacing.unit,
-		paddingRight: theme.spacing.unit,
-		paddingBottom: theme.spacing.unit,
-		paddingLeft: theme.spacing.unit * 7,
+		paddingTop: theme.spacing(1),
+		paddingRight: theme.spacing(1),
+		paddingBottom: theme.spacing(1),
+		paddingLeft: theme.spacing(7),
 		transition: theme.transitions.create('width'),
 		width: '100%',
-		// [theme.breakpoints.up('md')]: {
-		// 	width: 200
-		// }
 	},
 	formControl: {
 		margin: theme.spacing(2),
-		// minWidth: 120,
+		
 	},
 
 })

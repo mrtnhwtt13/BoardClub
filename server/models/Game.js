@@ -23,6 +23,9 @@ const gameSchema = new Schema({
         type: String,
         required: true
     },
+    boardGameName: {
+        type: String
+    },
     city: {
         type: String,
         required: true

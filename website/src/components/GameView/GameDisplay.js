@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Details from './Details';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { getGameById } from '../../actions/gameActions';
 import LoadingGame from './LoadingGame';
+import ListComments from './Comments/ListComments';
 
 
 class GameDisplay extends Component {
@@ -18,24 +19,35 @@ class GameDisplay extends Component {
     componentDidMount() {
         getGameById(this.props.match.params.gameId).then(
             (response) => {
-              this.setState({ game: response, loading: false })
+                this.setState({ game: response, loading: false })
             },
             (error) => {
-              console.log('error: ', error)
+                console.log('error: ', error)
             }
-          )
-    }  
+        )
+    }
 
-    render () {
+    render() {
         const { game, loading } = this.state
 
         return (
-            <div>            
-                { loading ? <LoadingGame /> : <Details game={game} /> }
+            <div>
+                {
+                    loading ?
+                        <LoadingGame /> :
+                        <div>
+                            <div>
+                                <Details game={game} />
+                            </div>
+                            <div>
+                                <ListComments gameId={game._id} />
+                            </div>
+                        </div>
+                }
             </div>
         )
     }
 }
 
 
-export default (GameDisplay);
+export default withRouter(GameDisplay);

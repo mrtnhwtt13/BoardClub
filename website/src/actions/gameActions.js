@@ -29,13 +29,17 @@ export function getGameById (gameId) {
 
 
 // create a new game
-export const createGame = gameData => dispatch => {
+export const createGame = (gameData, history) => dispatch => {
     axios.post('http://localhost:5000/api/games/create', gameData)
         .then(res => dispatch({
             type: ADD_GAME,
             payload: res.data
         }))
-        .catch(err => console.log(err))
+        .then(res => history.push(`/`))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
 }
 
 
@@ -58,6 +62,17 @@ export const editGame = (gameData, history) => dispatch => {
             type: GET_ERRORS,
             payload: err.response.data
         }))
+}
+
+
+// search games
+export const searchGames = gameData => dispatch => {
+    axios.post('http://localhost:5000/api/games/search', gameData)
+        .then(res => dispatch({
+            type: GET_GAMES,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
 }
 
 

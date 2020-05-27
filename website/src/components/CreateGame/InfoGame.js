@@ -18,12 +18,13 @@ class InfoGame extends Component {
             city: '',
             description: '',
             boardGameId: '',
+            boardGameName: '',
             errors: {}
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-    // voir la mémoïsation -->
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors })
@@ -39,6 +40,7 @@ class InfoGame extends Component {
         const createGameData = {
             userId: this.props.user.userId,
             boardGameId: this.props.boardGameId,
+            boardGameName: this.props.boardGameName,
             title: this.state.title,
             playersLevel: this.state.playersLevel,
             playersMax: this.state.playersMax,
@@ -47,12 +49,12 @@ class InfoGame extends Component {
             description: this.state.description
 
         }
-        this.props.createGame(createGameData, this.props.history.push('/'))
+        this.props.createGame(createGameData, this.props.history)
     }    
 
     render(){
         
-        const participant = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,42]
+        const participant = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","42"]
         const ITEM_HEIGHT = 42;
         const ITEM_PADDING_TOP = 8;
         const MenuProps = {
@@ -65,6 +67,7 @@ class InfoGame extends Component {
         };
         const { classes } = this.props
         const { errors } = this.state
+
         return(
             <form onSubmit={this.handleSubmit}>
                 <Grid
@@ -80,12 +83,12 @@ class InfoGame extends Component {
                     value={this.state.title}
                     onChange={this.handleChange}         
                     className={classes.textField}
-                    helperText={errors.title ? errors.title: ''}
+                    helperText={errors.title ? errors.title : ''}
                     error={errors.title ? true : false}
                     variant="outlined"
                 />
                 <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-outlined-label">Level</InputLabel>
+                    <InputLabel id="demo-simple-select-outlined-label">Player level</InputLabel>
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
@@ -93,18 +96,20 @@ class InfoGame extends Component {
                     value={this.state.playersLevel}
                     onChange={this.handleChange}
                     label="level"
+                    helperText={errors.playersLevel ? errors.playersLevel : ''}
+                    error={errors.playersLevel ? true : false}
                     MenuProps={MenuProps}
                     >
-                        <MenuItem value="Piece of Cake">
-                            <em>Piece of Cake</em>
+                        <MenuItem value="All">
+                            <em>All</em>
                         </MenuItem>
-                        <MenuItem value="Let's Rock">Let's Rock</MenuItem>
-                        <MenuItem value="Come Get Some">Come Get Some</MenuItem>
-                        <MenuItem value="Damn I'm Good">Damn I'm Good</MenuItem>
+                        <MenuItem value="Beginner">Beginner</MenuItem>
+                        <MenuItem value="Intermediate">Intermediate</MenuItem>
+                        <MenuItem value="Expert">Expert</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-outlined-label">Participant</InputLabel>
+                    <InputLabel id="demo-simple-select-outlined-label">Number of players</InputLabel>
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
@@ -112,6 +117,8 @@ class InfoGame extends Component {
                     value={this.state.playersMax}
                     onChange={this.handleChange}
                     label="participant"
+                    helperText={errors.playersMax ? errors.playersMax : ''}
+                    error={errors.playersMax ? true : false}
                     MenuProps={MenuProps}
 
                     >
@@ -130,6 +137,8 @@ class InfoGame extends Component {
                     className={classes.textField}
                     variant="outlined"
                     data-parse="date"
+                    helperText={errors.gameDate ? errors.gameDate : ''}
+                    error={errors.gameDate ? true : false}
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -143,6 +152,8 @@ class InfoGame extends Component {
                     onChange={this.handleChange}    
                     className={classes.textField}
                     variant="outlined"
+                    helperText={errors.gameHour ? errors.gameHour : ''}
+                    error={errors.gameHour ? true : false}
                     InputLabelProps={{
                         shrink: true,
                     }}
@@ -171,6 +182,8 @@ class InfoGame extends Component {
                     value={this.state.description}
                     onChange={this.handleChange}    
                     variant="outlined"
+                    helperText={errors.description ? errors.description : ''}
+                    error={errors.description ? true : false}
                 />
                 <div className={classes.btnBlock}>
                     <Button variant="outlined" type="submit" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} >
