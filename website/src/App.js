@@ -14,6 +14,7 @@ import CreateGame from './components/CreateGame/CreateGame';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin/Admin'
 import Profile from './components/Profile/Profile'
+import Friends from './components/Friends/FriendsList';
 import SearchPage from './components/Search/SearchPage';
 import setAuthHeader from './utils/setAuthHeader';
 import { logoutUser, getCurrentUser } from './actions/authActions';
@@ -52,6 +53,8 @@ class App extends Component {
                 <Route path="/profile/edit" component={EditProfile} />
                 <Route path="/profile/:userId" component={Profile} />
                 <Route path="/create" component={CreateGame} />
+                <Route path="/friends" component={Friends} />
+
                 <Route component={NotFound} />
               </Switch>
             </Main>
