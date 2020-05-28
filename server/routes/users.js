@@ -335,6 +335,10 @@ router.route('/addtofavorites')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
+            if (req.user.topGames.includes(req.body.boardGameId)) {                
+                return res.status(404).json('This game is already in your favorites !');
+            }
+
             User.findOneAndUpdate({
                 _id: req.user.id
             }, {

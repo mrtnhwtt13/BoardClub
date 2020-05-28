@@ -43,7 +43,13 @@ class EditTopGames extends React.Component {
                             {errors.update}
                         </Alert> :
                         ''
-                    }    
+                    } 
+                    {errors.already ?
+                        <Alert elevation={0} severity="info">
+                            {errors.already}
+                        </Alert> :
+                        ''
+                    } 
                     <ExpansionPanel style={{ borderRadius: 4, marginBottom: 60, marginTop: 40 }}>
                         <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}

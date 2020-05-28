@@ -11,7 +11,7 @@ class FavoriteGames extends Component {
         const {user} = this.props
 
         if (user) {
-            const cards = Object.keys(user.topGames).map(key=> <FavoriteCard key={key} boardGameId={user.topGames[key]} />)
+            const cards = user.topGames.map(element => <FavoriteCard key={element} boardGameId={element} />)
             
             return (
                 <div>

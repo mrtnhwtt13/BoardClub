@@ -62,19 +62,34 @@ export const unfollowUser = (userId) => dispatch => {
 
 export const addBoardGameToFavorites = (userData) => dispatch => {
 	axios.post('http://localhost:5000/api/users/addtofavorites', userData)
-		.then(res => dispatch({
+		.then(res => { 
+            dispatch({
 			type: ADD_FAVORITES,
 			payload: userData.boardGameId
-		}))
-		.catch(err => console.log(err))
+            })
+            dispatch({
+                type: GET_ERRORS,
+                payload: { update: "Game added to favorites" }
+            });
+        })
+		.catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: { already: err.response.data }
+        }))
 }
 
 export const removeBoardGameFromFavorites = (userData) => dispatch => {
 	axios.post('http://localhost:5000/api/users/removefromfavorites', userData)
-		.then(res => dispatch({
+		.then(res => {
+            dispatch({
 			type: REMOVE_FAVORITES,
 			payload: userData.boardGameId
-		}))
+            })
+            dispatch({
+                type: GET_ERRORS,
+                payload: { update: "Game removed from favorites" }
+            });
+        })
 		.catch(err => console.log(err))
 }
 
