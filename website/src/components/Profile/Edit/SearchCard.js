@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
-import { removeBoardGameFromFavorites } from '../../../actions/userActions';
+import { addBoardGameToFavorites } from '../../../actions/userActions';
 
 
 class FavoriteCard extends Component {
@@ -21,7 +21,7 @@ class FavoriteCard extends Component {
         }
 
         this.parseResponse = this.parseResponse.bind(this)
-        this.removeGame = this.removeGame.bind(this)
+        this.addGame = this.addGame.bind(this)
     }
 
     componentDidMount() {
@@ -55,11 +55,11 @@ class FavoriteCard extends Component {
         }
     }
 
-    removeGame () {
+    addGame () {
         const userData = {
             boardGameId: this.props.boardGameId
         };
-        this.props.removeBoardGameFromFavorites(userData);
+        this.props.addBoardGameToFavorites(userData);
     }
 
     render () {
@@ -93,8 +93,8 @@ class FavoriteCard extends Component {
                                 </Typography>
                             </Grid> 
                             <Grid item justify='right' alignItems="center">
-                                <Button disableElevation variant="contained" size="large" style={{ backgroundColor: "#959fef", color: "white", width: "8rem", height: "2rem"}} onClick={() => { this.removeGame(); }} >
-                                    Remove
+                                <Button disableElevation variant="contained" size="large" style={{ backgroundColor: "#959fef", color: "white", width: "8rem", height: "2rem"}} onClick={() => { this.addGame(); }} >
+                                    Add
                                 </Button>
                             </Grid>
                         </Grid>
@@ -129,4 +129,4 @@ const styles = {
 }
 
 
-export default connect(null, { removeBoardGameFromFavorites })(withStyles(styles)(FavoriteCard));
+export default connect(null, { addBoardGameToFavorites })(withStyles(styles)(FavoriteCard));

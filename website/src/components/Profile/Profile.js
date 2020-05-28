@@ -60,7 +60,7 @@ class Profile extends Component {
             }
             else {
                 avatar = (
-                    <img className={classes.image} src="https://i.imgur.com/wPNa9Vj.jpg" height="100" />
+                    <img className={classes.image} src={user.avatar} height="100" />
                 )
             }
             if (user.city === "") {

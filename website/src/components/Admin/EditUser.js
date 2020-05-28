@@ -43,7 +43,7 @@ class EditUser extends Component {
             oldEmail: this.props.location.state.user.email,
             _id: this.props.location.state.user._id
         }
-        this.props.editUser(userData, this.props.history);
+        this.props.editUser(this.props.authUser._id, userData, this.props.history);
     }    
 
     render () {
@@ -121,7 +121,8 @@ const styles = {
 
 
 const mapStateToProps = (state) => ({
-    errors: state.errors
+    errors: state.errors,
+    authUser: state.auth.user
 })
 
 

@@ -197,6 +197,16 @@ router.route('/')
     })
 
 
+// get all upcoming games sorted by game date
+router.route('/upcoming')
+    .get((req, res) => {
+        Game.find({ gameDate: {$gte: new Date()}})
+            .sort({ gameDate: 1 })
+            .then(games => res.json(games))
+            .catch(err => console.log(err))
+    })
+
+
 // get one game by game Id
 router.route('/find/:gameId')
     .get((req, res) => {

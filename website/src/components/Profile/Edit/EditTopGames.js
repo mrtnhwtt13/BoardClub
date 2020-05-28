@@ -1,41 +1,55 @@
 import React from'react'
 import { Paper, withStyles } from '@material-ui/core'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import TopGames from './TopGames'
+import FavoriteGames from './FavoriteGames'
 import SearchGames from './SearchGames'
+import { connect } from 'react-redux';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 
 class EditTopGames extends React.Component {
     constructor (props) {
-        super(props)
-
+        super(props);
         this.state = {
-            searchGame: '',
-            newGameId: '',
-            loading: false
-        }
-
-        this.selectGame = this.selectGame.bind(this)
+            errors: {}
+        };
     }
-    
-    selectGame (selectedGameId) {
-        this.setState({
-            newGameId: selectedGameId
-        })
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors })
+        }
     }
 
     render(){
         const { classes } = this.props;
+        const { errors } = this.state;
 
         return (
             <div className={classes.root}>
                 <Paper style={{ padding: 15 }}>
+                    {errors.update ?
+                        <Alert elevation={0} severity="success">
+                            {errors.update}
+                        </Alert> :
+                        ''
+                    } 
+                    {errors.already ?
+                        <Alert elevation={0} severity="info">
+                            {errors.already}
+                        </Alert> :
+                        ''
+                    } 
                     <ExpansionPanel style={{ borderRadius: 4, marginBottom: 60, marginTop: 40 }}>
                         <ExpansionPanelSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -46,12 +60,12 @@ class EditTopGames extends React.Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <div>
-                                <TopGames selectedGame={this.selectGame} />
+                                <FavoriteGames />
                             </div>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>                        
                     <div>
-                        <SearchGames selectedGame={this.selectGame} />
+                        <SearchGames />
                     </div>
                 </Paper>
             </div>
@@ -67,23 +81,13 @@ const styles = {
       heading: {
         fontSize: "15",
         color: "#595959"
-    }, 
-    title: {
-        color: '#595959',
-        display: 'flex',
-        justifyContent: 'center'
-    },
-    btn: {
-        display: 'flex',
-        justifyContent: 'center'
     }
 }
 
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    user: state.auth.user
+    errors: state.errors
 })
 
 
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(EditTopGames)))
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(EditTopGames)));

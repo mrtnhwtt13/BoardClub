@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -266,7 +267,15 @@ router.route('/edit')
 
                                 },
                                 { new: true })
-                                .then(User => res.json(User))
+                                .then(user => {
+                                    Comment.updateMany({
+                                        "user.id": req.user.id
+                                    }, {
+                                        $set: { "user.login": req.body.login }
+                                    }, { multi: true })
+                                    .then(res.json(user))
+                                    .catch(err => console.log(err))
+                                })
                                 .catch(err => console.log(err))
                             })                
                         })
@@ -321,13 +330,59 @@ router.route('/editprofile')
                                         avatar: req.body.avatar
                                     },
                                     { new: true })
-                                    .then(User => res.json(User))
+                                    .then(user => {
+                                        Comment.updateMany({
+                                            "user.id": req.user.id
+                                        }, {
+                                            $set: { "user.login": req.user.login }
+                                        }, { multi: true })
+                                        .then(res.json(user))
+                                        .catch(err => console.log(err))
+                                    })
                                     .catch(err => console.log(err))
                                 })                
                             })
                 })
             })
     })
+
+
+// add a board game to favorites
+router.route('/addtofavorites')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            if (req.user.topGames.includes(req.body.boardGameId)) {                
+                return res.status(404).json('This game is already in your favorites !');
+            }
+
+            User.findOneAndUpdate({
+                _id: req.user.id
+            }, {
+                $push: { topGames: req.body.boardGameId}
+            },
+            { new: true })
+            .then(user => res.json(user))
+            .catch(err => console.log(err))
+        }
+    )
+
+
+// remove a board game from favorites
+router.route('/removefromfavorites')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            User.findOneAndUpdate({
+                _id: req.user.id
+            }, {
+                $pull: { topGames: req.body.boardGameId}
+            },
+            { new: true })
+            .then(user => res.json(user))
+            .catch(err => console.log(err))
+        }
+    )
 
 
 // get the informations of the current user

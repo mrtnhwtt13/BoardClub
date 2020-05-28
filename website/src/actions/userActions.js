@@ -7,8 +7,11 @@ import {
     DELETE_USER,
     BAN_USER,
     FOLLOW,
-	UNFOLLOW
+    UNFOLLOW,
+    REMOVE_FAVORITES,
+    ADD_FAVORITES
 } from '../constants';
+import { getCurrentUser } from './authActions';
 
 
 export const loadUsers = () => dispatch => {
@@ -58,6 +61,39 @@ export const unfollowUser = (userId) => dispatch => {
 		.catch(err => console.log(err))
 }
 
+export const addBoardGameToFavorites = (userData) => dispatch => {
+	axios.post('http://localhost:5000/api/users/addtofavorites', userData)
+		.then(res => { 
+            dispatch({
+			type: ADD_FAVORITES,
+			payload: userData.boardGameId
+            })
+            dispatch({
+                type: GET_ERRORS,
+                payload: { update: "Game added to favorites" }
+            });
+        })
+		.catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: { already: err.response.data }
+        }))
+}
+
+export const removeBoardGameFromFavorites = (userData) => dispatch => {
+	axios.post('http://localhost:5000/api/users/removefromfavorites', userData)
+		.then(res => {
+            dispatch({
+			type: REMOVE_FAVORITES,
+			payload: userData.boardGameId
+            })
+            dispatch({
+                type: GET_ERRORS,
+                payload: { update: "Game removed from favorites" }
+            });
+        })
+		.catch(err => console.log(err))
+}
+
 
 export const deleteUser = userData => dispatch => {
     axios.post('http://localhost:5000/api/users/delete', userData)
@@ -90,9 +126,14 @@ export const getUserById = (userId) => dispatch => {
 }   
 
 
-export const editUser = (userData, history) => dispatch => {
+export const editUser = (currentUserId, userData, history) => dispatch => {
     axios.post('http://localhost:5000/api/users/edit', userData)
-        .then(res => history.push(`/admin`))
+        .then(res => {
+            if (currentUserId === userData._id) {
+                dispatch(getCurrentUser())
+            }
+            history.push(`/admin`)
+        })
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
