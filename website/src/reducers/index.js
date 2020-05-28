@@ -4,6 +4,7 @@ import authReducer from './authReducer';
 import gameReducer from './gameReducer';
 import userReducer from './userReducer';
 import commentReducer from './commentReducer';
+import playersReducer from './playersReducer';
 
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
     auth: authReducer,
     game: gameReducer,
     user: userReducer,
-    comment: commentReducer
+    comment: commentReducer,
+    players: playersReducer,
 })

@@ -15,7 +15,7 @@ class Details extends Component {
     constructor(props) {
         super(props)
         this.handleJoin = this.handleJoin.bind(this)
-		this.handleLeave = this.handleLeave.bind(this)
+        this.handleLeave = this.handleLeave.bind(this)
         this.state = {
             boardGameDetails: null,
             boardGameImagePath: "",
@@ -24,6 +24,9 @@ class Details extends Component {
             loadingBoardgameDetails: true,
             thisGameId: null,
             thisGamePlayers: null,
+            playersList: null,
+            playerNumber: -42,
+            joinLeave: null
         }
 
         this.parseResponse = this.parseResponse.bind(this)
@@ -41,25 +44,31 @@ class Details extends Component {
             .catch((err) => console.log(err))
     }
 
-    handleJoin (){
+    handleJoin() {
         console.log('joining')
         this.props.joinGame(this.state.thisGameId)
-        
-	}
+        this.setState({ playerNumber: this.state.playerNumber + 1, joinLeave: "leave" })
 
-	handleLeave () {
+    }
+
+    handleLeave() {
         console.log('leaving')
         this.props.leaveGame(this.state.thisGameId)
-        
-	}
+        this.setState({ playerNumber: this.state.playerNumber - 1, joinLeave: "join" })
 
-    parseResponse () {
+    }
+
+    handleChange() {
+        this.setState({ playersList: this.props.players.players })
+    }
+
+    parseResponse() {
         var parser, xmlDoc;
-            
+
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
-            
-        this.setState ({
+
+        this.setState({
             boardGameImagePath: xmlDoc.getElementsByTagName("image")[0].childNodes[0].nodeValue,
             boardGameTime: xmlDoc.getElementsByTagName("playingtime")[0].getAttribute('value'),
             boardGameName: xmlDoc.getElementsByTagName("name")[0].getAttribute('value'),
@@ -68,29 +77,48 @@ class Details extends Component {
     }
 
     render() {
-        const { classes, game, user, authUser, loadingUser } = this.props
-        const { boardGameImagePath, boardGameName, boardGameTime, loadingBoardgameDetails } = this.state
+        const { classes, game, user, authUser, loadingUser, players } = this.props
+        const { boardGameImagePath, boardGameName, boardGameTime, playerNumber, loadingBoardgameDetails, joinLeave } = this.state
         let boardGameImageBloc = null;
         let boardGameNameBloc = null;
         let boardGameTimeBloc = null;
         let creator = null;
-        let JoinLeave = null;
+        let JoinLeaveBloc = null;
 
         if (user && loadingUser === false && loadingBoardgameDetails === false) {
             let linkbgg = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
-            
-            if (game){
-                if (this.state.thisGameId === null){
-                    this.setState({thisGameId: game._id})
+
+            if (game) {
+                if (playerNumber === -42) {
+                    this.setState({ playerNumber: game.playersNumber })
                 }
-                if (this.state.thisGamePlayers === null){
-                    this.setState({thisGamePlayers: game.players})
+
+                if (this.state.thisGameId === null) {
+                    this.setState({ thisGameId: game._id })
+                }
+                if (this.state.thisGamePlayers === null) {
+                    this.setState({ thisGamePlayers: game.players })
                     console.log('players updated')
+                }
+                if (this.state.playersList === null) {
+                    console.log(game.players, "game.players")
+                    this.setState({ playersList: game.players }, () => {
+                        console.log(this.state.playersList, "PlayersList")
+                    })
+                }
+                if (players && this.state.playersList !== players.players) {
+                    this.handleChange()
+                }
+                if (game && game.players && game.players.indexOf(authUser._id) === -1 && joinLeave === null) {
+                    this.setState({ joinLeave: "join" })
+                }
+                else if (joinLeave === null) {
+                    this.setState({ joinLeave: "leave" })
                 }
             }
 
             boardGameImageBloc = (
-                <img className={classes.image} src={boardGameImagePath}  />
+                <img className={classes.image} src={boardGameImagePath} />
             )
             boardGameNameBloc = (
                 <span className={classes.game}>
@@ -111,18 +139,25 @@ class Details extends Component {
                     </Link>
                 </span>
             )
-            if (game && game.players && game.players.indexOf(authUser._id) === -1){
-                JoinLeave = (
-                    <div className={classes.btn}>
-                        <Button onClick={this.handleJoin} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
-                    </div>
+            if ( game.userId === authUser._id ){
+                JoinLeaveBloc = (
+                    null
                 )
             } else {
-                JoinLeave = (
-                    <div className={classes.btn}>
-                        <Button onClick={this.handleLeave} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Leave</Button>
-                    </div>
-                )
+
+                if (joinLeave === "join") {
+                    JoinLeaveBloc = (
+                        <div className={classes.btn}>
+                            <Button onClick={this.handleJoin} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
+                        </div>
+                    )
+                } else {
+                    JoinLeaveBloc = (
+                        <div className={classes.btn}>
+                            <Button onClick={this.handleLeave} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Leave</Button>
+                        </div>
+                    )
+                }
             }
 
             return (
@@ -148,7 +183,7 @@ class Details extends Component {
                                                 <div>
                                                     {boardGameTimeBloc}
                                                 </div>
-                                                <div className={classes.players}><strong>{game.playersNumber}</strong> spot filled out of <strong>{game.playersMax}</strong></div>
+                                                <div className={classes.players}><strong>{playerNumber}</strong> spot filled out of <strong>{game.playersMax}</strong></div>
                                                 <div>
                                                     <strong>Game level :</strong> {game.playersLevel}
                                                 </div>
@@ -176,7 +211,7 @@ class Details extends Component {
                                 </Grid>
                                 <Grid item md={2}>
                                     <Typography component={'span'} variant="subtitle1">
-                                        {JoinLeave}
+                                        {JoinLeaveBloc}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -263,7 +298,8 @@ const styles = {
 const mapStateToProps = (state) => ({
     user: state.user.user,
     loadingUser: state.user.loading,
-    authUser: state.auth.user
+    authUser: state.auth.user,
+    players: state.players.players
 })
 
 

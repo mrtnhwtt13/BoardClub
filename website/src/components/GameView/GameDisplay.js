@@ -5,7 +5,6 @@ import { getGameById } from '../../actions/gameActions';
 import LoadingGame from './LoadingGame';
 import ListComments from './Comments/ListComments';
 
-
 class GameDisplay extends Component {
     constructor(props) {
         super(props)
@@ -13,7 +12,6 @@ class GameDisplay extends Component {
         this.state = {
             game: null,
             loading: true,
-
         }
         
     }
@@ -29,9 +27,9 @@ class GameDisplay extends Component {
         )
     }
 
+
     render() {
         const { game, loading } = this.state
-        
         return (
             <div>
                 {
@@ -39,7 +37,7 @@ class GameDisplay extends Component {
                         <LoadingGame /> :
                         <div>
                             <div>
-                                <Details game={game} rerenderParentCallback={this.rerenderParentCallback} />
+                                <Details game={game} />
                             </div>
                             <div>
                                 <ListComments gameId={game._id} />
@@ -50,6 +48,7 @@ class GameDisplay extends Component {
         )
     }
 }
+
 
 
 export default withRouter(GameDisplay);
