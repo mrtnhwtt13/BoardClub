@@ -120,9 +120,9 @@ export const leaveGame = (gameId) => dispatch => {
     .catch(err => console.log(err))
 }
 // get all games schedulded for the current user
-export const getScheduldedGames = () => dispatch => {
+export const getScheduledGames = () => dispatch => {
     dispatch(loadGames)
-    axios.get('http://localhost:5000/api/games/schedulded')
+    axios.get('http://localhost:5000/api/games/scheduled')
         .then(res => dispatch({
             type: GET_GAMES,
             payload: res.data
