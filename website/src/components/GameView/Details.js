@@ -24,6 +24,7 @@ class Details extends Component {
             loadingBoardgameDetails: true,
             thisGameId: null,
             thisGamePlayers: null,
+            playersList: null,
         }
 
         this.parseResponse = this.parseResponse.bind(this)
@@ -53,7 +54,15 @@ class Details extends Component {
         this.props.leaveGame(this.state.thisGameId)
         this.props.rerenderParentCallback();
         
-	}
+    }
+    
+    handleChange() {
+        console.log(this.state.playersList)
+            console.log(this.props.players.players)
+            this.setState({playersList: this.props.players.players}, () => {
+                console.log(this.state.playersList)
+            })
+    }
 
     parseResponse () {
         var parser, xmlDoc;
@@ -70,7 +79,7 @@ class Details extends Component {
     }
 
     render() {
-        const { classes, game, user, authUser, loadingUser } = this.props
+        const { classes, game, user, authUser, loadingUser, players } = this.props
         const { boardGameImagePath, boardGameName, boardGameTime, loadingBoardgameDetails } = this.state
         let boardGameImageBloc = null;
         let boardGameNameBloc = null;
@@ -88,6 +97,15 @@ class Details extends Component {
                 if (this.state.thisGamePlayers === null){
                     this.setState({thisGamePlayers: game.players})
                     console.log('players updated')
+                }
+                if (this.state.playersList === null){
+                    console.log(game.players, "game.players")
+                    this.setState({playersList: game.players}, () => {
+                        console.log(this.state.playersList, "PlayersList")
+                    })
+                }
+                if (players && this.state.playersList !== players.players){
+                    this.handleChange()
                 }
             }
 
@@ -265,7 +283,8 @@ const styles = {
 const mapStateToProps = (state) => ({
     user: state.user.user,
     loadingUser: state.user.loading,
-    authUser: state.auth.user
+    authUser: state.auth.user,
+    players: state.players.players
 })
 
 

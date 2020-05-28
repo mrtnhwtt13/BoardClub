@@ -15,6 +15,7 @@ class GameDisplay extends Component {
             game: null,
             loading: true,
             playersList: null,
+            // players: null,
         }
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
         
@@ -32,26 +33,49 @@ class GameDisplay extends Component {
     }
 
     rerenderParentCallback() {
-        getGameById(this.props.match.params.gameId).then(
-            (response) => {
-                this.setState({ game: response, loading: false })
-            },
-            (error) => {
-                console.log('error: ', error)
-            }
-        )
+        // getGameById(this.props.match.params.gameId).then(
+        //     (response) => {
+        //         this.setState({ game: response, loading: false })
+        //     },
+        //     (error) => {
+        //         console.log('error: ', error)
+        //     }
+        // )
+
+        // =====================================
+
+        // if (this.state.playersList === null){
+        //     console.log(this.state.game.players)
+        //     this.setState({playersList: this.state.game.players}, () => {
+        //         console.log(this.state.playersList)
+        //     })
+        // }
+        // if (this.props.players && this.state.playersList !== this.props.players.players){
+        //     console.log(this.state.playersList)
+        //     console.log(this.props.players.players)
+        //     this.setState({playersList: this.props.players.players}, () => {
+        //         console.log(this.state.playersList)
+        //     })
+        // }
     }
 
 
     render() {
-        const { game, loading, players } = this.state
+        const { game, loading } = this.state
+        const { players } = this.props
         if (game){
             if (this.state.playersList === null){
-                this.setState({playersList: game.players})
+                console.log(game.players, "game.players")
+                this.setState({playersList: game.players}, () => {
+                    console.log(this.state.playersList, "PlayersList")
+                })
             }
-            if (this.state.playersList !== players){
-                console.log(players)
-                this.setState({playersList: players})
+            if (players && this.state.playersList !== players.players){
+                console.log(this.state.playersList, "PlayersList")
+                console.log(players.players, "players.players")
+                this.setState({playersList: players.players}, () => {
+                    console.log(this.state.playersList, "PlayersList")
+                })
             }
         }
         return (
@@ -77,4 +101,4 @@ const mapStateToProps = (state) => ({
     players: state.players.players
 })
 
-export default connect(mapStateToProps, {})(withRouter(GameDisplay));
+export default connect(mapStateToProps, { getGameById })(withRouter(GameDisplay));

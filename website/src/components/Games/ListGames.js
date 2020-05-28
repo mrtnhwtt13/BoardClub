@@ -13,6 +13,7 @@ class ListGames extends Component {
 
     render () {
         const { list, loading } = this.props
+        console.log(list)
         const items = list && list.map(el => <Game key={el._id} game={el} />)
 
         return (

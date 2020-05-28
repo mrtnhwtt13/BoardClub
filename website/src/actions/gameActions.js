@@ -93,8 +93,9 @@ export const joinGame = (gameId) => dispatch => {
     axios.post('http://localhost:5000/api/games/join', { gameId })
     .then(res => dispatch({
         type: JOIN_GAME,
-        payload: res.data.players
+        payload: res.data
     }))
+    // .then(res => console.log(res))
     .catch(err => console.log(err))
 }
 
@@ -102,8 +103,9 @@ export const leaveGame = (gameId) => dispatch => {
     axios.post('http://localhost:5000/api/games/leave', { gameId })
     .then(res => dispatch({
         type: LEAVE_GAME,
-        payload: res.data.players
+        payload: res.data
     }))
+    // .then(res => console.log(res))
     .catch(err => console.log(err))
 }
 // get all games schedulded for the current user
