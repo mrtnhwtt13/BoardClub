@@ -61,7 +61,7 @@ class InfoGame extends Component {
             PaperProps: {
                 style: {
                 maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                width: 250
+                // width: 250
                 }
             }
         };
@@ -199,8 +199,9 @@ class InfoGame extends Component {
 const styles = {
     formControl: {
         margin: 10,
-        minWidth: 120,
-        width: '100%'
+        // minWidth: 120,
+        width: '90%',
+        
     },
     selectEmpty: {
         marginTop: 20,
@@ -212,9 +213,10 @@ const styles = {
     textField: {
         marginLeft: 20,
         marginRight: 20,
-        marginBottom: 20,
-        minWidth: 200,
-        width: '100%'
+        marginBottom: 10,
+        marginTop: 10,
+        // minWidth: 200,
+        width: '90%'
     },
     btnBlock: {
         textAlign: 'center',

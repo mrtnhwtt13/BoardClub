@@ -15,7 +15,7 @@ class Friends extends Component {
     }
     
     render() {
-        const {list, loading} = this.props
+        const {list, loading, classes} = this.props
         const cards =  list && list.map(user => <Card key={user._id} user={user} /> )
         console.log(list)
         if (list && list.length !=0 ){
@@ -28,14 +28,18 @@ class Friends extends Component {
                 <LoadingGames />
         } else {
             return(
-                <p>You don't have friends !!</p>
+                <p className={classes.nofren}>Friends 404 You don't have friends :(</p>
             )
         }
     }
 }
 
 const styles = {
-  
+    nofren: {
+        fontSize: 20,
+        color: '#595959',
+        textAlign: 'center',
+    }
 }
 
 

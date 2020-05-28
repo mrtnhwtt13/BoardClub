@@ -70,9 +70,6 @@ class CreateGame extends React.Component {
                         <ExpansionPanel style={{ borderRadius: 4, marginBottom: 60, marginTop: 40 }}>
                             <ExpansionPanelSummary
                                 expandIcon={<ExpandMoreIcon />}
-                                // aria-controls="panel1a-content"
-                                // id="panel1a-header"
-                                
                             >
                                 <Typography className={classes.heading}>Choose from your favorite games</Typography>
                             </ExpansionPanelSummary>
