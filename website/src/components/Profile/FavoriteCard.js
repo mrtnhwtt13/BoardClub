@@ -21,7 +21,6 @@ class FavoriteCard extends Component {
         }
 
         this.parseResponse = this.parseResponse.bind(this)
-        this.removeGame = this.removeGame.bind(this)
     }
 
     componentDidMount() {
@@ -55,13 +54,6 @@ class FavoriteCard extends Component {
         }
     }
 
-    removeGame () {
-        const userData = {
-            boardGameId: this.props.boardGameId
-        };
-        this.props.removeBoardGameFromFavorites(userData);
-    }
-
     render () {
         const { classes, boardGameId } = this.props;
         const { boardGameImagePath, boardGameName, loading } = this.state
@@ -91,12 +83,7 @@ class FavoriteCard extends Component {
                                 <Typography variant="body2" gutterBottom>
                                     {boardGameNameBloc}
                                 </Typography>
-                            </Grid> 
-                            <Grid item justify='right' alignItems="center">
-                                <Button disableElevation variant="contained" size="large" style={{ backgroundColor: "#959fef", color: "white", width: "8rem", height: "2rem"}} onClick={() => { this.removeGame(); }} >
-                                    Remove
-                                </Button>
-                            </Grid>
+                            </Grid>                             
                         </Grid>
                      </div>
                 </Paper>
