@@ -133,7 +133,7 @@ router.route('/scheduled')
         (req, res) => {
             Game.find({ players: req.user.id
             })
-            .sort({ gameDate: -1 })
+            .sort({ gameDate: 1 })
             .then(games => res.json(games))
             .catch(err => console.log(err))
     })

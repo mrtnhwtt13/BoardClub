@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core'
-import getScheduldedGames from '../../actions/gameActions'
+import { getScheduledGames } from '../../actions/gameActions'
 import LoadingGames from '../Games/LoadingGames'
 import Game from '../Games/Game'
 
 class ScheduledGames extends Component {
 
     componentDidMount(){
-        this.props.getScheduldedGames()
+        this.props.getScheduledGames()
     }
 
     render () {
@@ -23,9 +23,13 @@ class ScheduledGames extends Component {
     }
 }
 
+const styles = {
+  
+}
+
 const mapStateToProps = (state) => ({
     list: state.game.list,
     loading: state.game.loading
 })
 
-export default connect(mapStateToProps, { getScheduldedGames })(withStyles(ScheduledGames))
+export default connect(mapStateToProps, { getScheduledGames })(withStyles(styles)(ScheduledGames))
