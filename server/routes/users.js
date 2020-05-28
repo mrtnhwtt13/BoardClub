@@ -330,6 +330,44 @@ router.route('/editprofile')
     })
 
 
+// add a board game to favorites
+router.route('/addtofavorites')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            if (req.user.topGames.includes(req.body.boardGameId)) {                
+                return res.status(404).json('This game is already in your favorites !');
+            }
+
+            User.findOneAndUpdate({
+                _id: req.user.id
+            }, {
+                $push: { topGames: req.body.boardGameId}
+            },
+            { new: true })
+            .then(user => res.json(user))
+            .catch(err => console.log(err))
+        }
+    )
+
+
+// remove a board game from favorites
+router.route('/removefromfavorites')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            User.findOneAndUpdate({
+                _id: req.user.id
+            }, {
+                $pull: { topGames: req.body.boardGameId}
+            },
+            { new: true })
+            .then(user => res.json(user))
+            .catch(err => console.log(err))
+        }
+    )
+
+
 // get the informations of the current user
 router.route('/')
     .get( passport.authenticate('jwt', { session: false }),(req, res) => {

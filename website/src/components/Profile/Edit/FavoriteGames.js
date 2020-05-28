@@ -5,22 +5,13 @@ import { withRouter } from 'react-router-dom'
 import Loading from './Loading';
 
 
-class TopGames extends Component {
-    constructor(props){
-        super(props)
-        
-        this.selectGame = this.selectGame.bind(this)
-    }
-
-    selectGame(selectedGameId) {
-        this.props.selectedGame(selectedGameId)
-    }
+class FavoriteGames extends Component {
 
     render(){
         const {user} = this.props
 
         if (user) {
-            const cards = Object.keys(user.topGames).map(key=> <FavoriteCard key={key} boardGameId={user.topGames[key]} selectBoardGameId={this.selectGame} />)
+            const cards = user.topGames.map(element => <FavoriteCard key={element} boardGameId={element} />)
             
             return (
                 <div>
@@ -40,4 +31,4 @@ const mapStateToProps = (state) => ({
    })
 
 
-export default connect(mapStateToProps)(withRouter(TopGames))
+export default connect(mapStateToProps)(withRouter(FavoriteGames))
