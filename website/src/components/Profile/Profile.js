@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+import TopGames from './topGames'
 
 
 
@@ -162,6 +163,7 @@ class Profile extends Component {
                                 </Grid>
                             </Grid>
                     </Grid>
+                    <TopGames></TopGames>
                 </Paper >
                     :
                     <div className={classes.error} style={{marginTop: 20, marginBottom: 20 }}>
