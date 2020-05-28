@@ -131,7 +131,9 @@ router.route('/scheduled')
     .get(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            Game.find({ players: req.user.id
+            Game.find({
+                players: req.user.id,
+                gameDate: {$gte: new Date()}
             })
             .sort({ gameDate: 1 })
             .then(games => res.json(games))

@@ -5,10 +5,11 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FavoriteGames from './Edit/FavoriteGames'
+import FavoriteGamesList from './FavoriteGamesList'
+import { withRouter } from 'react-router-dom'
 
 
-function TopGames(props) {
+function FavoriteGamesPanel(props) {
     const { classes } = props;
     return (
         <div>
@@ -18,17 +19,18 @@ function TopGames(props) {
                     // aria-controls="panel1a-content"
                     // id="panel1a-header"                            
                 >
-                    <Typography className={classes.heading}>See your favorite board games</Typography>
+                    <Typography className={classes.heading}>See {props.userName}'s favorite board games</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails >
                     <div style={{ width: '1000px', margin: '0 auto' }}>
-                        <FavoriteGames />
+                        <FavoriteGamesList user={props.user} />
                     </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
     )
 }
+
 
 const styles = {
     root: {
@@ -41,4 +43,4 @@ const styles = {
 }
 
 
-export default withStyles(styles)(TopGames)
+export default withRouter(withStyles(styles)(FavoriteGamesPanel));

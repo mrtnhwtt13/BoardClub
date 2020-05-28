@@ -6,9 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
-import TopGames from './topGames'
-
-
+import FavoriteGamesPanel from './FavoriteGamesPanel'
+import { withRouter } from 'react-router-dom'
 
 
 class Profile extends Component {
@@ -163,7 +162,7 @@ class Profile extends Component {
                                 </Grid>
                             </Grid>
                     </Grid>
-                    <TopGames></TopGames>
+                    <FavoriteGamesPanel userId={this.props.match.params.userId} userName={user.login} user={user} />
                 </Paper >
                     :
                     <div className={classes.error} style={{marginTop: 20, marginBottom: 20 }}>
@@ -217,4 +216,4 @@ const mapStateToProps = (state) => ({
     authUser: state.auth.user
 })
 
-export default connect(mapStateToProps, { getUserById, followUser, unfollowUser })(withStyles(styles)(Profile))
+export default connect(mapStateToProps, { getUserById, followUser, unfollowUser })(withRouter(withStyles(styles)(Profile)));
