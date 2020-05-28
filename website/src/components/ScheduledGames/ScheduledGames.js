@@ -14,7 +14,6 @@ class ScheduledGames extends Component {
     render () {
         const { list, loading } = this.props
         const items = list && list.map(el => <Game key={el._id} game={el} />)
-        console.log(list)
         return (
             <div>            
                 { loading ? <LoadingGames /> : items }
