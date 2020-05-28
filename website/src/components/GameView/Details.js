@@ -48,7 +48,6 @@ class Details extends Component {
         console.log('joining')
         this.props.joinGame(this.state.thisGameId)
         this.setState({playerNumber: this.state.playerNumber + 1, joinLeave: "leave"})
-        this.props.rerenderParentCallback();
         
 	}
 
@@ -56,16 +55,11 @@ class Details extends Component {
         console.log('leaving')
         this.props.leaveGame(this.state.thisGameId)
         this.setState({playerNumber: this.state.playerNumber - 1, joinLeave: "join"})
-        this.props.rerenderParentCallback();
         
     }
     
     handleChange() {
-        console.log(this.state.playersList)
-            console.log(this.props.players.players)
-            this.setState({playersList: this.props.players.players}, () => {
-                console.log(this.state.playersList)
-            })
+        this.setState({playersList: this.props.players.players})
     }
 
     parseResponse () {
