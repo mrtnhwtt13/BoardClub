@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -266,7 +267,15 @@ router.route('/edit')
 
                                 },
                                 { new: true })
-                                .then(User => res.json(User))
+                                .then(user => {
+                                    Comment.updateMany({
+                                        "user.id": req.user.id
+                                    }, {
+                                        $set: { "user.login": req.body.login }
+                                    }, { multi: true })
+                                    .then(res.json(user))
+                                    .catch(err => console.log(err))
+                                })
                                 .catch(err => console.log(err))
                             })                
                         })
@@ -321,7 +330,15 @@ router.route('/editprofile')
                                         avatar: req.body.avatar
                                     },
                                     { new: true })
-                                    .then(User => res.json(User))
+                                    .then(user => {
+                                        Comment.updateMany({
+                                            "user.id": req.user.id
+                                        }, {
+                                            $set: { "user.login": req.user.login }
+                                        }, { multi: true })
+                                        .then(res.json(user))
+                                        .catch(err => console.log(err))
+                                    })
                                     .catch(err => console.log(err))
                                 })                
                             })

@@ -11,6 +11,7 @@ import {
     REMOVE_FAVORITES,
     ADD_FAVORITES
 } from '../constants';
+import { getCurrentUser } from './authActions';
 
 
 export const loadUsers = () => dispatch => {
@@ -125,9 +126,14 @@ export const getUserById = (userId) => dispatch => {
 }   
 
 
-export const editUser = (userData, history) => dispatch => {
+export const editUser = (currentUserId, userData, history) => dispatch => {
     axios.post('http://localhost:5000/api/users/edit', userData)
-        .then(res => history.push(`/admin`))
+        .then(res => {
+            if (currentUserId === userData._id) {
+                dispatch(getCurrentUser())
+            }
+            history.push(`/admin`)
+        })
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
