@@ -8,19 +8,22 @@ import Typography from '@material-ui/core/Typography';
 import { getUserById } from '../../actions/userActions'
 import LoadingGame from './LoadingGame';
 import { Link } from 'react-router-dom';
-
+import { joinGame, leaveGame, getGameById } from '../../actions/gameActions'
 
 
 class Details extends Component {
     constructor(props) {
         super(props)
-
+        this.handleJoin = this.handleJoin.bind(this)
+		this.handleLeave = this.handleLeave.bind(this)
         this.state = {
             boardGameDetails: null,
             boardGameImagePath: "",
             boardGameName: "",
             boardGameTime: "",
             loadingBoardgameDetails: true,
+            thisGameId: null,
+            thisGamePlayers: null,
         }
 
         this.parseResponse = this.parseResponse.bind(this)
@@ -28,7 +31,6 @@ class Details extends Component {
 
     componentDidMount() {
         this.props.getUserById(this.props.game.userId)
-
         axios.get('http://localhost:8080/https://boardgamegeek.com/xmlapi2/thing?id=' + this.props.game.boardGameId)
             .then(response => {
                 this.setState({
@@ -38,6 +40,18 @@ class Details extends Component {
             })
             .catch((err) => console.log(err))
     }
+
+    handleJoin (){
+        console.log('joining')
+        this.props.joinGame(this.state.thisGameId)
+        
+	}
+
+	handleLeave () {
+        console.log('leaving')
+        this.props.leaveGame(this.state.thisGameId)
+        
+	}
 
     parseResponse () {
         var parser, xmlDoc;
@@ -54,7 +68,7 @@ class Details extends Component {
     }
 
     render() {
-        const { classes, game, user, loadingUser } = this.props
+        const { classes, game, user, authUser, loadingUser } = this.props
         const { boardGameImagePath, boardGameName, boardGameTime, loadingBoardgameDetails } = this.state
         let boardGameImageBloc = null;
         let boardGameNameBloc = null;
@@ -64,6 +78,17 @@ class Details extends Component {
 
         if (user && loadingUser === false && loadingBoardgameDetails === false) {
             let linkbgg = 'https://boardgamegeek.com/boardgame/' + this.props.game.boardGameId
+            
+            if (game){
+                if (this.state.thisGameId === null){
+                    this.setState({thisGameId: game._id})
+                }
+                if (this.state.thisGamePlayers === null){
+                    this.setState({thisGamePlayers: game.players})
+                    console.log('players updated')
+                }
+            }
+
             boardGameImageBloc = (
                 <img className={classes.image} src={boardGameImagePath}  />
             )
@@ -86,11 +111,19 @@ class Details extends Component {
                     </Link>
                 </span>
             )
-            JoinLeave = (
-                <div className={classes.btn}>
-                    <Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
-                </div>
-            )
+            if (game && game.players && game.players.indexOf(authUser._id) === -1){
+                JoinLeave = (
+                    <div className={classes.btn}>
+                        <Button onClick={this.handleJoin} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
+                    </div>
+                )
+            } else {
+                JoinLeave = (
+                    <div className={classes.btn}>
+                        <Button onClick={this.handleLeave} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Leave</Button>
+                    </div>
+                )
+            }
 
             return (
                 <div className={classes.root}>
@@ -229,8 +262,9 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     user: state.user.user,
-    loadingUser: state.user.loading
+    loadingUser: state.user.loading,
+    authUser: state.auth.user
 })
 
 
-export default connect(mapStateToProps, { getUserById })(withStyles(styles)(Details))
+export default connect(mapStateToProps, { getUserById, joinGame, leaveGame, getGameById })(withStyles(styles)(Details))
