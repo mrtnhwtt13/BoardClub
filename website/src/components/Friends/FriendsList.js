@@ -17,7 +17,6 @@ class Friends extends Component {
     render() {
         const {list, loading, classes} = this.props
         const cards =  list && list.map(user => <Card key={user._id} user={user} /> )
-        console.log(list)
         if (list && list.length !=0 ){
             return(
                 <div>

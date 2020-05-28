@@ -118,6 +118,7 @@ const styles = {
         width: '100%'    
     },
     title: {
+        fontSize: '1.5rem',
         color: '#595959',
         marginTop: "0px",
         marginBottom: "0px"
