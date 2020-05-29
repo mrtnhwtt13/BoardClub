@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import User from './User';
+import Game from './Game';
 import { withStyles } from '@material-ui/core/styles';
-import { getAllUsers } from '../../actions/userActions';
+import { getGames } from '../../../actions/gameActions';
 import { connect } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -28,7 +28,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 
-class AllUsers extends Component {
+class AllGames extends Component {
     constructor(props) {
         super(props);
 
@@ -45,25 +45,26 @@ class AllUsers extends Component {
     }
 
     componentDidMount() {
-        this.props.getAllUsers()
+        this.props.getGames()
     }
 
     render () {
         const { list, classes } = this.props
-        const items = list && list.map(el => <User key={el._id} user={el} rerenderParentCallback={this.rerenderParentCallback}/>)
+        const items = list && list.map(el => <Game key={el._id} game={el} rerenderParentCallback={this.rerenderParentCallback}/>)
 
         return (
             <div>
-                <h1 className={classes.title}>MANAGE USERS</h1>
+                <h1 className={classes.title}>MANAGE GAMES</h1>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} size="small" aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell>Login</StyledTableCell>
-                                <StyledTableCell align="right">Email</StyledTableCell>
-                                <StyledTableCell align="right">Inscription</StyledTableCell>
-                                <StyledTableCell align="right">Admin</StyledTableCell>
-                                <StyledTableCell align="right">Banned</StyledTableCell>
+                                <StyledTableCell>Game date</StyledTableCell>
+                                <StyledTableCell align="right">Title</StyledTableCell>
+                                <StyledTableCell align="right">Creator</StyledTableCell>
+                                <StyledTableCell align="right">City</StyledTableCell>
+                                <StyledTableCell align="right">Board Game</StyledTableCell>
+                                <StyledTableCell align="right">Players</StyledTableCell>
                                 <StyledTableCell align="right"></StyledTableCell>
                             </TableRow>
                         </TableHead>
@@ -94,9 +95,9 @@ const styles = {
 
 
 const mapStateToProps = (state) => ({
-    list: state.user.list,
-    loading: state.user.loading
+    list: state.game.list,
+    loading: state.game.loading
 })
 
 
-export default connect(mapStateToProps, { getAllUsers })(withStyles(styles)(AllUsers));
+export default connect(mapStateToProps, { getGames })(withStyles(styles)(AllGames));

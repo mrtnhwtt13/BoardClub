@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { editUser } from '../../actions/userActions';
+import { editUser } from '../../../actions/userActions';
 
 
 class EditUser extends Component {

@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
 import EditIcon from '@material-ui/icons/Edit';
-import { deleteUser, banUser } from '../../actions/userActions';
+import { deleteUser, banUser } from '../../../actions/userActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 

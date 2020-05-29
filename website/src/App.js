@@ -8,7 +8,8 @@ import Home from './components/Home';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import GamePage from './components/GameView/GameDisplay';
-import EditUser from './components/Admin/EditUser';
+import EditUser from './components/Admin/Users/EditUser';
+import EditGame from './components/Admin/Games/EditGame';
 import EditProfile from './components/Profile/Edit/EditProfile.js';
 import CreateGame from './components/CreateGame/CreateGame';
 import NotFound from './components/NotFound';
@@ -49,6 +50,7 @@ class App extends Component {
                 <Route path="/register" component={Register} />
                 <Route path="/search" component={SearchPage} />
                 <Route path="/admin/user/edit" component={EditUser} />
+                <Route path="/admin/game/edit" component={EditGame} />
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/game/:gameId" component={GamePage} />
                 <Route path="/profile/edit" component={EditProfile} />

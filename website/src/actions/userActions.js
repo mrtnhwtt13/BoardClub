@@ -126,6 +126,16 @@ export const getUserById = (userId) => dispatch => {
 }   
 
 
+export function getUserByIdFunction (userId) {
+    return fetch(`http://localhost:5000/api/users/find/${userId}`, {
+        method: 'GET'
+    })
+        .then((response) => {
+            return response.json()
+        })
+}
+
+
 export const editUser = (currentUserId, userData, history) => dispatch => {
     axios.post('http://localhost:5000/api/users/edit', userData)
         .then(res => {

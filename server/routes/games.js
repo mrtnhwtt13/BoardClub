@@ -4,6 +4,7 @@ const passport = require('passport');
 const Game = require("../models/Game");
 const User = require("../models/User");
 const validateCreationInput = require('../validation/createGame')
+const validateEditInput = require('../validation/editGame')
 
 
 // create a new game
@@ -53,24 +54,22 @@ router.route('/edit')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            const { isValid, errors } = validateCreationInput(req.body);
+            const { isValid, errors } = validateEditInput(req.body);
             if (!isValid) {
                 return res.status(404).json(errors);
             } 
 
             Game.findOneAndUpdate({
-                _id: req.body.gameId,
-                "userId": req.user.id
+                _id: req.body.gameId
             }, {
                 title: req.body.title.trim(),
                 description: req.body.description.trim(),
                 gameDate: req.body.gameDate,
-                boardGameId: req.body.boardGameId,
                 city: req.body.city,
                 playersLevel: req.body.playersLevel,
                 playersMax: req.body.playersMax
             }, {new: true})
-                .then(Game => res.json(Game))
+                .then(game => res.json(game))
                 .catch(err => console.log(err))
         }    
     )
@@ -193,7 +192,7 @@ router.route('/search')
 router.route('/')
     .get((req, res) => {
         Game.find()
-            .sort({ gameDate: -1 })
+            .sort({ gameDate: 1 })
             .then(games => res.json(games))
             .catch(err => console.log(err))
     })

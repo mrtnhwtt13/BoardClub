@@ -59,7 +59,7 @@ export const deleteGame = gameData => dispatch => {
 // edit a game
 export const editGame = (gameData, history) => dispatch => {
     axios.post('http://localhost:5000/api/games/edit', gameData)
-        .then(res => history.push(`/`))
+        .then(res => history.push(`/admin`))
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
