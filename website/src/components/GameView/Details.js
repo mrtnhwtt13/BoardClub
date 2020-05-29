@@ -139,7 +139,7 @@ class Details extends Component {
                     </Link>
                 </span>
             )
-            if ( game.userId === authUser._id ){
+            if ( game.userId === authUser._id || new Date(game.gameDate) < new Date() ){
                 JoinLeaveBloc = (
                     null
                 )

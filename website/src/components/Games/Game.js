@@ -50,6 +50,8 @@ class Game extends Component {
         const { boardGameImagePath, boardGameName, loading } = this.state
         let boardGameImageBloc = null
         let boardGameNameBloc = null
+        let paperStyle = classes.paper;
+        let pastEvent = null;
 
         if (loading === false) {
             boardGameImageBloc = (
@@ -61,12 +63,16 @@ class Game extends Component {
                     {boardGameName}
                 </span>
             )
+            if (new Date(game.gameDate) < new Date()) {
+                paperStyle = classes.pastPaper
+                pastEvent = "GAME PLAYED - "
+            }
         }
 
         return (
             <div className={classes.root}>
                 <Link to={`/game/${game._id}`}>
-                    <Paper className={classes.paper}>
+                    <Paper className={paperStyle}>
                         <div>
                             <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
                                 <Grid item justify='center' alignItems="center">    
@@ -76,7 +82,7 @@ class Game extends Component {
                                     <Grid item xs container direction="column" spacing={2}>
                                         <Grid item xs>
                                             <Typography gutterBottom variant="subtitle1">
-                                                <div className={classes.title}>{game.title}</div>
+                                                <div className={classes.title}>{pastEvent}{game.title}</div>
                                             </Typography>
                                             <Typography variant="body2" gutterBottom>
                                                 {boardGameNameBloc}
@@ -122,6 +128,11 @@ const styles = {
         padding: 10,
         marginTop: 10
     },
+    pastPaper: {
+        padding: 10,
+        marginTop: 10,
+        backgroundColor: "#dcdcdc"
+    },
     bgBlock: {
         width: '100%'    
     },
@@ -138,7 +149,7 @@ const styles = {
         marginBottom: "0px"
     },
     time: {
-        color: '#bbb',
+        color: '#595959',
         fontSize: 14
     },
     image: {
