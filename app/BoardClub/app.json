@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "BoardClub",
-    "slug": "BoardClub",
+    "scheme": "mycoolredirect",
+    "name": "ePicture",
+    "slug": "ePicture",
     "platforms": [
       "ios",
       "android",
