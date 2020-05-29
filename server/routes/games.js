@@ -208,6 +208,32 @@ router.route('/upcoming')
     })
 
 
+// get all upcoming games sorted by game date from friends
+router.route('/friendsupcoming')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.find({ gameDate: {$gte: new Date()}, userId: { $in: req.user.following }})
+                .sort({ gameDate: 1 })
+                .then(games => res.json(games))
+                .catch(err => console.log(err))
+        }
+    )
+
+
+// get all upcoming games sorted by game date from favorite board games
+router.route('/favoriteupcoming')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.find({ gameDate: {$gte: new Date()}, boardGameId: { $in: req.user.topGames }})
+                .sort({ gameDate: 1 })
+                .then(games => res.json(games))
+                .catch(err => console.log(err))
+        }
+    )
+
+
 // get one game by game Id
 router.route('/find/:gameId')
     .get((req, res) => {

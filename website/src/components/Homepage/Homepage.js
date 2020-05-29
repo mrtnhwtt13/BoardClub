@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -80,13 +79,13 @@ export default function Homepage() {
           <Tab label="Favorite games" {...a11yProps(1)} />
         </Tabs>
       <TabPanel value={value} index={0}>
-        < ListGames />
+        < ListGames selection="all"/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        < ListGames />
+        < ListGames selection="friends" />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        < ListGames />
+        < ListGames selection="favorite" />
       </TabPanel>
     </div>
   );
