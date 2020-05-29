@@ -129,3 +129,15 @@ export const getScheduledGames = () => dispatch => {
         }))
         .catch(err => console.log(err))
 }
+
+// get all games from an user
+export const getGamesFromUser = (userId) => dispatch => {
+    console.log("test")
+    dispatch(loadGames)
+    axios.get(`http://localhost:5000/api/games/user/${userId}`)
+        .then(res => dispatch({
+            type: GET_GAMES,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getUserById, followUser, unfollowUser, } from '../../actions/userActions'
+import { getUserById, followUser, unfollowUser } from '../../actions/userActions'
+import { getGamesFromUser } from '../../actions/gameActions'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -8,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import FavoriteGamesPanel from './TopGames/FavoriteGamesPanel'
 import { withRouter } from 'react-router-dom'
+import Game from '../Games/Game';
 
 
 class Profile extends Component {
@@ -22,9 +24,10 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.props.getUserById(this.props.match.params.userId)
-        const pageUserId = this.props.match.params.userId
-        this.setState({currentId: pageUserId})
+        this.props.getUserById(this.props.match.params.userId);
+        this.props.getGamesFromUser(this.props.match.params.userId);
+        const pageUserId = this.props.match.params.userId;
+        this.setState({currentId: pageUserId});
     }
     
 
@@ -37,15 +40,16 @@ class Profile extends Component {
 	}
 
     render() {
-        const { user, authUser,loadingUser, classes } = this.props;
+        const { user, authUser,loadingUser, classes, listGames, loadingGames } = this.props;
         let username = null;
         let avatar = null;
         let location = null;
         let inscription = null;
         let button = null;
         let exist = false;
+        const items = listGames && listGames.map(el => <Game key={el._id} game={el} />)
         
-        if (user && loadingUser === false) {
+        if (user && loadingUser === false && listGames && loadingGames === false) {
             exist = true;
 
             if (this.state.currentId !== this.props.match.params.userId){
@@ -163,6 +167,7 @@ class Profile extends Component {
                             </Grid>
                     </Grid>
                     <FavoriteGamesPanel userId={this.props.match.params.userId} userName={user.login} user={user} />
+                    {items}
                 </Paper >
                     :
                     <div className={classes.error} style={{marginTop: 20, marginBottom: 20 }}>
@@ -213,7 +218,9 @@ const styles = {
 const mapStateToProps = (state) => ({
     user: state.user.user,
     loadingUser: state.user.loading,
-    authUser: state.auth.user
+    authUser: state.auth.user,
+    listGames: state.game.list,
+    loadingGames: state.game.loading
 })
 
-export default connect(mapStateToProps, { getUserById, followUser, unfollowUser })(withRouter(withStyles(styles)(Profile)));
+export default connect(mapStateToProps, { getUserById, followUser, unfollowUser, getGamesFromUser })(withRouter(withStyles(styles)(Profile)));
