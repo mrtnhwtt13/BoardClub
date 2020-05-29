@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Game from './Game';
+import Game from '../Games/Game';
 import { connect } from 'react-redux';
 import { getUpcomingGames } from '../../actions/gameActions';
 import LoadingGames from './LoadingGames';
-import { withStyles } from '@material-ui/core';
 
 
 class ListGames extends Component {
@@ -17,23 +16,10 @@ class ListGames extends Component {
         const items = list && list.map(el => <Game key={el._id} game={el} />)
 
         return (
-            <div className={classes.root}>
-                <h1 className={classes.title}>UPCOMING GAMES</h1>   
+            <div>                   
                 { loading ? <LoadingGames /> : items }
             </div>
         )
-    }
-}
-
-
-const styles = {
-    root: {
-        width: '100%',
-    }, 
-    title: {
-        color: '#595959',
-        display: 'flex',
-        justifyContent: 'center'
     }
 }
 
@@ -44,4 +30,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { getUpcomingGames })(withStyles(styles)(ListGames));
+export default connect(mapStateToProps, { getUpcomingGames })(ListGames);
