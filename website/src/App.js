@@ -11,6 +11,7 @@ import GamePage from './components/GameView/GameDisplay';
 import EditUser from './components/Admin/Users/EditUser';
 import EditGame from './components/Admin/Games/EditGame';
 import EditProfile from './components/Profile/Edit/EditProfile.js';
+import DeleteAccount from './components/Profile/Edit/EditLogin/DeleteAccount';
 import CreateGame from './components/CreateGame/CreateGame';
 import NotFound from './components/NotFound';
 import Admin from './components/Admin/Admin'
@@ -53,6 +54,7 @@ class App extends Component {
                 <Route path="/admin/game/edit" component={EditGame} />
                 <Route exact path="/admin" component={Admin} />
                 <Route path="/game/:gameId" component={GamePage} />
+                <Route path="/profile/delete/:userId" component={DeleteAccount} />
                 <Route path="/profile/edit" component={EditProfile} />
                 <Route path="/profile/:userId" component={Profile} />
                 <Route path="/create" component={CreateGame} />

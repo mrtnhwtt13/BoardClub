@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Game = require("../models/Game");
 const Comment = require("../models/Comment");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -89,14 +90,120 @@ router.route('/login')
     })
 
 
-// delete an existing user
+// delete an existing user from admin section
 router.route('/delete')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
             if (req.user.isAdmin === true) {
                 User.findOneAndRemove({_id: req.body.userId}, req.body)
-                    .then(res.json("Ok"))
+                    .then(Game.deleteMany({userId: req.body.userId}, function(err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Comment.deleteMany({"user.id": req.body.userId}, function(err, result) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    User.updateMany({
+                                        followers: req.body.userId
+                                    }, {
+                                        $pull: { followers: req.body.userId }
+                                    }, function(err, result) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            User.updateMany({
+                                                following: req.body.userId
+                                            }, {
+                                                $pull: { following: req.body.userId }
+                                            }, function(err, result) {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    Game.updateMany({
+                                                        players: req.body.userId
+                                                    }, {
+                                                        $pull: { players: req.body.userId },
+                                                        $inc: {playersNumber: -1}
+                                                    }, function(err, result) {
+                                                        if (err) {
+                                                            console.log(err);
+                                                        } else {
+                                                            res.json("Ok")
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+                                    })                       
+                                }
+                            })
+                        }
+                    }))
+                    .catch(err => console.log(err))
+            }
+            else {
+                errors = 'Unauthorized';
+                return res.status(404).json(errors);
+            }
+        }    
+    )
+
+
+// delete a profile
+router.route('/deleteprofile')
+    .post(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            if (req.user.id === req.body.userId) {
+                User.findOneAndRemove({_id: req.body.userId}, req.body)
+                    .then(Game.deleteMany({userId: req.body.userId}, function(err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            Comment.deleteMany({"user.id": req.body.userId}, function(err, result) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    User.updateMany({
+                                        followers: req.body.userId
+                                    }, {
+                                        $pull: { followers: req.body.userId }
+                                    }, function(err, result) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            User.updateMany({
+                                                following: req.body.userId
+                                            }, {
+                                                $pull: { following: req.body.userId }
+                                            }, function(err, result) {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    Game.updateMany({
+                                                        players: req.body.userId
+                                                    }, {
+                                                        $pull: { players: req.body.userId },
+                                                        $inc: {playersNumber: -1}
+                                                    }, function(err, result) {
+                                                        if (err) {
+                                                            console.log(err);
+                                                        } else {
+                                                            res.json("Ok")
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
+                                    })                       
+                                }
+                            })
+                        }
+                    }))
                     .catch(err => console.log(err))
             }
             else {

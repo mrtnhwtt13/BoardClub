@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { editProfile } from '../../../../actions/authActions';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -153,6 +154,11 @@ class EditLoginInformations extends Component {
                         </Button> 
                     </div>
                 </form>
+                <div className={classes.btnBlock2}>
+                    <Button variant="outlined" type="submit" component={Link} to={`/profile/delete/${this.props.user._id}`}>
+                        Delete my account
+                    </Button> 
+                </div>
             </Paper>                
         )
     }
@@ -168,6 +174,11 @@ const styles = {
         textAlign: 'center',
         marginBottom: 10,
         marginTop: 20
+    },
+    btnBlock2: {
+        textAlign: 'center',
+        marginBottom: 10,
+        marginTop: 50
     }
 }
 
