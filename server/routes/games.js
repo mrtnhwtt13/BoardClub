@@ -42,7 +42,7 @@ router.route('/delete')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            Game.findOneAndRemove({_id: req.body.gameId, "userId": req.user.id}, req.body)
+            Game.findOneAndRemove({_id: req.body.gameId}, req.body)
                 .then(res.json("Ok"))
                 .catch(err => console.log(err))
         }    
