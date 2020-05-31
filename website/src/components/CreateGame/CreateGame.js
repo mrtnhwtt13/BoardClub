@@ -74,7 +74,7 @@ class CreateGame extends React.Component {
                                 <Typography className={classes.heading}>Choose from your favorite games</Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
-                                <div>
+                                <div style={{ width: '1000px', margin: '0 auto' }}>
                                     <TopGames selectedGame={this.selectGame} />
                                 </div>
                             </ExpansionPanelDetails>
