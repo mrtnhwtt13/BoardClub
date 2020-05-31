@@ -1,19 +1,34 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native'
+import LoginForm from '../Components/LoginForm'
 
-export default function Login(){
+export default function Login() {
     return (
-        <View style={styles.container}>
-            <Text>Login</Text>
+        <View style={styles.root}>
+            <Text style={styles.title}>Login to BoardClub</Text>
+            <View style={styles.container}>
+                <LoginForm />
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    root : {
         flex: 1,
-        backgroundColor: '#fff',
+        justifyContent: 'center',
+        width: '100%'
+    },
+    formContainer: {
         alignItems: 'center',
         justifyContent: 'center',
+        width: "100%"
+    },
+    title: {
+        textAlign: 'center',
+        marginBottom: 50,
+        color: "#595959",
+        fontWeight: 'bold',
+        fontSize: 20
     }
 })

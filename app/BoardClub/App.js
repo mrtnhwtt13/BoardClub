@@ -12,23 +12,12 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator
                 initialRouteName="Login"
-                screenOptions={{
-                    headerStyle: {
-                        backgroundColor: '#1e3f83',
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center'
-                }}
             >
                 <Stack.Screen
                     name="Login"
                     options={{headerShown: false}}
                     component={Login}
                 />
-                                    
             </Stack.Navigator>
         </NavigationContainer>
     );
