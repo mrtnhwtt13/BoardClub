@@ -11,7 +11,6 @@ router.route('/login')
     if (!isValid) {
         return res.status(404).json(errors)
     }
-    console.log(req.body)
     User.findOne({ login: req.body.login })
             .then(user => {
                 if (user) {

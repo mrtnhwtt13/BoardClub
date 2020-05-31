@@ -1,2 +1,2 @@
-global.user = "";
+global.currentUser = "test";
 global.error = "";
