@@ -58,8 +58,8 @@ class EditTopGames extends React.Component {
                         >
                             <Typography className={classes.heading}>See your favorite board games</Typography>
                         </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <div>
+                        <ExpansionPanelDetails >
+                            <div style={{ width: '1000px', margin: '0 auto' }}>
                                 <FavoriteGames />
                             </div>
                         </ExpansionPanelDetails>
