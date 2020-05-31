@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Game from '../Games/Game';
 import { connect } from 'react-redux';
 import { getUpcomingGames, getFriendsUpcomingGames, getFavoriteUpcomingGames } from '../../actions/gameActions';
-import LoadingGames from './LoadingGames';
+import Loading from '../Loading/Loading';
 import { withStyles } from '@material-ui/core/styles'
 
 
@@ -34,7 +34,7 @@ class ListGames extends Component {
 
         return (
             <div>                   
-                { loading ? <LoadingGames /> : items }
+                { loading ? < Loading /> : items }
             </div>
         )
     }

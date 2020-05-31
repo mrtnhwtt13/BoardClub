@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withStyles, Paper } from '@material-ui/core'
 import Card from './Card'
 import { getFollowingUsers } from '../../actions/userActions'
-import Loading from './Loading'
+import Loading from '../Loading/Loading'
 
 
 class Friends extends Component {

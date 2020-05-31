@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core'
 import { getScheduledGames } from '../../actions/gameActions'
-import Loading from './Loading'
+import Loading from '../Loading/Loading'
 import Game from '../Games/Game'
 
 class ScheduledGames extends Component {

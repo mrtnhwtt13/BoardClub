@@ -2,7 +2,7 @@ import React, { Component }from 'react'
 import { connect } from 'react-redux'
 import Card from './Card'
 import { withRouter } from 'react-router-dom'
-import Loading from './Loading';
+import Loading from '../Loading/Loading';
 
 
 class TopGames extends Component {

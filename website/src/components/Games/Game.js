@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
-import LoadingGame from './LoadingGame';
+import Loading from '../Loading/Loading';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -118,7 +118,7 @@ class Game extends Component {
             )
         }
         else {
-            return (<LoadingGame />)
+            return (<Loading />)
         }
     }
 }

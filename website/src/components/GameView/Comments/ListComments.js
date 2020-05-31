@@ -3,7 +3,7 @@ import AddComment from './AddComment';
 import Comment from './Comment';
 import { connect } from 'react-redux';
 import { getCommentsByGameId } from '../../../actions/commentActions';
-import LoadingComments from './LoadingComments';
+import Loading from '../../Loading/Loading';
 import { withRouter } from 'react-router-dom';
 
 
@@ -20,7 +20,7 @@ class ListComments extends Component {
         return (
             <div>
                 <AddComment gameId={this.props.gameId} />
-                { loading ? <LoadingComments /> : items }
+                { loading ? <Loading /> : items }
             </div>
         )
     }
