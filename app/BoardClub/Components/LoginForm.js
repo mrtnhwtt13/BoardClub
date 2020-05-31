@@ -1,12 +1,37 @@
 import * as React from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 
 const LoginForm = () => {
     const [login, onChangeLogin] = React.useState('');
     const [password, onChangePassword] = React.useState('');
+    const navigation = useNavigation();
+    
+    const handleSubimit = () => {
+        console.log(login)
+        console.log(password)
+        let userData = {
+            login: login,
+            password: password
+        }
+        axios.post('http://10.0.2.2:5000/api/mobile/users/login', userData)
+            .then(res => {
+                currentUser = JSON.stringify(res.data.user)
+                
+                navigation.navigate('Homepage');
+            })
+            .catch(err => {
+                error = err.response.data
+                console.log(JSON.stringify(error))
+            })
+
+    }
+
     return (
         <View style={styles.container}>
+            
             <TextInput
                 style={styles.input}
                 onChangeText={text => onChangeLogin(text)}
@@ -14,11 +39,13 @@ const LoginForm = () => {
             <TextInput
                 style={styles.input}
                 onChangeText={text => onChangePassword(text)}
+                secureTextEntry={true}
                 value={password}
             />
             <TouchableHighlight
                 style={styles.button}
                 underlayColor='#3f62aa'
+                onPress={() => handleSubimit()}
             >
                 <Text style={styles.loginText}>
                     Login
