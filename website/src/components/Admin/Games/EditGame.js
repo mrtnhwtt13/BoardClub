@@ -10,6 +10,7 @@ class EditGame extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            userId: this.props.location.state.game.userId,
             title: this.props.location.state.game.title,
             playersLevel: this.props.location.state.game.playersLevel,
             playersMax: this.props.location.state.game.playersMax,
