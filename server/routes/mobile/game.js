@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const Game = require("../models/Game");
-const User = require("../models/User");
+const Game = require("../../models/Game");
+
 
 // get all upcoming games sorted by game date
 router.route('/upcoming')
@@ -29,9 +29,7 @@ router.route('/find/:gameId')
 
 // join a game
 router.route('/join')
-    .post(
-        passport.authenticate('jwt', { session: false }),
-        (req, res) => {
+    .post((req, res) => {
             Game.findOneAndUpdate({
                 _id: req.body.gameId
             }, {
@@ -54,9 +52,7 @@ router.route('/join')
 
 // leave a game
 router.route('/leave')
-    .post(
-        passport.authenticate('jwt', { session: false }),
-        (req, res) => {
+    .post((req, res) => {
             Game.findOneAndUpdate({
                 _id: req.body.gameId
             }, {
@@ -75,3 +71,5 @@ router.route('/leave')
             .catch(err => console.log(err))
         }
     )
+
+    module.exports = router;
