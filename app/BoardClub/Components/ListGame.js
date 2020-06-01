@@ -10,7 +10,7 @@ const ListGame = () => {
     const getGamesData = () => {
         axios.get('http://10.0.2.2:5000/api/mobile/game/upcoming')
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             setList(res.data)
         })
         .catch(err => {

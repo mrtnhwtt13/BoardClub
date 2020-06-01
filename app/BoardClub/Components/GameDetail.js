@@ -18,19 +18,25 @@ const GameDetail = ({gameId}) => {
         })
     };
 
+    const getBGGData = () => {
+        axios.get(`https://boardgamegeek.com/xmlapi2/thing?id=`+game.boardGameId)
+            .then(res => {
+                setBGDetails(res)
+            })
+            .catch((err) => console.log(err))
+    }
+
     if (game === ''){
         getGameData(gameId)
     }
 
-    if (game !== '' && requesting === false){
-        requesting = true
-        console.log(game.boardGameId)
-        axios.get(`https://boardgamegeek.com/xmlapi2/thing?id=9220`)
-            .then(res => {
-                setBGDetails(res)
-                console.log(BGdetails)
-            })
-            .catch((err) => console.log(err))
+    if (BGdetails === '' && game.boardGameId){
+        console.log(game.boardGameId);
+        getBGGData();
+    }
+
+    if (BGdetails !== ''){
+        console.log(BGdetails)
     }
 
     return (
