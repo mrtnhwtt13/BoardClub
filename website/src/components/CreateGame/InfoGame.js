@@ -76,6 +76,7 @@ class InfoGame extends Component {
             description: this.state.description
 
         }
+        
         this.props.createGame(createGameData, this.props.history)
     }    
 
