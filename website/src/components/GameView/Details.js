@@ -139,9 +139,16 @@ class Details extends Component {
                     </Link>
                 </span>
             )
-            if ( game.userId === authUser._id || new Date(game.gameDate) < new Date() ){
+            if (new Date(game.gameDate) < new Date() ) {
                 JoinLeaveBloc = (
                     null
+                )
+
+            } else if ( game.userId === authUser._id ) {
+                JoinLeaveBloc = (
+                    <div className={classes.btn}>
+                        <Link to={{ pathname: `/game/edit/${game._id}`, state: { game: game} }}><Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Edit</Button></Link>
+                    </div>
                 )
             } else {
 

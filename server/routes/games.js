@@ -42,9 +42,15 @@ router.route('/delete')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            Game.findOneAndRemove({_id: req.body.gameId}, req.body)
-                .then(res.json("Ok"))
-                .catch(err => console.log(err))
+            if (req.user.isAdmin === true || req.user.id === req.body.userId) {
+                Game.findOneAndRemove({_id: req.body.gameId}, req.body)
+                    .then(res.json("Ok"))
+                    .catch(err => console.log(err))
+            }
+            else {
+                errors = 'Unauthorized';
+                return res.status(404).json(errors);
+            }
         }    
     )
 
@@ -54,23 +60,29 @@ router.route('/edit')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            const { isValid, errors } = validateEditInput(req.body);
-            if (!isValid) {
-                return res.status(404).json(errors);
-            } 
+            if (req.user.isAdmin === true || req.user.id === req.body.userId) {
+                const { isValid, errors } = validateEditInput(req.body);
+                if (!isValid) {
+                    return res.status(404).json(errors);
+                } 
 
-            Game.findOneAndUpdate({
-                _id: req.body.gameId
-            }, {
-                title: req.body.title.trim(),
-                description: req.body.description.trim(),
-                gameDate: req.body.gameDate,
-                city: req.body.city,
-                playersLevel: req.body.playersLevel,
-                playersMax: req.body.playersMax
-            }, {new: true})
-                .then(game => res.json(game))
-                .catch(err => console.log(err))
+                Game.findOneAndUpdate({
+                    _id: req.body.gameId
+                }, {
+                    title: req.body.title.trim(),
+                    description: req.body.description.trim(),
+                    gameDate: req.body.gameDate,
+                    city: req.body.city,
+                    playersLevel: req.body.playersLevel,
+                    playersMax: req.body.playersMax
+                }, {new: true})
+                    .then(game => res.json(game))
+                    .catch(err => console.log(err))
+            }
+            else {
+                errors = 'Unauthorized';
+                return res.status(404).json(errors);
+            }
         }    
     )
 

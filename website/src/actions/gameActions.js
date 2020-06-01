@@ -56,10 +56,21 @@ export const deleteGame = gameData => dispatch => {
 }
 
 
-// edit a game
+// edit a game from admin section
 export const editGame = (gameData, history) => dispatch => {
     axios.post('http://localhost:5000/api/games/edit', gameData)
         .then(res => history.push(`/admin`))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
+}
+
+
+// edit own game
+export const editOwnGame = (gameData, history) => dispatch => {
+    axios.post('http://localhost:5000/api/games/edit', gameData)
+        .then(res => history.push(`/game/${gameData.gameId}`))
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
