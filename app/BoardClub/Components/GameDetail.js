@@ -8,6 +8,7 @@ const GameDetail = ({gameId}) => {
     const [BGdetails, setBGDetails] = React.useState('');
     const [picture, setPicture] = React.useState('');
     var requesting = false
+    
     const getGameData = (gameId) => {
         axios.get(`http://10.0.2.2:5000/api/mobile/game/find/`+gameId)
         .then(res => {
@@ -26,17 +27,23 @@ const GameDetail = ({gameId}) => {
             .catch((err) => console.log(err))
     }
 
+    const parseResponse = () => {
+        var DomParser = require('react-native-html-parser').DOMParser
+        // let doc = new DomParser().parseFromString(BGdetails,'text/html')
+    }
+
     if (game === ''){
         getGameData(gameId)
     }
 
     if (BGdetails === '' && game.boardGameId){
-        console.log(game.boardGameId);
+        // console.log(game.boardGameId);
         getBGGData();
     }
 
     if (BGdetails !== ''){
-        console.log(BGdetails)
+        // console.log(BGdetails)
+        parseResponse()
     }
 
     return (
