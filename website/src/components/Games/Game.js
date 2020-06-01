@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
+import Loading from '../Loading/Loading';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -66,56 +67,59 @@ class Game extends Component {
             if (new Date(game.gameDate) < new Date()) {
                 paperStyle = classes.pastPaper
                 pastEvent = "GAME PLAYED - "
-            }
-        }
+            }        
 
-        return (
-            <div className={classes.root}>
-                <Link to={`/game/${game._id}`}>
-                    <Paper className={paperStyle}>
-                        <div>
-                            <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
-                                <Grid item justify='center' alignItems="center">    
-                                    {boardGameImageBloc}
-                                </Grid> 
-                                <Grid item xs={7} sm container>
-                                    <Grid item xs container direction="column" spacing={2}>
-                                        <Grid item xs>
-                                            <Typography gutterBottom variant="subtitle1">
-                                                <div className={classes.title}>{pastEvent}{game.title}</div>
+            return (
+                <div className={classes.root}>
+                    <Link to={`/game/${game._id}`}>
+                        <Paper className={paperStyle}>
+                            <div>
+                                <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
+                                    <Grid item justify='center' alignItems="center">    
+                                        {boardGameImageBloc}
+                                    </Grid> 
+                                    <Grid item xs={7} sm container>
+                                        <Grid item xs container direction="column" spacing={2}>
+                                            <Grid item xs>
+                                                <Typography gutterBottom variant="subtitle1">
+                                                    <div className={classes.title}>{pastEvent}{game.title}</div>
+                                                </Typography>
+                                                <Typography variant="body2" gutterBottom>
+                                                    {boardGameNameBloc}
+                                                </Typography>
+                                                <Typography variant="body2" color="textSecondary">
+                                                    <span className={classes.time}>
+                                                        Event on{' '}
+                                                        {new Date(game.gameDate).toLocaleString('en-GB', {
+                                                            day: '2-digit',
+                                                            month: '2-digit',
+                                                            year: 'numeric',
+                                                            hour: '2-digit',
+                                                            minute: '2-digit',
+                                                        })}{' '}
+                                                        at {game.city}
+                                                    </span>
+                                                </Typography>
+                                            </Grid>           
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1">
+                                                <div>
+                                                    {game.playersNumber}/{game.playersMax}
+                                                </div>
                                             </Typography>
-                                            <Typography variant="body2" gutterBottom>
-                                                {boardGameNameBloc}
-                                            </Typography>
-                                            <Typography variant="body2" color="textSecondary">
-                                                <span className={classes.time}>
-                                                    Event on{' '}
-                                                    {new Date(game.gameDate).toLocaleString('en-GB', {
-                                                        day: '2-digit',
-                                                        month: '2-digit',
-                                                        year: 'numeric',
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                    })}{' '}
-                                                    at {game.city}
-                                                </span>
-                                            </Typography>
-                                        </Grid>           
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="subtitle1">
-                                            <div>
-                                                {game.playersNumber}/{game.playersMax}
-                                            </div>
-                                        </Typography>
-                                    </Grid>
-                                </Grid> 
-                            </Grid>
-                        </div>
-                    </Paper>
-                </Link>
-            </div>
-        )
+                                        </Grid>
+                                    </Grid> 
+                                </Grid>
+                            </div>
+                        </Paper>
+                    </Link>
+                </div>
+            )
+        }
+        else {
+            return (<Loading />)
+        }
     }
 }
 

@@ -42,7 +42,7 @@ router.route('/delete')
     .post(
         passport.authenticate('jwt', { session: false }),
         (req, res) => {
-            Game.findOneAndRemove({_id: req.body.gameId, "userId": req.user.id}, req.body)
+            Game.findOneAndRemove({_id: req.body.gameId}, req.body)
                 .then(res.json("Ok"))
                 .catch(err => console.log(err))
         }    
@@ -206,6 +206,32 @@ router.route('/upcoming')
             .then(games => res.json(games))
             .catch(err => console.log(err))
     })
+
+
+// get all upcoming games sorted by game date from friends
+router.route('/friendsupcoming')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.find({ gameDate: {$gte: new Date()}, userId: { $in: req.user.following }})
+                .sort({ gameDate: 1 })
+                .then(games => res.json(games))
+                .catch(err => console.log(err))
+        }
+    )
+
+
+// get all upcoming games sorted by game date from favorite board games
+router.route('/favoriteupcoming')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            Game.find({ gameDate: {$gte: new Date()}, boardGameId: { $in: req.user.topGames }})
+                .sort({ gameDate: 1 })
+                .then(games => res.json(games))
+                .catch(err => console.log(err))
+        }
+    )
 
 
 // get one game by game Id

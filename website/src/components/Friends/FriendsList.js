@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { withStyles, Paper } from '@material-ui/core'
 import Card from './Card'
 import { getFollowingUsers } from '../../actions/userActions'
-import LoadingGames from '../Games/LoadingGames'
-
-
+import Loading from '../Loading/Loading'
 
 
 class Friends extends Component {
@@ -19,12 +17,13 @@ class Friends extends Component {
         const cards =  list && list.map(user => <Card key={user._id} user={user} /> )
         if (list && list.length !=0 ){
             return(
-                <div>
+                <div className={classes.root}>
+                    <h1 className={classes.title}>FRIENDS LIST</h1>
                     {cards}
                 </div>
             )
         } else if(loading){
-                <LoadingGames />
+                <Loading />
         } else {
             return(
                 <p className={classes.nofren}>Friends 404 You don't have friends :(</p>
@@ -38,6 +37,14 @@ const styles = {
         fontSize: 20,
         color: '#595959',
         textAlign: 'center',
+    },
+    root: {
+        width: '100%',
+    }, 
+    title: {
+        color: '#595959',
+        display: 'flex',
+        justifyContent: 'center'
     }
 }
 

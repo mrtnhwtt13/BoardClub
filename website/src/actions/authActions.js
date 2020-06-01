@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER } from '../constants';
+import { GET_ERRORS, SET_CURRENT_USER, DELETE_USER } from '../constants';
 import setAuthHeader from '../utils/setAuthHeader';
 
 /**
@@ -69,6 +69,17 @@ export const logoutUser = () => dispatch => {
 	localStorage.removeItem('jwtToken')
 	setAuthHeader()
 	dispatch(setCurrentUser())
+}
+
+
+export const deleteProfile = userData => dispatch => {
+    axios.post('http://localhost:5000/api/users/deleteprofile', userData)
+        .then(res => {
+            localStorage.removeItem('jwtToken')
+            setAuthHeader()
+	        dispatch(setCurrentUser())
+        })
+        .catch(err => console.log(err))
 }
 
 

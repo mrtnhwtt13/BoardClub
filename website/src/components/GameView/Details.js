@@ -6,7 +6,7 @@ import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 import { getUserById } from '../../actions/userActions'
-import LoadingGame from './LoadingGame';
+import Loading from '../Loading/Loading';
 import { Link } from 'react-router-dom';
 import { joinGame, leaveGame, getGameById } from '../../actions/gameActions'
 
@@ -221,7 +221,7 @@ class Details extends Component {
             )
         }
         else {
-            return (<LoadingGame />)
+            return (<Loading />)
         }
     }
 }

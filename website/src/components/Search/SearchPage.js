@@ -4,7 +4,7 @@ import SearchForm from './SearchForm';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Game from '../Games/Game';
-import LoadingPage from './LoadingPage';
+import Loading from '../Loading/Loading';
 
 
 class SearchPage extends Component {
@@ -37,7 +37,7 @@ class SearchPage extends Component {
                 results = list && list.map(el => <Game key={el._id} game={el} />)
             }
             else {
-                results = < LoadingPage />
+                results = < Loading />
             }
         }
 

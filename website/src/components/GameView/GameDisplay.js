@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Details from './Details';
 import { withRouter } from 'react-router-dom'
 import { getGameById } from '../../actions/gameActions';
-import LoadingGame from './LoadingGame';
+import Loading from '../Loading/Loading';
 import ListComments from './Comments/ListComments';
 
 class GameDisplay extends Component {
@@ -34,7 +34,7 @@ class GameDisplay extends Component {
             <div>
                 {
                     loading ?
-                        <LoadingGame /> :
+                        < Loading /> :
                         <div>
                             <div>
                                 <Details game={game} />

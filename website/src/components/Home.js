@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ListGames from './Games/ListGames';
+import Homepage from './Homepage/Homepage';
 import Login from './Auth/Login';
 
 
@@ -10,7 +10,7 @@ class Home extends Component {
         const { isAuthenticated } = this.props;
         return (
             <div>
-                { isAuthenticated ? <ListGames /> : <Login /> }
+                { isAuthenticated ? <Homepage /> : <Login /> }
             </div>
         )
     }

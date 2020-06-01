@@ -89,6 +89,7 @@ export const getGames = () => dispatch => {
         .catch(err => console.log(err))
 }
 
+
 // get all upcoming games
 export const getUpcomingGames = () => dispatch => {
     dispatch(loadGames)
@@ -99,6 +100,31 @@ export const getUpcomingGames = () => dispatch => {
         }))
         .catch(err => console.log(err))
 }
+
+
+// get all upcoming games from friends
+export const getFriendsUpcomingGames = () => dispatch => {
+    dispatch(loadGames)
+    axios.get('http://localhost:5000/api/games/friendsupcoming')
+        .then(res => dispatch({
+            type: GET_GAMES,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}
+
+
+// get all upcoming games from favorite board games
+export const getFavoriteUpcomingGames = () => dispatch => {
+    dispatch(loadGames)
+    axios.get('http://localhost:5000/api/games/favoriteupcoming')
+        .then(res => dispatch({
+            type: GET_GAMES,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}
+
 
 export const joinGame = (gameId) => dispatch => { 
     axios.post('http://localhost:5000/api/games/join', { gameId })
