@@ -7,11 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 const LoginForm = () => {
     const [login, onChangeLogin] = React.useState('');
     const [password, onChangePassword] = React.useState('');
+    const [error_mess, setErrorMessage] = React.useState('');
     const navigation = useNavigation();
     
     const handleSubimit = () => {
-        console.log(login)
-        console.log(password)
+        // console.log(login)
+        // console.log(password)
         let userData = {
             login: login,
             password: password
@@ -19,19 +20,28 @@ const LoginForm = () => {
         axios.post('http://10.0.2.2:5000/api/mobile/users/login', userData)
             .then(res => {
                 currentUser = JSON.stringify(res.data.user)
-                
+                // console.log(currentUser)
+                setErrorMessage('')
                 navigation.navigate('Homepage');
             })
             .catch(err => {
                 error = err.response.data
-                console.log(JSON.stringify(error))
+                // console.log(JSON.stringify(error))
+                if (error.login){
+                    // console.log(error.login)
+                    setErrorMessage(error.login)
+                }
+                else {
+                    // console.log(error.password)
+                    setErrorMessage(error.password)
+                }
             })
 
     }
 
     return (
         <View style={styles.container}>
-            
+            <Text style={styles.error}>{error_mess}</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={text => onChangeLogin(text)}
@@ -81,6 +91,11 @@ const styles = StyleSheet.create({
         color: '#fff',
         textTransform: 'uppercase',
         fontWeight: 'bold',
+    },
+    error: {
+        color: 'red',
+        marginBottom: 15,
+        marginTop: -15
     }
 })
 
