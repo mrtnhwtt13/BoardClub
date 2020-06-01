@@ -30,6 +30,10 @@ const userSchema = new Schema({
     type: String,
     default: ""
   },
+  zipcode: {
+    type: String,
+    default: ""
+  },
   followers: [],
   following: [],
   topGames: [],

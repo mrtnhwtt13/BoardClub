@@ -54,7 +54,7 @@ class InfoGame extends Component {
 
     selectCity (city, zipcode) {
         this.setState({
-            city: '',
+            city: city,
             cities: null,
             cityChosen: city,
             zipcodeChosen: zipcode

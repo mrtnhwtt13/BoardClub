@@ -113,6 +113,17 @@ export const getUpcomingGames = () => dispatch => {
 }
 
 
+// get game details by game Id
+export function getUpcomingGamesFunction () {
+    return fetch(`http://localhost:5000/api/games/upcoming`, {
+        method: 'GET'
+    })
+        .then((response) => {
+            return response.json()
+        })
+}
+
+
 // get all upcoming games from friends
 export const getFriendsUpcomingGames = () => dispatch => {
     dispatch(loadGames)

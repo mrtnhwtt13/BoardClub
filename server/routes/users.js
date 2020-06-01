@@ -434,6 +434,7 @@ router.route('/editprofile')
                                         email: req.body.email,
                                         password: hash,
                                         city: req.body.city,
+                                        zipcode: req.body.zipcode,
                                         avatar: req.body.avatar
                                     },
                                     { new: true })
@@ -506,6 +507,7 @@ router.route('/')
             isAdmin: req.user.isAdmin,
             isBanned: req.user.isBanned,
             city: req.user.city,
+            zipcode: req.user.zipcode,
             avatar: req.user.avatar
         })
     })

@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ListGames from './ListGames';
+import ListNearestGames from './ListNearestGames'
 
 
 function TabPanel(props) {
@@ -77,6 +78,7 @@ export default function Homepage() {
           <Tab label="All games" {...a11yProps(0)} />
           <Tab label="Friends' games" {...a11yProps(1)} />
           <Tab label="Favorite games" {...a11yProps(1)} />
+          <Tab label="Nearest games" {...a11yProps(1)} />
         </Tabs>
       <TabPanel value={value} index={0}>
         < ListGames selection="all"/>
@@ -86,6 +88,9 @@ export default function Homepage() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         < ListGames selection="favorite" />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        < ListNearestGames />
       </TabPanel>
     </div>
   );

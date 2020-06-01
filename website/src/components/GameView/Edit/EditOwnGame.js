@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { editOwnGame } from '../../../actions/gameActions'
 import Paper from '@material-ui/core/Paper';
+import axios from 'axios'
+import City from './City.js'
 
 
 class EditOwnGame extends Component {
@@ -12,6 +14,9 @@ class EditOwnGame extends Component {
 
         if (this.props.location.state) {
             this.state = {
+                userId: this.props.location.state.game.userId,
+                gameId: this.props.location.state.game._id,
+                playersNumber: props.location.state.game.playersNumber.toString(),
                 title: this.props.location.state.game.title,
                 playersLevel: this.props.location.state.game.playersLevel,
                 playersMax: this.props.location.state.game.playersMax,
@@ -19,11 +24,17 @@ class EditOwnGame extends Component {
                 time: this.props.location.state.game.gameDate.substring(11, 19),
                 city: this.props.location.state.game.city,
                 description: this.props.location.state.game.description,
-                errors: {}
+                errors: {},
+                cities: null,
+                cityChosen : this.props.location.state.game.city,
+                zipcodeChosen : this.props.location.state.game.zipcode
             }
         }
         else {
             this.state = {
+                userId: "",
+                gameId: "",
+                playersNumber: "",
                 title: "",
                 playersLevel: "",
                 playersMax: "",
@@ -31,11 +42,16 @@ class EditOwnGame extends Component {
                 time: "",
                 city: "",
                 description: "",
-                errors: {}
+                errors: {},
+                cities: null,
+                cityChosen : '',
+                zipcodeChosen : ''
             }
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleChangeCity = this.handleChangeCity.bind(this)
+        this.selectCity = this.selectCity.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -55,17 +71,37 @@ class EditOwnGame extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    handleChangeCity = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+
+        axios.get('http://localhost:8080/https://vicopo.selfbuild.fr/cherche/' + this.state.city)
+            .then(response => {
+                this.setState({ cities: response.data.cities})
+            })
+            .catch((err) => console.log(err))
+    }
+
+    selectCity (city, zipcode) {
+        this.setState({
+            city: city,
+            cities: null,
+            cityChosen: city,
+            zipcodeChosen: zipcode
+        })
+    }
+
     handleSubmit (e) {
         e.preventDefault()
         const gameData = {
-            userId:  this.props.location.state.game.userId,
-            gameId: this.props.location.state.game._id,
+            userId:  this.state.userId,
+            gameId: this.state.gameId,
             title: this.state.title,
             playersLevel: this.state.playersLevel,
             playersMax: this.state.playersMax.toString(),
-            playersNumber: this.props.location.state.game.playersNumber.toString(),
+            playersNumber: this.state.playersNumber,
             gameDate: new Date(this.state.gameDate+"T"+this.state.time+"Z"),
-            city: this.state.city,
+            city: this.state.cityChosen,
+            zipcode: this.state.zipcodeChosen.toString(),
             description: this.state.description
 
         }
@@ -86,9 +122,19 @@ class EditOwnGame extends Component {
             }
         };
         const { classes } = this.props
-        const { errors } = this.state        
+        const { errors, cities, cityChosen, zipcodeChosen } = this.state        
         var deleteButton = null
         var boardGameName = null
+
+        var selectedCity= null;
+        if (cityChosen !== '') {
+            selectedCity = (            
+                <div className={classes.root}>
+                    <p className={classes.city}><strong>CITY : {cityChosen} ({zipcodeChosen})</strong></p>
+                </div>       
+            )
+        }
+        var citiesList = cities && cities.map(el => < City key={el.id} city={el} selectCity={this.selectCity}/>)
 
         if (this.props.location.state) {
             const { game } = this.props.location.state
@@ -204,12 +250,14 @@ class EditOwnGame extends Component {
                             label="City"
                             name="city"           
                             value={this.state.city}
-                            onChange={this.handleChange}         
+                            onChange={this.handleChangeCity}        
                             className={classes.textField}
                             helperText={errors.city ? errors.city: ''}
                             error={errors.city ? true : false}
                             variant="outlined"
                         />
+                        {selectedCity}
+                        {citiesList}
                         <TextField
                             id="outlined-multiline-static"
                             label="Description"
@@ -283,6 +331,13 @@ const styles = {
         backgroundColor: "#65A2FE",
         color: "white",
         border: "white",
+    }, 
+    city: {
+        color: '#595959',
+        display: 'flex',
+        justifyContent: 'left',
+        textAlign: 'left',
+        paddingLeft: 50
     }
 }
 

@@ -81,7 +81,7 @@ class Profile extends Component {
             } else {
                 location = (
                     <div>
-                        Location : {user.city}
+                        Location : {user.city} ({user.zipcode.substring(0,2)})
                     </div>
                 )
             }

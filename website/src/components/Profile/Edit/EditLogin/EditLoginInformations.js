@@ -8,6 +8,8 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { editProfile } from '../../../../actions/authActions';
 import MuiAlert from '@material-ui/lab/Alert';
+import axios from 'axios'
+import City from './City.js'
 
 
 function Alert(props) {
@@ -29,6 +31,9 @@ class EditLoginInformations extends Component {
                 password2: '',
                 errors: {},
                 city: this.props.user.city,
+                cities: null,
+                cityChosen : this.props.user.city,
+                zipcodeChosen : this.props.user.zipcode,
                 avatar: this.props.user.avatar
             };
         }
@@ -41,11 +46,16 @@ class EditLoginInformations extends Component {
                 password2: '',
                 errors: {},
                 city: '',
+                cities: null,
+                cityChosen : '',
+                zipcodeChosen : '',
                 avatar: ''
             };
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeCity = this.handleChangeCity.bind(this)
+        this.selectCity = this.selectCity.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -63,7 +73,26 @@ class EditLoginInformations extends Component {
 
     handleChange (e) {
         this.setState({ [e.target.name]: e.target.value })
-    }   
+    }
+
+    handleChangeCity = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+
+        axios.get('http://localhost:8080/https://vicopo.selfbuild.fr/cherche/' + this.state.city)
+            .then(response => {
+                this.setState({ cities: response.data.cities})
+            })
+            .catch((err) => console.log(err))
+    }
+
+    selectCity (city, zipcode) {
+        this.setState({
+            city: city,
+            cities: null,
+            cityChosen: city,
+            zipcodeChosen: zipcode
+        })
+    }
 
     handleSubmit (e) {
         e.preventDefault();
@@ -76,7 +105,8 @@ class EditLoginInformations extends Component {
             oldLogin: this.props.user.login,
             oldEmail: this.props.user.email,
             _id: this.props.user._id,
-            city: this.state.city,
+            city: this.state.cityChosen,
+            zipcode: this.state.zipcodeChosen.toString(),
             avatar: this.state.avatar
         }
         this.props.editProfile(userData);
@@ -84,8 +114,18 @@ class EditLoginInformations extends Component {
 
     render () {
         const { classes } = this.props;
-        const { errors } = this.state
+        const { errors, cities, cityChosen, zipcodeChosen } = this.state
         var deleteButton = null;
+
+        var selectedCity= null;
+        if (cityChosen !== '') {
+            selectedCity = (            
+                <div className={classes.root}>
+                    <p className={classes.city}><strong>CITY : {cityChosen} ({zipcodeChosen})</strong></p>
+                </div>       
+            )
+        }
+        var citiesList = cities && cities.map(el => < City key={el.id} city={el} selectCity={this.selectCity}/>)
 
         if (this.props.user) {
             deleteButton = (
@@ -134,10 +174,12 @@ class EditLoginInformations extends Component {
                         type="text"
                         name="city"                                   
                         value={this.state.city}  
-                        onChange={this.handleChange}    
+                        onChange={this.handleChangeCity}    
                         className={classes.textField}
                         variant="outlined"
                     />
+                    {selectedCity}
+                    {citiesList}
                     <TextField
                         label="Avatar"
                         type="text"
@@ -209,6 +251,13 @@ const styles = {
         textAlign: 'center',
         marginBottom: 10,
         marginTop: 50
+    }, 
+    city: {
+        color: '#595959',
+        display: 'flex',
+        justifyContent: 'left',
+        textAlign: 'left',
+        paddingLeft: 10
     }
 }
 
