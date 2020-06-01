@@ -28,6 +28,12 @@ class CreateGame extends React.Component {
         this.selectGame = this.selectGame.bind(this)
         this.changeGame = this.changeGame.bind(this)
     }
+
+    componentDidMount () {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
+    }
     
     selectGame (selectedGameId, selectedGameName) {
         this.setState({

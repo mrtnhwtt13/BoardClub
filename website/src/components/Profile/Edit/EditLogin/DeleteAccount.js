@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles, Paper, Button } from '@material-ui/core'
+import { withStyles, Button } from '@material-ui/core'
 import { deleteProfile, logoutUser } from '../../../../actions/authActions'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 
 class DeleteAccount extends Component {
@@ -13,20 +13,26 @@ class DeleteAccount extends Component {
         this.returnToProfile = this.returnToProfile.bind(this)
     }
 
+    componentDidMount() {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
+    }
+
     deleteAccount () {
         const userData = {
-            userId: this.props.match.params.userId
+            userId: this.props.authUser._id
         }
 
         this.props.deleteProfile(userData)
     }
 
     returnToProfile () {
-        this.props.history.push(`/profile/${this.props.match.params.userId}`);
+        this.props.history.push(`/profile/${this.props.authUser._id}`);
     }
 
     render () {
-        const { isAuthenticated, classes } = this.props;
+        const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <h1 className={classes.title}>ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT ?</h1>
@@ -70,8 +76,8 @@ const styles = {
 
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: !!state.auth.isAuthenticated
+    authUser: state.auth.user
 })
 
 
-export default connect(mapStateToProps, { deleteProfile, logoutUser })(withStyles(styles)(DeleteAccount));
+export default connect(mapStateToProps, { deleteProfile, logoutUser })(withRouter(withStyles(styles)(DeleteAccount)));

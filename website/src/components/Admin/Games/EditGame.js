@@ -9,19 +9,41 @@ import Paper from '@material-ui/core/Paper';
 class EditGame extends Component {
     constructor (props) {
         super(props)
-        this.state = {
-            userId: this.props.location.state.game.userId,
-            title: this.props.location.state.game.title,
-            playersLevel: this.props.location.state.game.playersLevel,
-            playersMax: this.props.location.state.game.playersMax,
-            gameDate: this.props.location.state.game.gameDate.substring(0, 10),
-            time: this.props.location.state.game.gameDate.substring(11, 19),
-            city: this.props.location.state.game.city,
-            description: this.props.location.state.game.description,
-            errors: {}
+        if (this.props.location.state) {
+            this.state = {
+                userId: this.props.location.state.game.userId,
+                title: this.props.location.state.game.title,
+                playersLevel: this.props.location.state.game.playersLevel,
+                playersMax: this.props.location.state.game.playersMax,
+                gameDate: this.props.location.state.game.gameDate.substring(0, 10),
+                time: this.props.location.state.game.gameDate.substring(11, 19),
+                city: this.props.location.state.game.city,
+                description: this.props.location.state.game.description,
+                errors: {}
+            }
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        else {
+            this.state = {
+                userId: '',
+                title: '',
+                playersLevel: '',
+                playersMax: '',
+                gameDate: '',
+                time: '',
+                city: '',
+                description: '',
+                errors: {}
+            }
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount () {
+        if (!this.props.authUser || this.props.authUser.isAdmin === false) {
+            this.props.history.push('/');
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -234,7 +256,8 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({
-    errors: state.errors
+    errors: state.errors,
+    authUser: state.auth.user
    })
 
 export default connect(mapStateToProps, { editGame })(withRouter(withStyles(styles)(EditGame)))

@@ -9,6 +9,9 @@ import Loading from '../Loading/Loading'
 class Friends extends Component {
 
     componentDidMount() {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
         this.props.getFollowingUsers()
     }
     
@@ -51,7 +54,8 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     list: state.user.list,
-    loading: state.user.loading
+    loading: state.user.loading,
+    authUser: state.auth.user
 })
 
 export default connect(mapStateToProps, { getFollowingUsers })(withStyles(styles)(Friends))

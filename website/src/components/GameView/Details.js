@@ -45,14 +45,12 @@ class Details extends Component {
     }
 
     handleJoin() {
-        console.log('joining')
         this.props.joinGame(this.state.thisGameId)
         this.setState({ playerNumber: this.state.playerNumber + 1, joinLeave: "leave" })
 
     }
 
     handleLeave() {
-        console.log('leaving')
         this.props.leaveGame(this.state.thisGameId)
         this.setState({ playerNumber: this.state.playerNumber - 1, joinLeave: "join" })
 
@@ -98,13 +96,9 @@ class Details extends Component {
                 }
                 if (this.state.thisGamePlayers === null) {
                     this.setState({ thisGamePlayers: game.players })
-                    console.log('players updated')
                 }
                 if (this.state.playersList === null) {
-                    console.log(game.players, "game.players")
-                    this.setState({ playersList: game.players }, () => {
-                        console.log(this.state.playersList, "PlayersList")
-                    })
+                    this.setState({ playersList: game.players })
                 }
                 if (players && this.state.playersList !== players.players) {
                     this.handleChange()

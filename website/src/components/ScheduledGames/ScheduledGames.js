@@ -8,6 +8,9 @@ import Game from '../Games/Game'
 class ScheduledGames extends Component {
 
     componentDidMount(){
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
         this.props.getScheduledGames()
     }
 
@@ -36,7 +39,8 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     list: state.game.list,
-    loading: state.game.loading
+    loading: state.game.loading,
+    authUser: state.auth.user
 })
 
 export default connect(mapStateToProps, { getScheduledGames })(withStyles(styles)(ScheduledGames))

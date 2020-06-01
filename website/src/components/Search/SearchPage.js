@@ -20,6 +20,12 @@ class SearchPage extends Component {
         this.searchingGame = this.searchingGame.bind(this)
     }
 
+    componentDidMount() {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
+    }
+
     searchingGame(searchingData) {
         this.props.searchGames(searchingData);
         this.setState({ 
@@ -57,7 +63,8 @@ class SearchPage extends Component {
 
 const mapStateToProps = (state) => ({
     list: state.game.list,
-    loading: state.game.loading
+    loading: state.game.loading,
+    authUser: state.auth.user
 })
 
 

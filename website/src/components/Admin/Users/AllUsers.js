@@ -10,6 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { withRouter } from 'react-router-dom';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -45,6 +46,9 @@ class AllUsers extends Component {
     }
 
     componentDidMount() {
+        if (!this.props.authUser || this.props.authUser.isAdmin === false) {
+            this.props.history.push('/');
+        }
         this.props.getAllUsers()
     }
 
@@ -95,8 +99,9 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     list: state.user.list,
-    loading: state.user.loading
+    loading: state.user.loading,
+    authUser: state.auth.user
 })
 
 
-export default connect(mapStateToProps, { getAllUsers })(withStyles(styles)(AllUsers));
+export default connect(mapStateToProps, { getAllUsers })(withRouter(withStyles(styles)(AllUsers)));

@@ -16,14 +16,19 @@ class Profile extends Component {
 
     constructor(props) {
         super(props)
+
         this.handleFollow = this.handleFollow.bind(this)
-		this.handleUnfollow = this.handleUnfollow.bind(this)
+        this.handleUnfollow = this.handleUnfollow.bind(this)
+        
         this.state = {
             currentId: 0
         }
     }
 
     componentDidMount() {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
         this.props.getUserById(this.props.match.params.userId);
         this.props.getGamesFromUser(this.props.match.params.userId);
         const pageUserId = this.props.match.params.userId;
@@ -170,14 +175,12 @@ class Profile extends Component {
                     {items}
                 </Paper >
                     :
-                    <div className={classes.error} style={{marginTop: 20, marginBottom: 20 }}>
-                        <div style={{ marginBottom: 20, fontSize: 30 }}>
-                        Oops, this user doesn't exist
-                        </div>
-                        <div>
-                            <Button component={Link} to="/" disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }}>
-                                Home
-                            </Button>
+                    <div className={classes.root}>
+                        <h1 className={classes.title}>OOPS, THIS USER DOESN'T EXIST</h1>
+                        <div className={classes.btnBlock}>
+                            <Button variant="outlined" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} component={Link} to="/" >
+                                HOME
+                            </Button> 
                         </div>
                     </div>
                     }
@@ -211,6 +214,24 @@ const styles = {
     error : {
         'text-align': 'center',
         alignItems: 'center'
+    },
+    root: {
+        width: '100%',
+    }, 
+    title: {
+        color: '#595959',
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    btnBlock: {
+        textAlign: 'center',
+        marginBottom: 10,
+        marginTop: 20
+    },
+    btnStyle: {
+        backgroundColor: "#65A2FE",
+        color: "white",
+        border: "white",
     }
 }
 

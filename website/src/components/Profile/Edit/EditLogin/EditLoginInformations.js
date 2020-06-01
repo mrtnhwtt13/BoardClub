@@ -16,20 +16,43 @@ function Alert(props) {
 
 
 class EditLoginInformations extends Component {
+
     constructor (props) {
         super(props);
-        this.state = {
-            email: this.props.user.email,
-            login: this.props.user.login,
-            oldPassword: '',
-            password: '',
-            password2: '',
-            errors: {},
-            city: this.props.user.city,
-            avatar: this.props.user.avatar
-        };
+
+        if (this.props.user) {
+            this.state = {
+                email: this.props.user.email,
+                login: this.props.user.login,
+                oldPassword: '',
+                password: '',
+                password2: '',
+                errors: {},
+                city: this.props.user.city,
+                avatar: this.props.user.avatar
+            };
+        }
+        else {
+            this.state = {
+                email: '',
+                login: '',
+                oldPassword: '',
+                password: '',
+                password2: '',
+                errors: {},
+                city: '',
+                avatar: ''
+            };
+        }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount () {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -62,6 +85,15 @@ class EditLoginInformations extends Component {
     render () {
         const { classes } = this.props;
         const { errors } = this.state
+        var deleteButton = null;
+
+        if (this.props.user) {
+            deleteButton = (
+                <Button variant="outlined" type="submit" component={Link} to={`/profile/delete`}>
+                    Delete my account
+                </Button>
+            )
+        }
 
         return (
             <Paper style={{ padding: 15 }}>                
@@ -155,9 +187,7 @@ class EditLoginInformations extends Component {
                     </div>
                 </form>
                 <div className={classes.btnBlock2}>
-                    <Button variant="outlined" type="submit" component={Link} to={`/profile/delete/${this.props.user._id}`}>
-                        Delete my account
-                    </Button> 
+                    {deleteButton} 
                 </div>
             </Paper>                
         )

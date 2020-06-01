@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles, Paper, Button } from '@material-ui/core'
 import { deleteGame } from '../../../actions/gameActions'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 
 class DeleteGame extends Component {
@@ -11,6 +11,12 @@ class DeleteGame extends Component {
 
         this.deleteMyGame = this.deleteMyGame.bind(this)
         this.returnToGame = this.returnToGame.bind(this)
+    }
+
+    componentDidMount() {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
     }
 
     deleteMyGame () {
@@ -69,4 +75,4 @@ const styles = {
 }
 
 
-export default connect(null, { deleteGame })(withStyles(styles)(DeleteGame));
+export default connect(null, { deleteGame })(withRouter(withStyles(styles)(DeleteGame)));

@@ -58,7 +58,7 @@ class App extends Component {
                 <Route path="/game/delete/:gameId" component={DeleteGame} />
                 <Route path="/game/edit/:gameId" component={EditOwnGame} />
                 <Route path="/game/:gameId" component={GamePage} />
-                <Route path="/profile/delete/:userId" component={DeleteAccount} />
+                <Route path="/profile/delete" component={DeleteAccount} />
                 <Route path="/profile/edit" component={EditProfile} />
                 <Route path="/profile/:userId" component={Profile} />
                 <Route path="/create" component={CreateGame} />

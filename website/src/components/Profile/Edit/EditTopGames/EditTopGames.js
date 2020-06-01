@@ -18,11 +18,19 @@ function Alert(props) {
 
 
 class EditTopGames extends React.Component {
+    
     constructor (props) {
         super(props);
+
         this.state = {
             errors: {}
         };
+    }
+
+    componentDidMount () {
+        if (!localStorage.getItem('jwtToken')) {
+            this.props.history.push('/');
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -86,7 +94,8 @@ const styles = {
 
 
 const mapStateToProps = (state) => ({
-    errors: state.errors
+    errors: state.errors,
+    authUser: state.auth.user
 })
 
 

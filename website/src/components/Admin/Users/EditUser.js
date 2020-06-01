@@ -11,15 +11,33 @@ import { editUser } from '../../../actions/userActions';
 class EditUser extends Component {
     constructor (props) {
         super(props);
-        this.state = {
-            email: this.props.location.state.user.email,
-            login: this.props.location.state.user.login,
-            password: '',
-            password2: '',
-            errors: {}
-        };
+        if (this.props.location.state) {
+            this.state = {
+                email: this.props.location.state.user.email,
+                login: this.props.location.state.user.login,
+                password: '',
+                password2: '',
+                errors: {}
+            };
+        }
+        else {
+            this.state = {
+                email: '',
+                login: '',
+                password: '',
+                password2: '',
+                errors: {}
+            };
+        }
+        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount () {
+        if (!this.props.authUser || this.props.authUser.isAdmin === false) {
+            this.props.history.push('/');
+        }
     }
 
     componentWillReceiveProps(nextProps) {

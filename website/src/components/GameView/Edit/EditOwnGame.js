@@ -9,18 +9,40 @@ import Paper from '@material-ui/core/Paper';
 class EditOwnGame extends Component {
     constructor (props) {
         super(props)
-        this.state = {
-            title: this.props.location.state.game.title,
-            playersLevel: this.props.location.state.game.playersLevel,
-            playersMax: this.props.location.state.game.playersMax,
-            gameDate: this.props.location.state.game.gameDate.substring(0, 10),
-            time: this.props.location.state.game.gameDate.substring(11, 19),
-            city: this.props.location.state.game.city,
-            description: this.props.location.state.game.description,
-            errors: {}
+
+        if (this.props.location.state) {
+            this.state = {
+                title: this.props.location.state.game.title,
+                playersLevel: this.props.location.state.game.playersLevel,
+                playersMax: this.props.location.state.game.playersMax,
+                gameDate: this.props.location.state.game.gameDate.substring(0, 10),
+                time: this.props.location.state.game.gameDate.substring(11, 19),
+                city: this.props.location.state.game.city,
+                description: this.props.location.state.game.description,
+                errors: {}
+            }
         }
+        else {
+            this.state = {
+                title: "",
+                playersLevel: "",
+                playersMax: "",
+                gameDate: "",
+                time: "",
+                city: "",
+                description: "",
+                errors: {}
+            }
+        }
+
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount() {
+        if (!localStorage.getItem('jwtToken') || !this.props.location.state) {
+            this.props.history.push('/');
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -64,14 +86,27 @@ class EditOwnGame extends Component {
             }
         };
         const { classes } = this.props
-        const { errors } = this.state
-        const { game } = this.props.location.state
+        const { errors } = this.state        
+        var deleteButton = null
+        var boardGameName = null
+
+        if (this.props.location.state) {
+            const { game } = this.props.location.state
+
+            deleteButton = (
+                <Button variant="outlined" type="submit" component={Link} to={`/game/delete/${game._id}`}>
+                    Delete my game
+                </Button> 
+            )
+
+            boardGameName = game.boardGameName
+        }
 
         return(
             <div className={classes.root}>
                 <Paper style={{ padding: 15 }}>
                     <h1 className={classes.title}>EDIT MY GAME FOR</h1>
-                    <h1 className={classes.title}>{game.boardGameName}</h1> 
+                    <h1 className={classes.title}>{boardGameName}</h1> 
                     <form onSubmit={this.handleSubmit}>
                         <Grid
                             container
@@ -196,9 +231,7 @@ class EditOwnGame extends Component {
                     </Grid>
                     </form>
                     <div className={classes.btnBlock2}>
-                    <Button variant="outlined" type="submit" component={Link} to={`/game/delete/${game._id}`}>
-                        Delete my game
-                    </Button> 
+                        {deleteButton}
                 </div>
                 </Paper>
             </div>

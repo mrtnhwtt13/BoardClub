@@ -10,6 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { withRouter } from 'react-router-dom';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -45,6 +46,9 @@ class AllGames extends Component {
     }
 
     componentDidMount() {
+        if (!this.props.authUser || this.props.authUser.isAdmin === false) {
+            this.props.history.push('/');
+        }
         this.props.getGames()
     }
 
@@ -96,8 +100,9 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     list: state.game.list,
-    loading: state.game.loading
+    loading: state.game.loading,
+    authUser: state.auth.user
 })
 
 
-export default connect(mapStateToProps, { getGames })(withStyles(styles)(AllGames));
+export default connect(mapStateToProps, { getGames })(withRouter(withStyles(styles)(AllGames)));
