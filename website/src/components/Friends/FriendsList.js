@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withStyles, Paper } from '@material-ui/core'
+import { withStyles } from '@material-ui/core'
 import Card from './Card'
 import { getFollowingUsers } from '../../actions/userActions'
 import Loading from '../Loading/Loading'
@@ -26,7 +26,9 @@ class Friends extends Component {
                 </div>
             )
         } else if(loading){
+            return (
                 <Loading />
+            )
         } else {
             return(
                 <p className={classes.nofren}>Friends 404 You don't have friends :(</p>

@@ -30,6 +30,10 @@ const gameSchema = new Schema({
         type: String,
         required: true
     },
+    zipcode: {
+        type: String,
+        required: true
+    },
     playersLevel: {
         type: String,
         required: true

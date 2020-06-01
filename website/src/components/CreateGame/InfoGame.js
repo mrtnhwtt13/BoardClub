@@ -3,7 +3,8 @@ import { TextField, withStyles, FormControl, InputLabel, MenuItem, Select, Grid,
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { createGame } from '../../actions/gameActions'
-
+import axios from 'axios'
+import City from './City.js'
 
 
 class InfoGame extends Component {
@@ -19,9 +20,15 @@ class InfoGame extends Component {
             description: '',
             boardGameId: '',
             boardGameName: '',
-            errors: {}
+            errors: {},
+            cities: null,
+            cityChosen : '',
+            zipcodeChosen : ''
         }
+
         this.handleChange = this.handleChange.bind(this)
+        this.handleChangeCity = this.handleChangeCity.bind(this)
+        this.selectCity = this.selectCity.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -35,6 +42,25 @@ class InfoGame extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    handleChangeCity = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+
+        axios.get('http://localhost:8080/https://vicopo.selfbuild.fr/cherche/' + this.state.city)
+            .then(response => {
+                this.setState({ cities: response.data.cities})
+            })
+            .catch((err) => console.log(err))
+    }
+
+    selectCity (city, zipcode) {
+        this.setState({
+            city: '',
+            cities: null,
+            cityChosen: city,
+            zipcodeChosen: zipcode
+        })
+    }
+
     handleSubmit (e) {
         e.preventDefault()
         const createGameData = {
@@ -45,7 +71,8 @@ class InfoGame extends Component {
             playersLevel: this.state.playersLevel,
             playersMax: this.state.playersMax,
             gameDate: new Date(this.state.gameDate+"T"+this.state.time+"Z"),
-            city: this.state.city,
+            city: this.state.cityChosen,
+            zipcode: this.state.zipcodeChosen.toString(),
             description: this.state.description
 
         }
@@ -66,7 +93,17 @@ class InfoGame extends Component {
             }
         };
         const { classes } = this.props
-        const { errors } = this.state
+        const { errors, cities, cityChosen, zipcodeChosen } = this.state
+
+        var selectedCity= null;
+        if (cityChosen !== '') {
+            selectedCity = (            
+                <div className={classes.root}>
+                    <p className={classes.city}><strong>CITY : {cityChosen} ({zipcodeChosen})</strong></p>
+                </div>       
+            )
+        }
+        var citiesList = cities && cities.map(el => < City key={el.id} city={el} selectCity={this.selectCity}/>)
 
         return(
             <form onSubmit={this.handleSubmit}>
@@ -163,15 +200,17 @@ class InfoGame extends Component {
                 />
                 <TextField 
                     type="string"
-                    label="City"
+                    label="City or zipcode"
                     name="city"           
                     value={this.state.city}
-                    onChange={this.handleChange}         
+                    onChange={this.handleChangeCity}         
                     className={classes.textField}
                     helperText={errors.city ? errors.city: ''}
                     error={errors.city ? true : false}
                     variant="outlined"
                 />
+                {selectedCity}
+                {citiesList}
                 <TextField
                     id="outlined-multiline-static"
                     label="Description"
@@ -197,6 +236,9 @@ class InfoGame extends Component {
 }
 
 const styles = {
+    root: {
+        width: '100%',
+    }, 
     formControl: {
         margin: 10,
         // minWidth: 120,
@@ -227,6 +269,13 @@ const styles = {
         backgroundColor: "#65A2FE",
         color: "white",
         border: "white",
+    }, 
+    city: {
+        color: '#595959',
+        display: 'flex',
+        justifyContent: 'left',
+        textAlign: 'left',
+        paddingLeft: 50
     }
 }
 

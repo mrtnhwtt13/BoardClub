@@ -25,6 +25,7 @@ router.route('/create')
                 boardGameId: req.body.boardGameId,
                 boardGameName: req.body.boardGameName,
                 city: req.body.city,
+                zipcode: req.body.zipcode,
                 playersLevel: req.body.playersLevel,
                 players: [req.user.id],
                 playersMax: req.body.playersMax
@@ -73,6 +74,7 @@ router.route('/edit')
                     description: req.body.description.trim(),
                     gameDate: req.body.gameDate,
                     city: req.body.city,
+                    zipcode: req.body.zipcode,
                     playersLevel: req.body.playersLevel,
                     playersMax: req.body.playersMax
                 }, {new: true})
