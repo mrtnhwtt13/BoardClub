@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const ListGame = () => {
     const [list, setList] = React.useState('');
     const navigation = useNavigation();
-    const getGameData = () => {
+    const getGamesData = () => {
         axios.get('http://10.0.2.2:5000/api/mobile/game/upcoming')
         .then(res => {
             console.log(res.data)
@@ -20,7 +20,7 @@ const ListGame = () => {
     let Gamebloc = null;
 
     if (list === '') {
-        getGameData();
+        getGamesData();
     };
 
     if (list !== '') {
@@ -29,7 +29,7 @@ const ListGame = () => {
                 data={list}
                 renderItem={({ item }) => (
                     <TouchableHighlight style={styles.gameContainer} onPress={() => {
-                        navigation.navigate('Login');
+                        navigation.navigate('Game', {gameId: item._id});
                     }}>
                         <View>
                             <Text>{item.title}</Text>

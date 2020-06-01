@@ -18,7 +18,9 @@ export default function Homepage() {
 const styles = StyleSheet.create({
     root : {
         flex: 1,
-        width: '100%'
+        width: '100%',
+        backgroundColor: 'white',
+
     },
     title: {
         marginTop: 30,
