@@ -52,13 +52,14 @@ class ListNearestGames extends Component {
             getUpcomingGamesFunction().then(
                 (response) => {
                     var games = response
+                    let count = 0;
         
                     for (let i = 0; i < games.length; i++) {
                         axios.get('http://localhost:8080/https://fr.distance24.org/route.json?stops=' + this.props.authUser.city.replace(/[^A-Za-z]+/g, '') + '|'  + games[i].city.replace(/[^A-Za-z]+/g, ''))
                             .then(response => {
                                 games[i].distance = response.data.distance;
-
-                                if (i === games.length - 1) {                                    
+                                count = count + 1;
+                                if (count === games.length) {                                    
                                     games.sort(this.compareValues('distance'));
 
                                     this.setState({
