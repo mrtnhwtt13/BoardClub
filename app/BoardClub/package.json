@@ -32,6 +32,7 @@
     "react-native-screens": "~2.2.0",
     "react-native-web": "~0.11.7",
     "react-native-webview": "^9.4.0",
+    "react-native-xml2js": "^1.0.3",
     "react-navigation": "^4.3.9",
     "realm": "^5.0.4"
   },
