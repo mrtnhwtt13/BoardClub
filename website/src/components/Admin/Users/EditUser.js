@@ -68,7 +68,7 @@ class EditUser extends Component {
         const { classes } = this.props;
         const { errors } = this.state
         return (
-            <Paper style={{ padding: 15 }}>
+            <Paper elevation={2} style={{ padding: 15 }}>
                 <h4>
                     <b>Modify</b> below
                 </h4>                

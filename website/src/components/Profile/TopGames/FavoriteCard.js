@@ -73,7 +73,7 @@ class FavoriteCard extends Component {
 
         return (
             <div className={classes.root}>                
-                <Paper className={classes.paper}>
+                <Paper elevation={2} className={classes.paper}>
                     <div>
                         <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
                             <Grid item justify='center' alignItems="center">    

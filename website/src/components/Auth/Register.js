@@ -58,7 +58,7 @@ class Register extends Component {
                     Join a community of game enthusiasts and connect with people that want to play the same games as you!
                 </p>
                  </div>
-            <Paper style={{ padding: 15 }}>
+            <Paper elevation={2} style={{ padding: 15 }}>
             <p className={classes.redirect}>
                     Already have an account? <Link to="/login">Log in</Link>
                 </p>

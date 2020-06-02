@@ -9,6 +9,7 @@ import ListGames from './ListGames';
 import ListNearestGames from './ListNearestGames'
 
 
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -46,14 +47,15 @@ function a11yProps(index) {
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-    }, 
-    title: {
-        color: '#595959',
-        display: 'flex',
-        justifyContent: 'center'
-    }
+  root: {
+    width: '100%',
+  },
+  title: {
+    color: '#595959',
+    display: 'flex',
+    justifyContent: 'center'
+  }, 
+  
 }));
 
 
@@ -67,23 +69,25 @@ export default function Homepage() {
 
   return (
     <div className={classes.root}>
-        <h1 className={classes.title}>UPCOMING GAMES</h1>
-        <Tabs
+      <h1 className={classes.title}>UPCOMING GAMES</h1>
+      <Tabs
         value={value}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-        centered
         variant="scrollable"
+        fullWidth={true}
+        centered
         scrollButtons="on"
+        aria-label="scrollable auto tabs example"
       >
-          <Tab label="All games" {...a11yProps(0)} />
-          <Tab label="Friends' games" {...a11yProps(1)} />
-          <Tab label="Favorite games" {...a11yProps(1)} />
-          <Tab label="Nearest games" {...a11yProps(1)} />
-        </Tabs>
+        <Tab label="All games" {...a11yProps(0)} />
+        <Tab label="Friends' games" {...a11yProps(1)} />
+        <Tab label="Favorite games" {...a11yProps(1)} />
+        <Tab label="Nearest games" {...a11yProps(1)} />
+      </Tabs>
       <TabPanel value={value} index={0}>
-        < ListGames selection="all"/>
+        < ListGames selection="all" />
       </TabPanel>
       <TabPanel value={value} index={1}>
         < ListGames selection="friends" />
@@ -95,5 +99,7 @@ export default function Homepage() {
         < ListNearestGames />
       </TabPanel>
     </div>
+
+
   );
 }

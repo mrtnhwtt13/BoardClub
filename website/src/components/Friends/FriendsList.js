@@ -31,7 +31,7 @@ class Friends extends Component {
             )
         } else {
             return(
-                <p className={classes.nofren}>Friends 404 You don't have friends :(</p>
+                <p className={classes.nofren}>Error 404 Friends not found. You don't have friends :(</p>
             )
         }
     }

@@ -105,7 +105,7 @@ class Game extends Component {
             return (
                 <div className={classes.root}>
                     <Link to={`/game/${game._id}`}>
-                        <Paper className={paperStyle}>
+                        <Paper elevation={2} className={paperStyle}>
                             <div>
                                 <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
                                     <Grid item justify='center' alignItems="center">    
@@ -114,7 +114,7 @@ class Game extends Component {
                                     <Grid item xs={7} sm container>
                                         <Grid item xs container direction="column" spacing={2}>
                                             <Grid item xs>
-                                                {inGame}
+                                                
                                                 <Typography gutterBottom variant="subtitle1">
                                                     <div className={classes.title}>{pastEvent}{game.title}</div>
                                                 </Typography>
@@ -138,7 +138,7 @@ class Game extends Component {
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1">
-                                                {playersCount}
+                                                    {inGame}{' '}{playersCount}
                                             </Typography>
                                         </Grid>
                                     </Grid> 

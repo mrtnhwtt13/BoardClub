@@ -63,7 +63,7 @@ export default function Admin() {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper elevation={2} className={classes.root}>
         <Tabs
         value={value}
         onChange={handleChange}

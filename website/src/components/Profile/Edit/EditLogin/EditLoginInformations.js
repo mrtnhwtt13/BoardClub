@@ -129,14 +129,14 @@ class EditLoginInformations extends Component {
 
         if (this.props.user) {
             deleteButton = (
-                <Button variant="outlined" type="submit" component={Link} to={`/profile/delete`}>
+                <Button className={classes.deleteButton} variant="outlined" type="submit" component={Link} to={`/profile/delete`}>
                     Delete my account
                 </Button>
             )
         }
 
         return (
-            <Paper style={{ padding: 15 }}>                
+            <div style={{ padding: 15 }}>                
                 {errors.update ?
                     <Alert elevation={0} severity="success">
                         {errors.update}
@@ -223,7 +223,7 @@ class EditLoginInformations extends Component {
                         error={errors.password2 ? true : false}
                     />
                     <div className={classes.btnBlock}>
-                        <Button variant="outlined" type="submit">
+                        <Button className={classes.submitButton} variant="outlined" type="submit">
                             Submit
                         </Button> 
                     </div>
@@ -231,7 +231,7 @@ class EditLoginInformations extends Component {
                 <div className={classes.btnBlock2}>
                     {deleteButton} 
                 </div>
-            </Paper>                
+            </div>                
         )
     }
 }
@@ -258,6 +258,28 @@ const styles = {
         justifyContent: 'left',
         textAlign: 'left',
         paddingLeft: 10
+    },
+    deleteButton: {
+        borderColor: 'white',
+        width: '25',
+        
+        backgroundColor: '#ff4d4d',
+        color: '#fff',
+        '&:hover': {
+            backgroundColor: '#ff4d4d',
+            color: '#fff',
+        }
+    },
+    submitButton: {
+        borderColor: 'white',
+        width: '25',
+        
+        backgroundColor: '#65A2FE',
+        color: '#fff',
+        '&:hover': {
+            backgroundColor: '#65A2FE',
+            color: '#fff',
+        }
     }
 }
 
