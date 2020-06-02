@@ -70,7 +70,7 @@ class InfoGame extends Component {
             title: this.state.title,
             playersLevel: this.state.playersLevel,
             playersMax: this.state.playersMax,
-            gameDate: new Date(this.state.gameDate+"T"+this.state.time+"Z"),
+            gameDate: new Date(this.state.gameDate+"T"+this.state.time),
             city: this.state.cityChosen,
             zipcode: this.state.zipcodeChosen.toString(),
             description: this.state.description
