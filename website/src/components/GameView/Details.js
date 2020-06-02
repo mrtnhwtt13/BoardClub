@@ -146,13 +146,13 @@ class Details extends Component {
                 )
             } else {
 
-                if (joinLeave === "join") {
+                if (joinLeave === "join" && playerNumber !== game.playersMax) {
                     JoinLeaveBloc = (
                         <div className={classes.btn}>
                             <Button onClick={this.handleJoin} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Join</Button>
                         </div>
                     )
-                } else {
+                } else if (game.players.includes(authUser._id)) {
                     JoinLeaveBloc = (
                         <div className={classes.btn}>
                             <Button onClick={this.handleLeave} disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Leave</Button>
