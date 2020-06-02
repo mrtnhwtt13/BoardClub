@@ -107,7 +107,8 @@ export const getUpcomingGames = () => dispatch => {
     axios.get('http://localhost:5000/api/games/upcoming')
         .then(res => dispatch({
             type: GET_GAMES,
-            payload: res.data
+            payload: res.data,
+            status: "upcoming"
         }))
         .catch(err => console.log(err))
 }
@@ -130,7 +131,8 @@ export const getFriendsUpcomingGames = () => dispatch => {
     axios.get('http://localhost:5000/api/games/friendsupcoming')
         .then(res => dispatch({
             type: GET_GAMES,
-            payload: res.data
+            payload: res.data,
+            status: "friends"
         }))
         .catch(err => console.log(err))
 }
@@ -142,7 +144,8 @@ export const getFavoriteUpcomingGames = () => dispatch => {
     axios.get('http://localhost:5000/api/games/favoriteupcoming')
         .then(res => dispatch({
             type: GET_GAMES,
-            payload: res.data
+            payload: res.data,
+            status: "favorite"
         }))
         .catch(err => console.log(err))
 }

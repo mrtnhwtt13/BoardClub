@@ -21,9 +21,14 @@ class ListGames extends Component {
     }  
 
     render () {
-        const { list, loading, classes } = this.props
+        const { list, loading, classes, selection, status } = this.props
         var items = null;
-        if (list) {
+        console.log(status)
+        if (list && (
+            (selection === "all" && status === "upcoming") ||
+            (selection === "friends" && status === "friends") ||
+            (selection === "favorite" && status === "favorite")
+            )) {
             if (list.length === 0) {
                 items = (<h3 className={classes.title}>NO UPCOMING GAMES YET...</h3>)
             }
@@ -52,7 +57,8 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     list: state.game.list,
-    loading: state.game.loading
+    loading: state.game.loading,
+    status: state.game.status
 })
 
 

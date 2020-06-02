@@ -13,6 +13,7 @@ import {
 const initialState = {
     list: null,
     game: null,
+    status: "",
     loading: false
 }
 
@@ -33,7 +34,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                list: action.payload
+                list: action.payload,
+                status: action.status
             }
         case GET_GAME:
             return {
