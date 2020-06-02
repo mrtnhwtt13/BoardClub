@@ -3,9 +3,13 @@ import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid'
 import Loading from '../Loading/Loading';
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router-dom';
+import AlarmOnIcon from '@material-ui/icons/AlarmOn';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 class Game extends Component {
@@ -47,12 +51,41 @@ class Game extends Component {
     }
 
     render() {
-        const { classes, game } = this.props
+        const { classes, game, authUser } = this.props
         const { boardGameImagePath, boardGameName, loading } = this.state
         let boardGameImageBloc = null
         let boardGameNameBloc = null
         let paperStyle = classes.paper;
         let pastEvent = null;
+        let distance = null;
+        let playersCount = null;
+        let inGame = null;
+
+        if (game.userId === authUser._id) {
+            inGame = (< AccountCircleIcon />)
+        }
+        else if (game.players.includes(authUser._id)) {
+            inGame = (< AlarmOnIcon />)
+        }
+
+        if (this.props.distance) {
+            distance = " - " + game.distance + "km from you"
+        }
+
+        if (game.playersNumber === game.playersMax) {
+            playersCount = (
+                <div className={classes.full}>
+                    {game.playersNumber}/{game.playersMax}
+                </div>
+            )
+        }
+        else {
+            playersCount = (
+                <div>
+                    {game.playersNumber}/{game.playersMax}
+                </div>
+            )
+        }
 
         if (loading === false) {
             boardGameImageBloc = (
@@ -81,6 +114,7 @@ class Game extends Component {
                                     <Grid item xs={7} sm container>
                                         <Grid item xs container direction="column" spacing={2}>
                                             <Grid item xs>
+                                                {inGame}
                                                 <Typography gutterBottom variant="subtitle1">
                                                     <div className={classes.title}>{pastEvent}{game.title}</div>
                                                 </Typography>
@@ -97,16 +131,14 @@ class Game extends Component {
                                                             hour: '2-digit',
                                                             minute: '2-digit',
                                                         })}{' '}
-                                                        at {game.city}
+                                                        at {game.city}{distance}
                                                     </span>
                                                 </Typography>
                                             </Grid>           
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1">
-                                                <div>
-                                                    {game.playersNumber}/{game.playersMax}
-                                                </div>
+                                                {playersCount}
                                             </Typography>
                                         </Grid>
                                     </Grid> 
@@ -159,8 +191,16 @@ const styles = {
     image: {
         borderRadius: 5,
         overflow: "hidden"
+    },
+    full: {
+        color: "red"
     }
 }
 
 
-export default withStyles(styles)(Game)
+const mapStateToProps = (state) => ({
+    authUser: state.auth.user
+})
+
+
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(Game)));

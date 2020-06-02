@@ -43,6 +43,10 @@ module.exports = function (data) {
     errors.gameDate = "Game date field is required";
     errors.gameHour = "Game hour field is required";
   }
+  if (new Date(data.gameDate) < new Date()) {
+    errors.gameDate = "Game date is incorrect";
+    errors.gameHour = "Game hour is incorrect";
+  }
 
   // Max players checks
   if (data.playersMax < data.playersNumber) {

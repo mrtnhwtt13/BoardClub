@@ -9,6 +9,7 @@ const users = require('./routes/users');
 const games = require('./routes/games');
 const comments = require('./routes/comments');
 const mobile_user = require('./routes/mobile/users');
+const mobile_game = require('./routes/mobile/game');
 
 //setup environment
 dotenv.config();
@@ -29,6 +30,8 @@ app.use('/api/users', users);
 app.use('/api/games', games);
 app.use('/api/comments', comments);
 app.use('/api/mobile/users', mobile_user)
+app.use('/api/mobile/game', mobile_game)
+
 
 // run app
 const PORT = process.env.PORT || 5000;

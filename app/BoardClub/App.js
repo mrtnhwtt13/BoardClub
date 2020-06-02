@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './pages/Login';
 import Homepage from './pages/Homepage'
+import GameView from './pages/GameView'
 
 import './global/storeUser'
 
@@ -15,6 +16,18 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator
                 initialRouteName="Login"
+                screenOptions={{
+
+                    headerStyle: {
+                        backgroundColor: 'white',
+                        elevation: 0,
+                    },
+                    headerTintColor: '#595959',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    headerTitleAlign: 'center',
+                }}
             >
                 <Stack.Screen
                     name="Login"
@@ -25,6 +38,11 @@ export default function App() {
                     name="Homepage"
                     options={{headerShown: false}}
                     component={Homepage}
+                />
+                <Stack.Screen
+                    name="Game"
+                    options={{headerShown: true}}
+                    component={GameView}
                 />
             </Stack.Navigator>
         </NavigationContainer>

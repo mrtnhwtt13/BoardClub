@@ -19,7 +19,7 @@ const LoginForm = () => {
         }
         axios.post('http://10.0.2.2:5000/api/mobile/users/login', userData)
             .then(res => {
-                currentUser = JSON.stringify(res.data.user)
+                currentUser = res.data.user
                 // console.log(currentUser)
                 setErrorMessage('')
                 navigation.navigate('Homepage');
@@ -45,12 +45,15 @@ const LoginForm = () => {
             <TextInput
                 style={styles.input}
                 onChangeText={text => onChangeLogin(text)}
-                value={login} />
+                value={login} 
+                placeholder="Login"
+            />
             <TextInput
                 style={styles.input}
                 onChangeText={text => onChangePassword(text)}
                 secureTextEntry={true}
                 value={password}
+                placeholder="Password"
             />
             <TouchableHighlight
                 style={styles.button}
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 9,
         margin: 10,
-        width: "80%"
+        width: "70%"
     },
     button: {
         padding: 10,
