@@ -237,7 +237,7 @@ const styles = {
         marginTop: 20
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: 15,
         color: '#fff',
         textTransform: 'uppercase',
         fontWeight: 'bold',
