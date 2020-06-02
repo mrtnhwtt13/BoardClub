@@ -16,8 +16,8 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -39,8 +39,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
   };
 }
 
@@ -74,6 +74,8 @@ export default function Homepage() {
         indicatorColor="primary"
         textColor="primary"
         centered
+        variant="scrollable"
+        scrollButtons="on"
       >
           <Tab label="All games" {...a11yProps(0)} />
           <Tab label="Friends' games" {...a11yProps(1)} />
