@@ -6,6 +6,7 @@ import axios from 'axios'
 import Grid from '@material-ui/core/Grid'
 import Loading from '../Loading/Loading';
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router-dom';
 
 
 class Game extends Component {
@@ -53,6 +54,11 @@ class Game extends Component {
         let boardGameNameBloc = null
         let paperStyle = classes.paper;
         let pastEvent = null;
+        let distance = null;
+
+        if (this.props.distance) {
+            distance = " - " + game.distance + "km from you"
+        }
 
         if (loading === false) {
             boardGameImageBloc = (
@@ -97,7 +103,7 @@ class Game extends Component {
                                                             hour: '2-digit',
                                                             minute: '2-digit',
                                                         })}{' '}
-                                                        at {game.city}
+                                                        at {game.city}{distance}
                                                     </span>
                                                 </Typography>
                                             </Grid>           
@@ -163,4 +169,4 @@ const styles = {
 }
 
 
-export default withStyles(styles)(Game)
+export default withRouter(withStyles(styles)(Game));
