@@ -175,7 +175,7 @@ const GameDetail = ({ gameId }) => {
             <View style={styles.imageContainer}>
                 {ImageBloc}
             </View>
-            <View style={styles.container}>
+            <View elevation={1} style={styles.GameInfoContainer}>
                 {DescBloc}
                 {ButtonBloc}
             </View>
@@ -198,12 +198,27 @@ const styles = {
     container: {
         alignItems: 'center',
         width: "100%",
+        marginTop: 20,
+        
+    },
+    GameInfoContainer: {
+        alignItems: 'center',
+        width: "90%",
+        marginTop: 20,
+        // borderColor: 'black',
+        // borderWidth: 1,
+        borderRadius: 8,
+        backgroundColor: 'white',
+        paddingTop: 10,
+        paddingBottom: 10
+        
     },
     descriptionContainer: {
         textAlign: 'center',
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 10
+        marginTop: 10,
+        
     },
     title: {
         fontSize: 20,

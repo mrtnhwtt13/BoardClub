@@ -5,9 +5,9 @@ import ListGame from '../Components/ListGame'
 export default function Homepage() {
     return (
         <View style={styles.root}>
-            <View>
+            {/* <View style={{backgroundColor: '#65A2FE'}}>
                 <Text style={styles.title}>Homepage</Text>
-            </View>
+            </View> */}
             <View>
                 < ListGame />
             </View>
@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
     root : {
         flex: 1,
         width: '100%',
-        backgroundColor: 'white',
+        backgroundColor: '#F5F9FC',
 
     },
     title: {
-        marginTop: 30,
+        marginTop: 40,
         textAlign: 'center',
         marginBottom: 50,
         color: "#595959",

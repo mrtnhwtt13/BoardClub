@@ -4,7 +4,7 @@ import { BaseRouter } from '@react-navigation/native';
 import GameDetail from '../Components/GameDetail'
 
 const GameView = ({route, navigation}) => {
-    console.log(route.params.gameId)
+    // console.log(route.params.gameId)
     return (
         <View style={styles.container}>
             < GameDetail
@@ -18,9 +18,10 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         // justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: '#F5F9FC',
         flex: 1,
-        width: '100%'
+        width: '100%',
+        
     },
 })
 

@@ -19,7 +19,7 @@ export default function App() {
                 screenOptions={{
 
                     headerStyle: {
-                        backgroundColor: 'white',
+                        backgroundColor: '#65A2FE',
                         elevation: 0,
                     },
                     headerTintColor: '#595959',
@@ -36,7 +36,7 @@ export default function App() {
                 />
                 <Stack.Screen
                     name="Homepage"
-                    options={{headerShown: false}}
+                    options={{headerShown: true}}
                     component={Homepage}
                 />
                 <Stack.Screen

@@ -29,11 +29,12 @@ const ListGame = () => {
         Gamebloc = (
             <FlatList
                 data={list}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <TouchableHighlight style={styles.gameContainer} onPress={() => {
+                    <TouchableHighlight elevation={1} style={styles.gameContainer} onPress={() => {
                         navigation.navigate('Game', {gameId: item._id});
                     }}>
-                        <View>
+                        <View >
                             <Text>{item.title}</Text>
                             <View style={styles.gameDetail}>
                                 <View style={styles.BGNameContainer}>
@@ -53,10 +54,7 @@ const ListGame = () => {
 
     return (
         <View style={styles.container}>
-            <Text>
-                Upcoming Games
-            </Text>
-            <View>
+            <View >
                 {Gamebloc}
             </View>
         </View>
@@ -67,16 +65,18 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         width: "100%",
-
-
+        
     },
     gameContainer: {
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor: '#595959',
-        marginTop: 20,
+        // borderWidth: 1,
+        borderRadius: 8,
+        // borderColor: '#595959',
+        marginTop: 15,
         width: 350,
         padding: 15,
+        marginBottom: 10,
+        backgroundColor: 'white',
+        
     },
     gameDetail: {
 
