@@ -3,6 +3,7 @@ import { TextField, withStyles, Button } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import Card from './Card'
+import Pagina from './Pagination'
 
 
 class SearchGames extends Component {
@@ -15,13 +16,16 @@ class SearchGames extends Component {
             boardGameIds: [],
             errors: {},
             currentPage: 1,
-            postsPerPage: 20
+            postsPerPage: 10,
+            totalPosts: 0
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.parseResponse = this.parseResponse.bind(this)
         this.selectGame = this.selectGame.bind(this)
+        this.paginate = this.paginate.bind(this)
+
     }
 
     handleSubmit (e) {
@@ -38,13 +42,15 @@ class SearchGames extends Component {
 
     parseResponse () {
         var parser, xmlDoc;
-        this.state.boardGameIds = []
+        this.setState({boardGameIds: [] })
             
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
             
         //Get the number of items
         var numberOfNames = xmlDoc.getElementsByTagName("item").length;
+        this.setState({totalPosts: numberOfNames})
+
             
         //Create an array of the items
         var items = xmlDoc.getElementsByTagName("item");
@@ -63,11 +69,19 @@ class SearchGames extends Component {
     selectGame(selectedGameId, selectedGameName) {
         this.props.selectedGame(selectedGameId, selectedGameName)
     }
+    paginate(pageNumber) {
+        this.setState({ currentPage: pageNumber })
+
+    }
 
     render () {
-        const { errors, boardGameIds } = this.state
+        console.log(this.state.currentPage);
+        const { errors, boardGameIds, postsPerPage, currentPage, totalPosts } = this.state
         const { classes } = this.props
-        const items = boardGameIds.map(element=> <Card key={element} boardGameId={element} selectBoardGameId={this.selectGame} />)
+        const indexOfLastPost = currentPage * postsPerPage
+        const indexOfFirstPost = indexOfLastPost - postsPerPage
+        const currentPosts = boardGameIds.slice(indexOfFirstPost, indexOfLastPost)
+        const items = currentPosts.map(element=> <Card key={element} boardGameId={element} selectBoardGameId={this.selectGame} />)
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -89,6 +103,9 @@ class SearchGames extends Component {
                 </div>
                 <div>
                     {items} 
+                </div>
+                <div>
+                    {totalPosts ? <Pagina postPerPage={postsPerPage} totalPosts={totalPosts} paginate={this.paginate}  /> : null }
                 </div>
             </form>
         )
