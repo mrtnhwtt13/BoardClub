@@ -42,7 +42,10 @@ class SearchGames extends Component {
 
     parseResponse () {
         var parser, xmlDoc;
-        this.setState({boardGameIds: [] })
+        this.setState({
+            boardGameIds: [],
+            currentPage: 1
+         })
             
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
