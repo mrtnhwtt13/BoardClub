@@ -267,7 +267,7 @@ router.route('/find/:gameId')
 // get all games of an user by user Id (sorted by game date desc)
 router.route('/user/:userId')
     .get((req, res) => {
-        Game.find({ userId: req.params.userId })
+        Game.find({ players: req.params.userId })
             .sort({ gameDate : -1 })  
             .then(games => res.json(games))
             .catch(err => console.log(err))                
