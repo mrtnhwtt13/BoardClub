@@ -35,6 +35,7 @@ class SearchGames extends Component {
 
     parseResponse () {
         var parser, xmlDoc;
+        this.state.boardGameIds = []
             
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
