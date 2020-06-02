@@ -93,8 +93,7 @@ class Game extends Component {
             )
             boardGameNameBloc = (
                 <span className={classes.title}>
-                    <strong>Playing : </strong>
-                    {boardGameName}
+                    Playing : {boardGameName}
                 </span>
             )
             if (new Date(game.gameDate) < new Date()) {
@@ -116,7 +115,7 @@ class Game extends Component {
                                             <Grid item xs>
                                                 
                                                 <Typography gutterBottom variant="subtitle1">
-                                                    <div className={classes.title}>{pastEvent}{game.title}</div>
+                                                    <div className={classes.title}>{pastEvent}<strong>{game.title}</strong></div>
                                                 </Typography>
                                                 <Typography variant="body2" gutterBottom>
                                                     {boardGameNameBloc}
@@ -138,7 +137,7 @@ class Game extends Component {
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1">
-                                                    {inGame}{' '}{playersCount}
+                                                    {playersCount}{' '}{inGame}
                                             </Typography>
                                         </Grid>
                                     </Grid> 

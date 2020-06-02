@@ -133,15 +133,15 @@ class Details extends Component {
                     </Link>
                 </span>
             )
-            if (new Date(game.gameDate) < new Date() ) {
+            if (new Date(game.gameDate) < new Date()) {
                 JoinLeaveBloc = (
                     null
                 )
 
-            } else if ( game.userId === authUser._id ) {
+            } else if (game.userId === authUser._id) {
                 JoinLeaveBloc = (
                     <div className={classes.btn}>
-                        <Link to={{ pathname: `/game/edit/${game._id}`, state: { game: game} }}><Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Edit</Button></Link>
+                        <Link to={{ pathname: `/game/edit/${game._id}`, state: { game: game } }}><Button disableElevation variant="contained" style={{ backgroundColor: "#65A2FE", color: "white" }} >Edit</Button></Link>
                     </div>
                 )
             } else {
@@ -180,12 +180,12 @@ class Details extends Component {
                                         <Typography component={'span'} variant="body2" gutterBottom>
                                             <div className={classes.gameInfo}>
                                                 <div>
-                                                    {boardGameNameBloc}
+                                                    {boardGameNameBloc}{'  '}<strong style={{fontSize: 18}}>{playerNumber}/{game.playersMax}</strong>
                                                 </div>
                                                 <div>
                                                     {boardGameTimeBloc}
                                                 </div>
-                                                <div className={classes.players}><strong>{playerNumber}</strong> spot filled out of <strong>{game.playersMax}</strong></div>
+
                                                 <div>
                                                     <strong>Game level :</strong> {game.playersLevel}
                                                 </div>
