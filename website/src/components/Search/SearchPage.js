@@ -35,11 +35,11 @@ class SearchPage extends Component {
 
     render () {
         const { search } = this.state;
-        const { list, loading } = this.props;
+        const { list, loading, status } = this.props;
         var results = null;
 
         if (search === true) {
-            if (loading === false && list) {
+            if (loading === false && list && status === "search") {
                 results = list && list.map(el => <Game key={el._id} game={el} />)
             }
             else {
@@ -64,7 +64,8 @@ class SearchPage extends Component {
 const mapStateToProps = (state) => ({
     list: state.game.list,
     loading: state.game.loading,
-    authUser: state.auth.user
+    authUser: state.auth.user,
+    status: state.game.status
 })
 
 

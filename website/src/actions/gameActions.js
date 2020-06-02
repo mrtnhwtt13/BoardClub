@@ -83,7 +83,8 @@ export const searchGames = gameData => dispatch => {
     axios.post('http://localhost:5000/api/games/search', gameData)
         .then(res => dispatch({
             type: GET_GAMES,
-            payload: res.data
+            payload: res.data,
+            status: "search"
         }))
         .catch(err => console.log(err))
 }
@@ -176,7 +177,8 @@ export const getScheduledGames = () => dispatch => {
     axios.get('http://localhost:5000/api/games/scheduled')
         .then(res => dispatch({
             type: GET_GAMES,
-            payload: res.data
+            payload: res.data,
+            status: "scheduled"
         }))
         .catch(err => console.log(err))
 }

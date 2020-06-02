@@ -10,6 +10,7 @@ import {
 const initialState = {
     list: null,
     user: null,
+    status: "",
     loading: false
 }
 
@@ -30,7 +31,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                user: action.payload
+                user: action.payload,
+                status: action.status
             }
         case BAN_USER:
             return {

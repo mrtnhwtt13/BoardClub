@@ -15,12 +15,14 @@ class ScheduledGames extends Component {
     }
 
     render () {
-        const { list, loading, classes } = this.props
-        const items = list && list.map(el => <Game key={el._id} game={el} />)
+        const { list, loading, classes, status } = this.props
+        var items = (<Loading/>)
+        if (list && loading === false && status === "scheduled")
+        items = list && list.map(el => <Game key={el._id} game={el} />)
         return (
             <div className={classes.root}>
                 <h1 className={classes.title}>SCHEDULED GAMES</h1>       
-                { loading ? <Loading /> : items }
+                { items }
             </div>
         )
     }
@@ -40,7 +42,8 @@ const styles = {
 const mapStateToProps = (state) => ({
     list: state.game.list,
     loading: state.game.loading,
-    authUser: state.auth.user
+    authUser: state.auth.user,
+    status: state.game.status
 })
 
 export default connect(mapStateToProps, { getScheduledGames })(withStyles(styles)(ScheduledGames))

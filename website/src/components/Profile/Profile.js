@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import FavoriteGamesPanel from './TopGames/FavoriteGamesPanel'
 import { withRouter } from 'react-router-dom'
 import Game from '../Games/Game';
+import Loading from '../Loading/Loading'
 
 
 class Profile extends Component {
@@ -45,7 +46,7 @@ class Profile extends Component {
 	}
 
     render() {
-        const { user, authUser,loadingUser, classes, listGames, loadingGames } = this.props;
+        const { user, userStatus, authUser,loadingUser, classes, listGames, loadingGames } = this.props;
         let username = null;
         let avatar = null;
         let location = null;
@@ -136,56 +137,62 @@ class Profile extends Component {
             }
 
         }
-        return (
-            <div>
-            {exist ?
-                <Paper elevation={2} style={{ padding: 20, paddingTop: 40, paddingBottom: 40, marginTop: 25 }}>
-                    <Grid spacing={2} container justify="center" alignItems="center">
-                            <Grid container item sm={12} md={2} justify="center" alignItems="center">
-                                <Grid item>
-                                    {avatar}
+        
+        if (loadingUser === true || userStatus !== this.props.match.params.userId) {
+            return (<Loading/>)
+        }
+        else {
+            return (
+                <div>
+                {exist ?
+                    <Paper elevation={2} style={{ padding: 20, paddingTop: 40, paddingBottom: 40, marginTop: 25 }}>
+                        <Grid spacing={2} container justify="center" alignItems="center">
+                                <Grid container item sm={12} md={2} justify="center" alignItems="center">
+                                    <Grid item>
+                                        {avatar}
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <Grid item xs={12} sm={8} md={6} container direction="column" justify="center" >
-                                <div className={classes.userinfo}>
-                                    <Grid item>
-                                        <div className={classes.username}>
-                                            {username}
-                                        </div>
-                                    </Grid>
-                                    <Grid item>
-                                        <div>
-                                            {location}
-                                        </div>
-                                    </Grid>
-                                    <Grid item>
-                                        <div>
-                                            {inscription}
-                                        </div>
-                                    </Grid>
-                                </div>
-                            </Grid>
-                            <Grid container item xs={12} sm={2} md={2} direction="column" alignItems="center">
-                                <Grid item >
-                                    {button}
+                                <Grid item xs={12} sm={8} md={6} container direction="column" justify="center" >
+                                    <div className={classes.userinfo}>
+                                        <Grid item>
+                                            <div className={classes.username}>
+                                                {username}
+                                            </div>
+                                        </Grid>
+                                        <Grid item>
+                                            <div>
+                                                {location}
+                                            </div>
+                                        </Grid>
+                                        <Grid item>
+                                            <div>
+                                                {inscription}
+                                            </div>
+                                        </Grid>
+                                    </div>
                                 </Grid>
-                            </Grid>
-                    </Grid>
-                    <FavoriteGamesPanel userId={this.props.match.params.userId} userName={user.login} user={user} />
-                    {items}
-                </Paper >
-                    :
-                    <div className={classes.root}>
-                        <h1 className={classes.title}>OOPS, THIS USER DOESN'T EXIST</h1>
-                        <div className={classes.btnBlock}>
-                            <Button variant="outlined" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} component={Link} to="/" >
-                                HOME
-                            </Button> 
+                                <Grid container item xs={12} sm={2} md={2} direction="column" alignItems="center">
+                                    <Grid item >
+                                        {button}
+                                    </Grid>
+                                </Grid>
+                        </Grid>
+                        <FavoriteGamesPanel userId={this.props.match.params.userId} userName={user.login} user={user} />
+                        {items}
+                    </Paper >
+                        :
+                        <div className={classes.root}>
+                            <h1 className={classes.title}>OOPS, THIS USER DOESN'T EXIST</h1>
+                            <div className={classes.btnBlock}>
+                                <Button variant="outlined" className={classes.btnStyle} style={{ backgroundColor: "#65A2FE" }} component={Link} to="/" >
+                                    HOME
+                                </Button> 
+                            </div>
                         </div>
-                    </div>
-                    }
-            </div >
-        )
+                        }
+                </div >
+            )
+        }
     }
 }
 
@@ -241,7 +248,8 @@ const mapStateToProps = (state) => ({
     loadingUser: state.user.loading,
     authUser: state.auth.user,
     listGames: state.game.list,
-    loadingGames: state.game.loading
+    loadingGames: state.game.loading,
+    userStatus: state.user.status
 })
 
 export default connect(mapStateToProps, { getUserById, followUser, unfollowUser, getGamesFromUser })(withRouter(withStyles(styles)(Profile)));

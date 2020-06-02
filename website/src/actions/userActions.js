@@ -120,7 +120,8 @@ export const getUserById = (userId) => dispatch => {
     axios.get(`http://localhost:5000/api/users/find/${userId}`)
         .then(res => dispatch({
             type: GET_USER,
-            payload: res.data
+            payload: res.data,
+            status: res.data._id
         }))
         .catch(err => console.log(err))
 }   
