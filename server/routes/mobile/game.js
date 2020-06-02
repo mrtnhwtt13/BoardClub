@@ -33,7 +33,7 @@ router.route('/join')
             Game.findOneAndUpdate({
                 _id: req.body.gameId
             }, {
-                $push: { players: req.user.id}
+                $push: { players: req.body.userId}
             },
             { new: true})
             .then(game1 => {
@@ -56,7 +56,7 @@ router.route('/leave')
             Game.findOneAndUpdate({
                 _id: req.body.gameId
             }, {
-                $pull: { players: req.user.id}
+                $pull: { players: req.body.userId}
             },
             { new: true })
             .then(game1 => {

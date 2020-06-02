@@ -19,7 +19,7 @@ const LoginForm = () => {
         }
         axios.post('http://10.0.2.2:5000/api/mobile/users/login', userData)
             .then(res => {
-                currentUser = JSON.stringify(res.data.user)
+                currentUser = res.data.user
                 // console.log(currentUser)
                 setErrorMessage('')
                 navigation.navigate('Homepage');

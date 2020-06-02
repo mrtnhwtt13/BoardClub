@@ -2,15 +2,17 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, FlatList } from 'react-native'
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const ListGame = () => {
     const [list, setList] = React.useState('');
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
     const getGamesData = () => {
+        
         axios.get('http://10.0.2.2:5000/api/mobile/game/upcoming')
         .then(res => {
-            // console.log(res.data)
             setList(res.data)
         })
         .catch(err => {
@@ -19,7 +21,7 @@ const ListGame = () => {
     };
     let Gamebloc = null;
 
-    if (list === '') {
+    if (list === '' || isFocused === true) {
         getGamesData();
     };
 

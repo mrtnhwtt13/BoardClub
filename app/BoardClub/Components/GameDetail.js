@@ -8,7 +8,8 @@ const GameDetail = ({ gameId }) => {
     const [BGdetails, setBGDetails] = React.useState('');
     const [picture, setPicture] = React.useState('');
     var ImageBloc = null;
-
+    var ButtonBloc = null;
+    var DescBloc = null;
     const getGameData = (gameId) => {
         axios.get(`http://10.0.2.2:5000/api/mobile/game/find/` + gameId)
             .then(res => {
@@ -35,6 +36,39 @@ const GameDetail = ({ gameId }) => {
         });
     }
 
+    const leaveGame = () => {
+        let data = {
+            gameId: game._id,
+            userId: currentUser._id
+        }
+        // console.log(data)
+        axios.post('http://10.0.2.2:5000/api/mobile/game/leave/', data)
+            .then(res => {
+                console.log(res)
+                setGame('')
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const joinGame = () => {
+        let data = {
+            gameId: game._id,
+            userId: currentUser._id
+        }
+        // console.log(data)
+        axios.post('http://10.0.2.2:5000/api/mobile/game/join/', data)
+            .then(res => {
+                console.log(res)
+                setGame('')
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+    }
+
     if (game === '') {
         getGameData(gameId)
     }
@@ -42,7 +76,7 @@ const GameDetail = ({ gameId }) => {
     if (BGdetails === '' && game.boardGameId) {
         // console.log(game.boardGameId);
         getBGGData();
-        console.log(game)
+        // console.log(game)
     }
 
     if (BGdetails !== '' && picture === '') {
@@ -51,21 +85,14 @@ const GameDetail = ({ gameId }) => {
     }
 
     if (picture !== '') {
-        console.log(picture)
         ImageBloc = (
             <Image
                 style={styles.image}
                 source={{ uri: picture }}
             />
         )
-    }
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                {ImageBloc}
-            </View>
-            <View style={styles.container}>
+        DescBloc = (
+            <View>
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>
                         {game.title}
@@ -78,12 +105,12 @@ const GameDetail = ({ gameId }) => {
                     </Text>
                 </View>
                 <View>
-                    <Text>
+                    <Text style={{textAlign: 'center'}}>
                         Game level : {game.playersLevel}
                     </Text>
                 </View>
                 <View>
-                    <Text>
+                    <Text style={{textAlign: 'center'}}>
                         Event on{' '}
                         {new Date(game.gameDate).toLocaleString('en-GB', {
                             day: '2-digit',
@@ -100,14 +127,57 @@ const GameDetail = ({ gameId }) => {
                         {game.description}
                     </Text>
                 </View>
-                <TouchableHighlight
-                style={styles.button}
-                underlayColor='#3f62aa'
-                >
-                    <Text style={styles.buttonText}>
-                        Join
-                    </Text>
-                </TouchableHighlight>
+            </View>
+        )
+        if (currentUser && game !== '') {
+            console.log(currentUser)
+            console.log(game)
+            if (currentUser._id === game.userId || game.playersNumber === game.playersMax) {
+                console.log('creator')
+                ButtonBloc = null;
+            } else {
+    
+                if (game.players.indexOf(currentUser._id) === -1) {
+                    console.log('Not member')
+                    ButtonBloc = (
+                        <TouchableHighlight
+                            style={styles.button}
+                            underlayColor='#3f62aa'
+                            onPress={() => joinGame()}
+                        >
+                            <Text style={styles.buttonText}>
+                                Join
+                        </Text>
+                        </TouchableHighlight>
+                    )
+                } else {
+                    console.log('Member')
+                    ButtonBloc = (
+                        <TouchableHighlight
+                            style={styles.button}
+                            underlayColor='#3f62aa'
+                            onPress={() => leaveGame()}
+                        >
+                            <Text style={styles.buttonText}>
+                                Leave
+                        </Text>
+                        </TouchableHighlight>
+                    )
+                }
+            }
+        }
+    }
+
+    
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.imageContainer}>
+                {ImageBloc}
+            </View>
+            <View style={styles.container}>
+                {DescBloc}
+                {ButtonBloc}
             </View>
         </View>
     )
@@ -137,6 +207,7 @@ const styles = {
     },
     title: {
         fontSize: 20,
+        textAlign: 'center'
     },
     titleContainer: {
         marginBottom: 10,
