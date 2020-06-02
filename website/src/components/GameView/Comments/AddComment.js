@@ -41,8 +41,8 @@ class AddComment extends Component {
         const { classes } = this.props;
         return (
             <Paper elevation={2} className={classes.paper}>
-                <Grid container spacing={1}>
-                    <Grid container justify="center" item xs={11}>
+                <Grid container spacing={0} >
+                    <Grid container justify="center" item xs={10} >
                         <TextField
                             multiline
                             rowsMax="4"
@@ -55,7 +55,7 @@ class AddComment extends Component {
                             value={this.state.text}
                         />
                     </Grid>
-                    <Grid container justify="center" item xs={1}>
+                    <Grid container justify="center" item xs={2} >
                             <Button
                                 variant="outlined"
                                 className={classes.button}
@@ -78,7 +78,7 @@ const styles = {
         marginTop: 20
     },
     textField: {
-        width: '90%'
+    width: "95%"
     },
     button: {
         borderColor: 'white',
