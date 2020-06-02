@@ -6,10 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { addComment } from '../../../actions/commentActions';
 import { withRouter } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+
 
 
 class AddComment extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props)
         this.state = {
             text: ''
@@ -19,11 +21,11 @@ class AddComment extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange (e) {
+    handleChange(e) {
         this.setState({ text: e.target.value })
     }
 
-    handleSubmit (e) {
+    handleSubmit(e) {
         e.preventDefault()
 
         const commentData = {
@@ -32,31 +34,38 @@ class AddComment extends Component {
         }
 
         this.props.addComment(commentData);
-        this.setState({text: ''})
+        this.setState({ text: '' })
     }
 
-    render () {
+    render() {
         const { classes } = this.props;
         return (
-            <Paper className={ classes.paper }>
-                <TextField
-                    multiline
-                    rowsMax="4"
-                    inputProps={{
-                        maxLength: 140,
-                      }}
-                    label="Add a comment"
-                    className={ classes.textField}
-                    onChange={this.handleChange}
-                    value={this.state.text}
-                />
-                <Button
-                    variant="outlined"
-                    className={ classes.button }
-                    onClick={this.handleSubmit}
-                >
-                    Send
-                </Button>
+            <Paper elevation={2} className={classes.paper}>
+                <Grid container spacing={1}>
+                    <Grid container justify="center" item xs={11}>
+                        <TextField
+                            multiline
+                            rowsMax="4"
+                            inputProps={{
+                                maxLength: 140,
+                            }}
+                            label="Add a comment"
+                            className={classes.textField}
+                            onChange={this.handleChange}
+                            value={this.state.text}
+                        />
+                    </Grid>
+                    <Grid container justify="center" item xs={1}>
+                            <Button
+                                variant="outlined"
+                                className={classes.button}
+                                onClick={this.handleSubmit}
+                            >
+                                Send
+                            </Button>
+                        
+                    </Grid>
+                </Grid>
             </Paper>
         )
     }
@@ -65,19 +74,22 @@ class AddComment extends Component {
 
 const styles = {
     paper: {
-        padding: 8
+        padding: 8,
+        marginTop: 20
     },
     textField: {
-        width: '100%'
+        width: '90%'
     },
     button: {
-        width: '100%',
+        borderColor: 'white',
+        width: '25',
         marginTop: 20,
         marginBottom: 10,
-        backgroundColor: '#0d22ca',
+        backgroundColor: '#65A2FE',
         color: '#fff',
         '&:hover': {
-            color: '#0d22ca'
+            backgroundColor: '#65A2FE',
+            color: '#fff',
         }
     }
 }

@@ -45,7 +45,7 @@ class EditTopGames extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Paper style={{ padding: 15 }}>
+                <div style={{ padding: 15 }}>
                     {errors.update ?
                         <Alert elevation={0} severity="success">
                             {errors.update}
@@ -75,7 +75,7 @@ class EditTopGames extends React.Component {
                     <div>
                         <SearchGames />
                     </div>
-                </Paper>
+                </div>
             </div>
         )
     }

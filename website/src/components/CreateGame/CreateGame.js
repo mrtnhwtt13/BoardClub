@@ -55,7 +55,7 @@ class CreateGame extends React.Component {
 
         if(this.state.newGameId !== '') {
             return(
-                <Paper elevation={3} style={{ padding: 15, marginTop: 30 }}>
+                <Paper elevation={2} style={{ padding: 15, marginTop: 30 }}>
                     <div className={classes.btn}>
                         <Button disableElevation variant="contained" size="large" className={classes.btn} style={{ backgroundColor: "#959fef", color: "white", width: "10rem", height: "2rem"}} onClick={() => { this.changeGame(); }} >
                             Change game
@@ -70,7 +70,7 @@ class CreateGame extends React.Component {
         else {
             return (
                 <div className={classes.root}>
-                    <Paper elevation={3} style={{ padding: 15, marginTop: 30 }}>
+                    <Paper elevation={2} style={{ padding: 15, marginTop: 30 }}>
                         <h1 className={classes.title}>SELECT A BOARD GAME</h1>
                         <ExpansionPanel style={{ borderRadius: 4, marginBottom: 60, marginTop: 40 }}>
                             <ExpansionPanelSummary

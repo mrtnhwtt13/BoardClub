@@ -11,7 +11,7 @@ class Comment extends Component {
         const { classes, comment } = this.props;
 
         return (
-            <Paper className={classes.paper}>
+            <Paper elevation={2} className={classes.paper}>
                 <div
                     className={classes.avatar}
                     style={{

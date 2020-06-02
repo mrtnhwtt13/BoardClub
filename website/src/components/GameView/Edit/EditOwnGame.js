@@ -150,7 +150,7 @@ class EditOwnGame extends Component {
 
         return(
             <div className={classes.root}>
-                <Paper style={{ padding: 15 }}>
+                <Paper elevation={2} style={{ padding: 15 }}>
                     <h1 className={classes.title}>EDIT MY GAME FOR</h1>
                     <h1 className={classes.title}>{boardGameName}</h1> 
                     <form onSubmit={this.handleSubmit}>

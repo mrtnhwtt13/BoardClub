@@ -81,7 +81,7 @@ class FavoriteCard extends Component {
 
         return (
             <div className={classes.root}>                
-                <Paper className={classes.paper}>
+                <Paper elevation={2} className={classes.paper}>
                     <div>
                         <Grid container spacing={2} justify='center' alignItems="center" direction="row" className={classes.bgBlock}>
                             <Grid item justify='center' alignItems="center">    
@@ -93,7 +93,7 @@ class FavoriteCard extends Component {
                                 </Typography>
                             </Grid> 
                             <Grid item justify='right' alignItems="center">
-                                <Button disableElevation variant="contained" size="large" style={{ backgroundColor: "#959fef", color: "white", width: "8rem", height: "2rem"}} onClick={() => { this.addGame(); }} >
+                                <Button disableElevation variant="contained" size="large" style={{ backgroundColor: "#65A2FE", color: "white", width: "8rem", height: "2rem"}} onClick={() => { this.addGame(); }} >
                                     Add
                                 </Button>
                             </Grid>

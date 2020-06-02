@@ -123,7 +123,7 @@ class Details extends Component {
                 </span>
             )
             boardGameTimeBloc = (
-                <div><strong>Average playtime : </strong>{boardGameTimeBloc} minutes</div>
+                <div><strong>Average playtime : </strong>{boardGameTime} minutes</div>
             )
             creator = (
                 <span className={classes.creator}>
@@ -174,7 +174,8 @@ class Details extends Component {
                                 <Grid item xs md={10} container direction="column" spacing={2}>
                                     <Grid item >
                                         <Typography component={'span'} gutterBottom variant="subtitle1">
-                                            <div className={classes.title}><strong>{game.title}</strong> {creator}</div>
+                                            <div className={classes.title}><strong>{game.title}</strong></div>
+                                            <div>{creator}</div>
                                         </Typography>
                                         <Typography component={'span'} variant="body2" gutterBottom>
                                             <div className={classes.gameInfo}>

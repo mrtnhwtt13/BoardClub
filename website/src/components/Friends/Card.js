@@ -29,7 +29,7 @@ class Card extends Component {
         return (
             <div className={classes.root}>
                 <Link to={`/profile/${user._id}`}>
-                <Paper className={classes.paper}>
+                <Paper elevation={2} className={classes.paper}>
                     <div>
                     <Grid container spacing={2} direction="row" className={classes.bgBlock}>
                     <Grid item>    
