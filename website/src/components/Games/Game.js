@@ -138,7 +138,7 @@ class Game extends Component {
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="subtitle1">
-                                                    {inGame}{' '}{playersCount}
+                                                    {playersCount}{' '}{inGame}
                                             </Typography>
                                         </Grid>
                                     </Grid> 
