@@ -17,7 +17,7 @@ const GameView = ({route, navigation}) => {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         backgroundColor: 'white',
         flex: 1,
         width: '100%'
