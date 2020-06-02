@@ -13,7 +13,9 @@ class SearchGames extends Component {
             searchText: '',
             boardGameDetails: {},
             boardGameIds: [],
-            errors: {}
+            errors: {},
+            currentPage: 1,
+            postsPerPage: 20
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -36,6 +38,7 @@ class SearchGames extends Component {
 
     parseResponse () {
         var parser, xmlDoc;
+        this.state.boardGameIds = []
             
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(this.state.boardGameDetails.data, "text/xml");
@@ -85,7 +88,7 @@ class SearchGames extends Component {
                     </Button> 
                 </div>
                 <div>
-                    {items}
+                    {items} 
                 </div>
             </form>
         )
