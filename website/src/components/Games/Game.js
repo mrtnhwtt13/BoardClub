@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid'
 import Loading from '../Loading/Loading';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
+import AlarmOnIcon from '@material-ui/icons/AlarmOn';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 class Game extends Component {
@@ -57,6 +59,14 @@ class Game extends Component {
         let pastEvent = null;
         let distance = null;
         let playersCount = null;
+        let inGame = null;
+
+        if (game.userId === authUser._id) {
+            inGame = (< AccountCircleIcon />)
+        }
+        else if (game.players.includes(authUser._id)) {
+            inGame = (< AlarmOnIcon />)
+        }
 
         if (this.props.distance) {
             distance = " - " + game.distance + "km from you"
@@ -104,6 +114,7 @@ class Game extends Component {
                                     <Grid item xs={7} sm container>
                                         <Grid item xs container direction="column" spacing={2}>
                                             <Grid item xs>
+                                                {inGame}
                                                 <Typography gutterBottom variant="subtitle1">
                                                     <div className={classes.title}>{pastEvent}{game.title}</div>
                                                 </Typography>
