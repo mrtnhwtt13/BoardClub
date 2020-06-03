@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
     },
     error: {
         color: 'red',
-        marginBottom: 15,
-        marginTop: -15
+        marginBottom: 5,
+        marginTop: -5
     }
 })
 

@@ -132,7 +132,7 @@ const GameDetail = ({ gameId }) => {
         if (currentUser && game !== '') {
             console.log(currentUser)
             console.log(game)
-            if (currentUser._id === game.userId || game.playersNumber === game.playersMax) {
+            if (currentUser._id === game.userId || game.playersNumber === game.playersMax && game.players.indexOf(currentUser._id) === -1) {
                 console.log('creator')
                 ButtonBloc = null;
             } else {
