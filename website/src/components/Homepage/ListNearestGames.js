@@ -55,7 +55,7 @@ class ListNearestGames extends Component {
                     let count = 0;
         
                     for (let i = 0; i < games.length; i++) {
-                        axios.get('http://localhost:8080/https://fr.distance24.org/route.json?stops=' + this.props.authUser.city.replace(/[^A-Za-z]+/g, '') + '|'  + games[i].city.replace(/[^A-Za-z]+/g, ''))
+                        axios.get('http://localhost:8080/https://fr.distance24.org/route.json?stops=' + this.props.authUser.city + '|'  + games[i].city)
                             .then(response => {
                                 games[i].distance = response.data.distance;
                                 count = count + 1;
