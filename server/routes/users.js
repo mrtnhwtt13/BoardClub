@@ -77,13 +77,13 @@ router.route('/login')
                             });
                         }
                         else {
-                            errors.password = 'Password is incorrect';
+                            errors.login = 'User or password is incorrect';
                             return res.status(404).json(errors);
                         }
                     })
                 }
                 else {
-                    errors.login = 'User not found';
+                    errors.login = 'User or password is incorrect';
                     return res.status(404).json(errors);
                 }               
             })

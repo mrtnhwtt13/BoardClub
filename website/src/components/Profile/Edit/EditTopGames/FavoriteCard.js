@@ -73,7 +73,7 @@ class FavoriteCard extends Component {
                 <img className={classes.image} src={boardGameImagePath} width="80" />
             )
             boardGameNameBloc = (
-                <a className={classes.title} href={`https://boardgamegeek.com/boardgame/${boardGameId}`}>
+                <a className={classes.title} title="Learn more about this game on Board Game Geek" href={`https://boardgamegeek.com/boardgame/${boardGameId}`}>
                     {boardGameName}
                 </a>
             )
